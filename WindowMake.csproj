@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F863A7A7-23CF-4861-BF99-552400289B1E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WindowMake</RootNamespace>
+    <AssemblyName>WindowMake</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>D:\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>http://localhost/WindowMake/</UpdateUrl>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>configure.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>0F69AF12D9217571A6C3DED3986828C771959219</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DB\MDBHelper.cs" />
+    <Compile Include="Device\services.cs" />
+    <Compile Include="Device\EMO2Object.cs" />
+    <Compile Include="Device\EMCOObject.cs" />
+    <Compile Include="Device\EMCH4Object.cs" />
+    <Compile Include="Device\EMEqu.cs" />
+    <Compile Include="Device\EMObject.cs" />
+    <Compile Include="Device\HLObject.cs" />
+    <Compile Include="Device\PGSObject.cs" />
+    <Compile Include="Device\PEPMObject.cs" />
+    <Compile Include="Device\PrlObject.cs" />
+    <Compile Include="Device\bridge.cs" />
+    <Compile Include="Device\toll.cs" />
+    <Compile Include="Device\slope.cs" />
+    <Compile Include="Device\TVEqu.cs" />
+    <Compile Include="Device\EPEqu.cs" />
+    <Compile Include="Device\FireEqu.cs" />
+    <Compile Include="Device\CMSEqu.cs" />
+    <Compile Include="Device\PKObject.cs" />
+    <Compile Include="Device\tunnel.cs" />
+    <Compile Include="Entity\slopeInfo.cs" />
+    <Compile Include="Entity\bridgeInfo.cs" />
+    <Compile Include="Entity\ReadEquType.cs" />
+    <Compile Include="Entity\serviceInfo.cs" />
+    <Compile Include="Entity\tollInfo.cs" />
+    <Compile Include="Entity\tunnelInfo.cs" />
+    <Compile Include="Entity\火灾地址映射表.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Propert\ObjectBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\ObjectBase.Designer.cs">
+      <DependentUpon>ObjectBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\PioCreate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\PioCreate.designer.cs">
+      <DependentUpon>PioCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\ReName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\ReName.designer.cs">
+      <DependentUpon>ReName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReadInit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReadInit.Designer.cs">
+      <DependentUpon>ReadInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\JsonUtil.cs" />
+    <Compile Include="Entity\PLCConfig.cs" />
+    <Compile Include="Config\PlcString.cs" />
+    <Compile Include="Tool\ReadDocument.cs" />
+    <Compile Include="Tool\ReflectUtil.cs" />
+    <Compile Include="Tool\XmlUtil.cs" />
+    <Compile Include="DB\DataStorage.cs" />
+    <Compile Include="DB\DataTableExtention.cs" />
+    <Compile Include="DB\DBHelper.cs" />
+    <Compile Include="DB\DBOPs.cs" />
+    <Compile Include="Device\CFObject.cs" />
+    <Compile Include="Device\CLObject.cs" />
+    <Compile Include="Device\CMObject.cs" />
+    <Compile Include="Device\PLCEqu.cs" />
+    <Compile Include="Device\PLCPropert.cs" />
+    <Compile Include="Device\DirectionEnum.cs" />
+    <Compile Include="Device\EObject.cs" />
+    <Compile Include="Device\EpObject.cs" />
+    <Compile Include="Device\EprObject.cs" />
+    <Compile Include="Device\EptObject.cs" />
+    <Compile Include="Device\FlObject.cs" />
+    <Compile Include="Device\FObject.cs" />
+    <Compile Include="Device\FsbObject.cs" />
+    <Compile Include="Device\FygObject.cs" />
+    <Compile Include="Device\IObject.cs" />
+    <Compile Include="Device\MyObject.cs" />
+    <Compile Include="Device\PafObject.cs" />
+    <Compile Include="Device\PclObject.cs" />
+    <Compile Include="Device\PcoObject.cs" />
+    <Compile Include="Device\PgjObject.cs" />
+    <Compile Include="Device\Phl2Object.cs" />
+    <Compile Include="Device\PhlObject.cs" />
+    <Compile Include="Device\PjfObject.cs" />
+    <Compile Include="Device\PljqObject.cs" />
+    <Compile Include="Device\PlldiObject.cs" />
+    <Compile Include="Device\PlObject.cs" />
+    <Compile Include="Device\PlyjObject.cs" />
+    <Compile Include="Device\PObject.cs" />
+    <Compile Include="Device\PpObject.cs" />
+    <Compile Include="Device\PtdObject.cs" />
+    <Compile Include="Device\Ptl2CloseObject.cs" />
+    <Compile Include="Device\Ptl2DownObject.cs" />
+    <Compile Include="Device\Ptl2UpObject.cs" />
+    <Compile Include="Device\Ptl3LeftObject.cs" />
+    <Compile Include="Device\Ptl5LeftObject.cs" />
+    <Compile Include="Device\Ptl3RightObject.cs" />
+    <Compile Include="Device\Ptl5RightObject.cs" />
+    <Compile Include="Device\PtwObject.cs" />
+    <Compile Include="Device\PviObject.cs" />
+    <Compile Include="Device\SObject.cs" />
+    <Compile Include="Device\TextPropert.cs" />
+    <Compile Include="Device\TvBallObject.cs" />
+    <Compile Include="Device\TvEObject.cs" />
+    <Compile Include="Device\TvGunObject.cs" />
+    <Compile Include="Device\TvObject.cs" />
+    <Compile Include="Device\VcObject.cs" />
+    <Compile Include="Device\ViObject.cs" />
+    <Compile Include="Device\YxStr.cs" />
+    <Compile Include="Entity\Command.cs" />
+    <Compile Include="Entity\c_cfg.cs" />
+    <Compile Include="Entity\ep_c_cfg.cs" />
+    <Compile Include="Entity\Equ.cs" />
+    <Compile Include="Entity\Equ_rs_type.cs" />
+    <Compile Include="Entity\f_c_cfg.cs" />
+    <Compile Include="Entity\Gc.cs" />
+    <Compile Include="Entity\Gc_equ.cs" />
+    <Compile Include="Entity\Gc_triggerequ.cs" />
+    <Compile Include="Entity\LocaltionUtil.cs" />
+    <Compile Include="Entity\Map.cs" />
+    <Compile Include="Entity\plc地址表.cs" />
+    <Compile Include="Entity\ProtocalConfig.cs" />
+    <Compile Include="Entity\ProtocalFamily.cs" />
+    <Compile Include="Entity\p_area.cs" />
+    <Compile Include="Entity\Tranficflow.cs" />
+    <Compile Include="Entity\Tv_cctv_cfg.cs" />
+    <Compile Include="Entity\YC.cs" />
+    <Compile Include="Entity\YCExt.cs" />
+    <Compile Include="Entity\Yc_cfg.cs" />
+    <Compile Include="Entity\YK.cs" />
+    <Compile Include="Entity\Yk_cfg.cs" />
+    <Compile Include="Entity\YX.cs" />
+    <Compile Include="Entity\Yx_cfg.cs" />
+    <Compile Include="Entity\摄像机信息表.cs" />
+    <Compile Include="FormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormView.Designer.cs">
+      <DependentUpon>FormView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="gMain.cs" />
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyPanel.cs" />
+    <Compile Include="NameTool.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormView.resx">
+      <DependentUpon>FormView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyPanel.resx">
+      <DependentUpon>MyPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\CreateAddDialog.resx">
+      <DependentUpon>CreateAddDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\LinePro.resx">
+      <DependentUpon>LinePro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\ObjectBase.resx">
+      <DependentUpon>ObjectBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\ObjectPro.resx">
+      <DependentUpon>ObjectPro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\OpenMap.resx">
+      <DependentUpon>OpenMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\picObjectPro.resx">
+      <DependentUpon>picObjectPro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\PicturePro.resx">
+      <DependentUpon>PicturePro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\PioCreate.resx">
+      <DependentUpon>PioCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\ReName.resx">
+      <DependentUpon>ReName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\TextPro.resx">
+      <DependentUpon>TextPro.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="ReadInit.resx">
+      <DependentUpon>ReadInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Propert\CreateAddDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\CreateAddDialog.Designer.cs">
+      <DependentUpon>CreateAddDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\LinePro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\LinePro.Designer.cs">
+      <DependentUpon>LinePro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\ObjectPro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\ObjectPro.Designer.cs">
+      <DependentUpon>ObjectPro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\OpenMap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\OpenMap.Designer.cs">
+      <DependentUpon>OpenMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\picObjectPro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\picObjectPro.Designer.cs">
+      <DependentUpon>picObjectPro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\PicturePro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\PicturePro.Designer.cs">
+      <DependentUpon>PicturePro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Propert\TextPro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\TextPro.Designer.cs">
+      <DependentUpon>TextPro.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BK\打杵垭隧道.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="configure.ico" />
+    <Content Include="Config\PLCTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\ProtocalConfig.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\bedslope.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\bridge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\cf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\cl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\cm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\CO.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\E.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EM.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EM_CH4_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EM_CO_Normal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EM_O2_Normal.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EP_R.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\EP_T.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\F.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\F_L.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\F_SB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\F_YG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\GS_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\PARK.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_EPM_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_GJ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2_C_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2_G_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2_R_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2_R_T_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_HL2_Y_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_JF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_JF_ReTurn.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_L.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LJQ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LJQ_Y_OFF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LJQ_Y_ON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LLDI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LYJ.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_LYJ_Y_ON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_L_Y_OFF.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_L_Y_ON.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_P.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_RL.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_RL_Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TD_DOWN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TD_DOWN_END.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TD_UP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TD_UP_END.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL2_Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_BAN.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TL_Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_TW.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\P_VI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\RFID_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\servicezone.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\S_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\toll.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\tunnel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\TV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\TV_CCTV_Ball.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\TV_CCTV_E.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\TV_CCTV_Gun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\VC.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Pic\VI.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="说明.txt" />
+    <None Include="Resources\shape_align_right.png" />
+    <None Include="Resources\shape_align_middle.png" />
+    <None Include="Resources\shape_align_left.png" />
+    <None Include="Resources\shape_align_center.png" />
+    <None Include="Resources\shape_align_bottom.png" />
+    <None Include="Resources\save_data.png" />
+    <None Include="Resources\magnifier_zoom_out.png" />
+    <None Include="Resources\magnifier_zoom_in.png" />
+    <None Include="Resources\shape_align_top.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

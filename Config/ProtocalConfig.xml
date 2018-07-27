@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProtocalConfig>
+  <ProtocalFamilies>
+    <ProtocalFamily Name="CG">
+      <Note>收费站报警</Note>
+      <SupportedEquipTypes>
+        <EquType>CG</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="default">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.CGAP.CGZH" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="PLC">
+      <Note>PLC解析</Note>
+      <SupportedEquipTypes>
+        <EquType>P</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="Omron">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.PLCAP.OmronPLCAnalyzer" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="Siemens">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.PLCAP.SiemensPLCAnalyzer" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XNJD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.PLCAP.XNJDPLCAnalyzer" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="OPC">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.PLCAP.OPCAnalyzer" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XNJDOPC">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.PLCAP.XNJDOpcPLCNotMoveAnalyzer" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="CMS">
+      <Note>情报板协议</Note>
+      <SupportedEquipTypes>
+        <EquType>CF</EquType>
+        <EquType>CL</EquType>
+        <EquType>CM</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="SanSi">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.SanSi.CMSSanSiMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.SanSi.CMSSanSiBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SanSiLow">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.SanSiLow.CMSMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.SanSiLow.CMSBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SiLian">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.SiLian.CMSSiLianMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.SiLian.CMSSiLianBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="YingSha">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.TongXin.CMSYingShaMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.TongXin.CMSYingShaBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="TongXin">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.TongXin.CMSTongXinMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.TongXin.CMSTongXinBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XianKe">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.XianKe.CMSXianKeMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.XianKe.CMSXianKeBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="ZHWL">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.ZhongHai.CMSZhongHaiMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.ZhongHai.CMSZhongHaiBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="TongZhou">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.TongZhou.CMSTongZhouMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.TongZhou.CMSTongZhouBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XNJDTXJ">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.TongZhou.CMSTXJMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.TongZhou.CMSTXJBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="ZhongHaiFZ">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.ZhongHaiFZ.CMSZhongHaiMessageProtocalFZ" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.ZhongHaiFZ.CMSZhongHaiBrightProtocalFZ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="LingXin">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.LingXin.CMSLingXinMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.LingXin.CMSLingXinBrightProtocal" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XNJD">
+          <Protocals>
+            <Protocal Name="message" ClassName="SX.ProtocalParser.CMSAP.XNJD.CMSTXJMessageProtocal" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.CMSAP.XNJD.CMSTXJBrightProtocal" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="EC">
+      <Note>事件监检测</Note>
+      <SupportedEquipTypes>
+        <EquType>E</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="CitiLog">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.ECAP.CitiLog" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="CitiLog_New">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.ECAP.CitiLog_New" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="V5">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.ECAP.V5" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="YHSD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.ECAP.YHSD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="ZHWL">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.ECAP.ZHWL" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="EP">
+      <Note>紧急电话</Note>
+      <SupportedEquipTypes>
+        <EquType>EP</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="CZTT">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPCZTT" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="CZTZ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPCZTZ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="GKFD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPGKFD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SZCG">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPSZCG" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SZLD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPSZLD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SZXD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPSZXD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SZXDWL">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPSZXDWL" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="CYOLD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.CYOLD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="DLHW">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.EPAP.EPDLHW" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="Fire">
+      <Note>火灾</Note>
+      <SupportedEquipTypes>
+        <EquType>F</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="CDMY">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.CDMY" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SHTS">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.SHTS" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SHTSHex">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.SHTSHex" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="XNJD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.XNJD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="TSIP">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.TSIP" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="NBZD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.NBZD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="NBZDPQ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FireAP.NBZDPQ" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="HK">
+      <Note>切电视墙</Note>
+      <SupportedEquipTypes>
+        <EquType>TV</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="HKControl">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.HK.HKControl" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="HKReference">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.HK.HKReference" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="RFID">
+      <Note>RFID</Note>
+      <SupportedEquipTypes>
+        <EquType>RFID</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="RFIDYuHe">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.RFIDAP.RFIDYuHe" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="SCI">
+      <Note>SCI</Note>
+      <SupportedEquipTypes>
+        <EquType>I</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="SCI">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.SCIAP.SCI" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="VC">
+      <Note>车检器</Note>
+      <SupportedEquipTypes>
+        <EquType>VC</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="FZL">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCFZL" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="G4">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCG4" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="JT">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCJT" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="JT2">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCJT2" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="MTD7">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCMTD7" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SS105">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCSS105" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SS125">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCSS125" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SS125HD">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCSS125HD" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="DHZ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VCAP.VCDHZ" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="VID">
+      <Note>气象仪</Note>
+      <SupportedEquipTypes>
+        <EquType>VI</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="BHW">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.BHW" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="WLW1">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.WLW1" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="WLW2">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.WLW2" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="CWV200AllData">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.CWV200AllData" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="CWV200">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.CWV200" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="MCR2000">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.MCR2000" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="DHY">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.DHY" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="DSC111">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.DSC111" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="DSC111_SZ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.DSC111_SZ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="FV">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.FV" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="FVRC">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.FVRC" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="YJ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.YJ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="Sick">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.Sick" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SJ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.SJ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="FW">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.FW" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="WK">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.WK" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="MDK">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.MDK" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="MDK_SZ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.MDK_SZ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="SZ">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.SZ" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="ND">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.VIDAP.ND" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="HL">
+      <Note>单控四色灯</Note>
+      <SupportedEquipTypes>
+        <EquType>HL</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="HL">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.FCL.Four" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="R">
+      <Note>广播服务器</Note>
+      <SupportedEquipTypes>
+        <EquType>R</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="R">
+          <Protocals>
+            <Protocal Name="default" ClassName="SX.ProtocalParser.RS.LBHS" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+    <ProtocalFamily Name="VSS">
+      <Note>限速标志</Note>
+      <SupportedEquipTypes>
+        <EquType>S</EquType>
+      </SupportedEquipTypes>
+      <Vendors>
+        <Vendor Name="SanSi">
+          <Protocals>
+            <Protocal Name="speed" ClassName="SX.ProtocalParser.VSSAP.SanSi.VSSSanSiSpeed" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.VSSAP.SanSi.VSSSanSiBright" />
+            <Protocal Name="brightmethod" ClassName="SX.ProtocalParser.VSSAP.SanSi.VSSSanSiBrightMethod" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="TongZhou">
+          <Protocals>
+            <Protocal Name="speed" ClassName="SX.ProtocalParser.VSSAP.TongZhou.VSSTongZhouSpeed" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.VSSAP.TongZhou.VSSSanSiBright" />
+            <Protocal Name="brightmethod" ClassName="SX.ProtocalParser.VSSAP.TongZhou.VSSTongZhouBrihtMethod" />
+          </Protocals>
+        </Vendor>
+        <Vendor Name="ChuangDi">
+          <Protocals>
+            <Protocal Name="speed" ClassName="SX.ProtocalParser.VSSAP.ChuangDi.VSSSpeed" />
+            <Protocal Name="bright" ClassName="SX.ProtocalParser.VSSAP.ChuangDi.VSSBright" />
+            <Protocal Name="brightmethod" ClassName="SX.ProtocalParser.VSSAP.ChuangDi.VSSBrightMethod" />
+          </Protocals>
+        </Vendor>
+      </Vendors>
+    </ProtocalFamily>
+  </ProtocalFamilies>
+</ProtocalConfig>
