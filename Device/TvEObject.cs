@@ -1,24 +1,12 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace WindowMake.Device
 {
     public class TvEObject : TVEqu
     {
-        public TvEObject(Point p)
-        {
-            this.init(p);
-        }
-
-        public TvEObject()
-        {
-            this.init(this.LocationInMap);
-        }
-
-        public void init(Point p)
+        public TvEObject(PointF p)
         {
             this.LocationInMap = p;
-            //this.end = new Point(p.X + 30, p.Y + 30);
             this.equtype = MyObject.ObjectType.TV_CCTV_E;
             this.equ.EquID = (int)equtype + "0001";
             this.picName = "TV_CCTV_E.png";

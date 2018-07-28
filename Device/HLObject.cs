@@ -4,16 +4,7 @@ namespace WindowMake.Device
 {
     public class HLObject : PLCEqu
     {
-        public HLObject(Point p)
-        {
-            this.init(p);
-        }
-        public HLObject()
-        {
-            equtype = MyObject.ObjectType.UnKnow;
-            picName = "\\Pic\\unkown.png";
-        }
-        public void init(Point p)
+        public HLObject(PointF p)
         {
             this.LocationInMap = p;
             this.equtype = MyObject.ObjectType.HL;

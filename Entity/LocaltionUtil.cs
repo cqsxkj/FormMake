@@ -25,15 +25,15 @@ namespace WindowMake.Entity
         /// <param name="formLocation"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Point ConvertToMapLocation(Point formLocation, double scale)
+        public static PointF ConvertToMapLocation(PointF formLocation, double scale)
         {
             var iconWidth = 30;
             var iconHeight = 30;
 
-            int x = (int)((formLocation.X - MapStartX + iconWidth / 2) / scale);
-            int y = (int)((formLocation.Y - MapStartY + iconHeight / 2) / scale) * (-1);
+            double x = (formLocation.X - MapStartX + iconWidth / 2) / scale;
+            double y = ((formLocation.Y - MapStartY + iconHeight / 2) / scale) * (-1);
 
-            return new Point { X = x, Y = y };
+            return new PointF { X = (float)x, Y = (float)y };
         }
 
         /// <summary>
@@ -42,16 +42,16 @@ namespace WindowMake.Entity
         /// <param name="mapLocation"></param>
         /// <param name="scale"></param>
         /// <returns></returns>
-        public static Point ConvertToOutLocation(Point mapLocation, double scale)
+        public static PointF ConvertToOutLocation(Point mapLocation, double scale)
         {
             var iconWidth = 30;
             var iconHeight = 30;
 
 
-            int x = (int)(mapLocation.X * scale - iconWidth / 2) + MapStartX;
-            int y = (int)(mapLocation.Y * scale * (-1) - iconHeight / 2) + MapStartY;
+            float x = (float)(mapLocation.X * scale - iconWidth / 2) + MapStartX;
+            float y = (float)(mapLocation.Y * scale * (-1) - iconHeight / 2) + MapStartY;
 
-            return new Point { X = x, Y = y };
+            return new PointF { X = x, Y = y };
         }
     }
 }

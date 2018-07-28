@@ -5,7 +5,7 @@ namespace WindowMake.Device
 {
     public class EObject : PLCEqu
     {
-        public EObject(Point p)
+        public EObject(PointF p)
         {
             this.init(p);
         }
@@ -15,7 +15,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             //this.end = new Point(p.X + 30, p.Y + 30);

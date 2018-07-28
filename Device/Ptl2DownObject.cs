@@ -1,21 +1,10 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace WindowMake.Device
 {
     public class Ptl2DownObject : PLCEqu
     {
-        public Ptl2DownObject(Point p)
-        {
-            this.init(p);
-        }
-
-        public Ptl2DownObject()
-        {
-            this.init(this.LocationInMap);
-        }
-
-        public void init(Point p)
+        public Ptl2DownObject(PointF p)
         {
             this.LocationInMap = p;
             this.equtype = MyObject.ObjectType.P_TL2_Down;

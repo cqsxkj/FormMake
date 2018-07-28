@@ -5,7 +5,7 @@ namespace WindowMake.Device
 {
     public class PrlObject : PLCEqu
     {
-        public PrlObject(Point p)
+        public PrlObject(PointF p)
         {
             this.init(p);
         }
@@ -15,7 +15,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             this.equtype = MyObject.ObjectType.P_RL;

@@ -5,7 +5,7 @@ namespace WindowMake.Device
 {
     public class PKObject : MyObject
     {
-        public PKObject(Point p)
+        public PKObject(PointF p)
         {
             this.init(p);
         }
@@ -15,7 +15,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             equtype = MyObject.ObjectType.PK;

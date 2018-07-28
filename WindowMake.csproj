@@ -151,6 +151,7 @@
     <Compile Include="ReadInit.Designer.cs">
       <DependentUpon>ReadInit.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelectEventArgs.cs" />
     <Compile Include="Tool\JsonUtil.cs" />
     <Compile Include="Entity\PLCConfig.cs" />
     <Compile Include="Config\PlcString.cs" />
@@ -234,9 +235,7 @@
     <Compile Include="Entity\YX.cs" />
     <Compile Include="Entity\Yx_cfg.cs" />
     <Compile Include="Entity\摄像机信息表.cs" />
-    <Compile Include="FormView.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="FormView.cs" />
     <Compile Include="FormView.Designer.cs">
       <DependentUpon>FormView.cs</DependentUpon>
     </Compile>
@@ -247,7 +246,6 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyPanel.cs" />
     <Compile Include="NameTool.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,10 +255,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MyPanel.resx">
-      <DependentUpon>MyPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

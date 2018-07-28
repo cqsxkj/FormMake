@@ -5,7 +5,7 @@ namespace WindowMake.Device
 {
     public class CMObject : CMSEqu
     {
-        public CMObject(Point p)
+        public CMObject(PointF p)
         {
             this.init(p);
         }
@@ -15,7 +15,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             //this.end = new Point(p.X + 30, p.Y + 30);

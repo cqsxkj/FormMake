@@ -93,8 +93,8 @@ namespace WindowMake.Device
         public string equTypeName { get; set; }
         public delegate void LocationInMapChangedEventHandler(object sender, MyObject e);
         public event LocationInMapChangedEventHandler LocationInMapChangeChanged;
-        private Point locationInMap;
-        public Point LocationInMap
+        private PointF locationInMap;
+        public PointF LocationInMap
         {
             get
             {
@@ -103,6 +103,7 @@ namespace WindowMake.Device
             set
             {
                 locationInMap = value;
+
                 if (LocationInMapChangeChanged != null)
                 {
                     LocationInMapChangeChanged(this, this);
@@ -116,7 +117,7 @@ namespace WindowMake.Device
         public MyObject()
         {
             equ = new Equ();
-            LocationInMap = new Point(0, 0);
+            LocationInMap = new PointF(0, 0);
             picName = "";
             //if (LocationInMapChangeChanged!=null)
             //{

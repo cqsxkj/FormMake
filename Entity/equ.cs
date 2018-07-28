@@ -8,7 +8,7 @@ namespace WindowMake.Entity
         public string EquID { get; set; }
         public string EquName { get; set; }
         public string EquTypeID { get; set; }
-        public Point LocationMap { get; set; }
+        //public Point LocationMap { get; set; }
         public string PointX { get; set; }
         public string PointY { get; set; }
         public string PileNo { get; set; }

@@ -4,7 +4,7 @@ namespace WindowMake.Device
 {
     public class IObject : PLCEqu
     {
-        public IObject(Point p)
+        public IObject(PointF p)
         {
             this.init(p);
         }
@@ -14,7 +14,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             this.equtype = MyObject.ObjectType.I;

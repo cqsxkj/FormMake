@@ -113,11 +113,6 @@ namespace WindowMake
             this.LayoutMdi(MdiLayout.ArrangeIcons);
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// 选择设备类型后点击画面生成设备控件
         /// </summary>
@@ -179,21 +174,21 @@ namespace WindowMake
         {
             try
             {
-                OpenFileDialog opendialog = new OpenFileDialog();
-                opendialog.Title = "请选择文件";
-                opendialog.Filter = "所有文件(*.*)|*.*";
-                if (opendialog.ShowDialog() == DialogResult.OK)
-                {
-                    CreateView();
-                    if (m_CurrentView != null)
-                    {
-                        Map map = m_CurrentView.OpenDocument(opendialog.FileName);
-                        m_CurrentView.Name = map.MapID;
-                        m_CurrentView.Text = map.MapName;
-                        m_CurrentView.fileName = opendialog.FileName;
-                        m_CurrentView.OpenDB(map);
-                    }
-                }
+                //OpenFileDialog opendialog = new OpenFileDialog();
+                //opendialog.Title = "请选择文件";
+                //opendialog.Filter = "所有文件(*.*)|*.*";
+                //if (opendialog.ShowDialog() == DialogResult.OK)
+                //{
+                //    CreateView();
+                //    if (m_CurrentView != null)
+                //    {
+                //        Map map = m_CurrentView.OpenDocument(opendialog.FileName);
+                //        m_CurrentView.Name = map.MapID;
+                //        m_CurrentView.Text = map.MapName;
+                //        m_CurrentView.fileName = opendialog.FileName;
+                //        m_CurrentView.OpenDB(map);
+                //    }
+                //}
             }
             catch (Exception ex)
             {
@@ -347,14 +342,24 @@ namespace WindowMake
                 if (openMap.ShowDialog() == DialogResult.OK)
                 {
                     Map map = (Map)openMap.comboBoxMapList.SelectedItem;
-                    CreateView();
-                    if (m_CurrentView != null)
-                    {
-                        m_CurrentView.Name = map.MapID;
-                        m_CurrentView.Text = map.MapName;
-                        m_CurrentView.SetContextMenu(int.Parse(map.MapID));
-                        m_CurrentView.OpenDB(map);
-                    }
+                    //CreateView();
+                    FormView frmTemp = new FormView(); //新建一个窗体对象，可根据需要新建自己设计的窗体 
+                    frmTemp.MdiParent = this; //设置窗口的MdiParent属性为当前主窗口，成为MDI子窗体 
+                    frmTemp.Text = map.MapName; ; //设定MDI窗体的标题 
+                    frmTemp.Name = map.MapID;
+                    frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
+                    FormCount++; //FormCount是定义在主程序中的一个变量来记录产生的子窗口个数
+                    m_CurrentView = frmTemp;
+                    frmTemp.SetContextMenu(int.Parse(map.MapID));
+                    frmTemp.OpenDB(map);
+                    frmTemp.Show(); //把此MDI窗体显示出来
+                    //if (m_CurrentView != null)
+                    //{
+                    //    //m_CurrentView.Name = map.MapID;
+                    //    //m_CurrentView.Text = map.MapName;
+                    //    m_CurrentView.SetContextMenu(int.Parse(map.MapID));
+                    //    m_CurrentView.OpenDB(map);
+                    //}
                 }
             }
             catch (Exception e)

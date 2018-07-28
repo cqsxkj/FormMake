@@ -21,27 +21,27 @@ namespace WindowMake
         }
     }
 
-    public class SelectEventArgs : EventArgs
-    {
-        private bool bMultiSelect;
-        private bool bMultiCopy;
+    //public class SelectEventArgs : EventArgs
+    //{
+    //    private bool bMultiSelect;
+    //    private bool bMultiCopy;
 
-        public SelectEventArgs(bool select, bool copy)
-        {
-            bMultiSelect = select;
-            bMultiCopy = copy;
-        }
-        public bool bSelect
-        {
-            get { return bMultiSelect; }
-            set { bMultiSelect = value; }
-        }
-        public bool bCopy
-        {
-            get { return bMultiCopy; }
-            set { bMultiCopy = value; }
-        }
-    }
+    //    public SelectEventArgs(bool select, bool copy)
+    //    {
+    //        bMultiSelect = select;
+    //        bMultiCopy = copy;
+    //    }
+    //    public bool bSelect
+    //    {
+    //        get { return bMultiSelect; }
+    //        set { bMultiSelect = value; }
+    //    }
+    //    public bool bCopy
+    //    {
+    //        get { return bMultiCopy; }
+    //        set { bMultiCopy = value; }
+    //    }
+    //}
     public class MyPanel : Panel
     {
         //设备缓存列表
@@ -50,9 +50,6 @@ namespace WindowMake
         public double scale = 0.7;//缩放比例
         //设备大小
         public Size objSize { get { return new Size(30, 30); } }
-        //public List<MyObject> m_tempList = new List<MyObject>();
-        public MyObject[] m_SelectList = new MyObject[8];
-        private int m_MoveUnit = 2;//方向键移动时的步长
         private enum DrawMode : int
         {
             Unkown = 0,//未知模式
@@ -68,6 +65,7 @@ namespace WindowMake
         private bool m_bCopy = false;//是否有对象可以复制
         private DrawMode m_DrawMode = DrawMode.Unkown;
         private Point m_oldMousePoint = new Point(0, 0);
+        private int m_MoveUnit = 2;//方向键移动时的步长
         public List<MyObject> SelectedObject = new List<MyObject>();//选中对象
         public Map mapPro = new Map();//画面背景属性 
         Dictionary<int, Command> commandDic = new Dictionary<int, Command>();
@@ -83,8 +81,6 @@ namespace WindowMake
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
             SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
-            for (int i = 0; i < 8; i++)
-                m_SelectList[i] = new MyObject();
             try
             {
 
@@ -161,7 +157,10 @@ namespace WindowMake
             }
         }
         #endregion
-        //保存到数据库 -1 代表有异常失败
+        /// <summary>
+        /// 保存到数据库 -1 代表有异常失败
+        /// </summary>
+        /// <returns></returns>
         internal int SaveDocument()
         {
             try
@@ -195,7 +194,10 @@ namespace WindowMake
             }
             return 1;
         }
-
+        /// <summary>
+        /// 鼠标按下
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             this.Focus();
@@ -209,13 +211,14 @@ namespace WindowMake
             }
             if (e.Button == MouseButtons.Left)
             {//左键按下
-                if (m_bAltDown)
-                {
-                    m_StartPt = e.Location;
-                    M_EndPt = e.Location;
-                    m_DrawMode = DrawMode.Move;
-                }
-                else if (gMain.drawType != MyObject.ObjectType.UnKnow)//画状态
+                //if (m_bAltDown)
+                //{
+                //    m_StartPt = e.Location;
+                //    M_EndPt = e.Location;
+                //    m_DrawMode = DrawMode.Move;
+                //}
+                //else
+                if (gMain.drawType != MyObject.ObjectType.UnKnow)//画状态
                 {
                     ClearSelectObject();
                     DrawObject(gMain.drawType.ToString(), e.Location);
@@ -237,7 +240,7 @@ namespace WindowMake
                     else
                     {
                         tempobj = null;
-                        if (m_pCurrentObject != null)
+                        if (m_pCurrentObject != null)//单选，去掉当前对象的选中状态
                         {
                             if (!m_bMultiMove)
                             {
@@ -280,46 +283,6 @@ namespace WindowMake
             base.OnMouseDown(e);
         }
 
-        public MyObject DrawObject(string equtype, Point p)
-        {
-            MyObject m_object = null;
-            m_object = CreateObject(equtype, p);
-            if (m_object != null)
-            {
-                var location = LocationUtil.ConvertToMapLocation(p, scale);
-                m_object.equ.PointX = location.X.ToString();
-                m_object.equ.PointY = location.Y.ToString();
-                ChangeCurrentObject(m_object);
-                m_object.equ.MapID = mapPro.MapID;
-                m_object.equ.EquID = NameTool.CreateEquId(m_object.equtype);
-                DBOPs db = new DBOPs();
-                if (db.InsertEqu(m_object) > 0)
-                {
-                    if (m_object is PObject)
-                    {
-                        var areas = (from a in PlcString.p_area_cfg where a.equid == m_object.equ.FatherEquID select a).ToList();
-                        if (areas.Count <= 0)
-                        {
-                            foreach (p_area_cfg area_cfg in PlcString.p_config.areas)
-                            {
-                                area_cfg.equid = m_object.equ.EquID;
-                            }
-                            int i = db.InsertAreas(PlcString.p_config.areas);
-                            if (i > 0)
-                            {
-                                PlcString.p_area_cfg.Clear();
-                                DataStorage ds = new DataStorage();
-                                PlcString.p_area_cfg = ds.GetAllArea();
-                            }
-                        }
-                    }
-                    m_pCurrentObject = m_object;
-                    m_ObjectList.Add(m_object);
-                }
-            }
-            return m_object;
-        }
-
         protected override void OnMouseUp(MouseEventArgs e)
         {
             Graphics g = this.CreateGraphics();
@@ -338,7 +301,7 @@ namespace WindowMake
                     PaintSelectObject();
                     Invalidate(new Rectangle(m_StartPt.X - 1, m_StartPt.Y - 1, M_EndPt.X + 2, M_EndPt.Y + 2));
                     m_DrawMode = DrawMode.Select;
-                }// || m_DrawMode == DrawMode.Zoom)
+                }
                 else if (m_DrawMode == DrawMode.Move && m_pCurrentObject != null)
                 {
                     if (m_bCtrlDown)
@@ -354,8 +317,12 @@ namespace WindowMake
                 }
                 else
                 {
-                    m_DrawMode = DrawMode.Unkown;
-                    ClearSelectObject();
+                    CreateSelectedObjectArea(m_StartPt, M_EndPt);
+                    PaintSelectObject();
+                    Invalidate(new Rectangle(m_StartPt.X - 1, m_StartPt.Y - 1, M_EndPt.X + 2, M_EndPt.Y + 2));
+                    m_DrawMode = DrawMode.Select;
+                    //m_DrawMode = DrawMode.Unkown;
+                    //ClearSelectObject();
                 }
                 this.Invalidate();
             }
@@ -497,63 +464,92 @@ namespace WindowMake
         {
             //上边线
             int t = obj.LocationInMap.X + objSize.Height - 2;
-            m_SelectList[0].LocationInMap = new Point(t, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), t, obj.LocationInMap.Y - 2, 4, 4);
             //下边线
-            m_SelectList[1].LocationInMap = new Point(t, obj.LocationInMap.Y + objSize.Height - 2);
             g.DrawRectangle(new Pen(Color.Black), t, obj.LocationInMap.Y + objSize.Height - 2, 4, 4);
             //左边线
             t = obj.LocationInMap.Y + objSize.Width - 2;
-            m_SelectList[2].LocationInMap = new Point(obj.LocationInMap.X - 2, t);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, t, 4, 4);
             //右边线
-            m_SelectList[3].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, t);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, t, 4, 4);
             //左上角
-            m_SelectList[4].LocationInMap = new Point(obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
             //右上角
-            m_SelectList[5].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
             //右下角
-            m_SelectList[6].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
             //左下角
-            m_SelectList[7].LocationInMap = new Point(obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
         }
         private void DrawSelectRect2(Graphics g, MyObject obj)
         {
             //上边线
             int t = (obj.LocationInMap.X + objSize.Width + obj.LocationInMap.X) / 2 - 2;
-            m_SelectList[0].LocationInMap = new Point(t, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), t, obj.LocationInMap.Y - 2, 4, 4);
             //下边线
-            m_SelectList[1].LocationInMap = new Point(t, obj.LocationInMap.Y + objSize.Width - 2);
             g.DrawRectangle(new Pen(Color.Black), t, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
             //左边线
             t = (obj.LocationInMap.Y + objSize.Width + obj.LocationInMap.Y) / 2 - 2;
-            m_SelectList[2].LocationInMap = new Point(obj.LocationInMap.X - 2, t);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, t, 4, 4);
             //右边线
-            m_SelectList[3].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, t);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, t, 4, 4);
             //左上角
-            m_SelectList[4].LocationInMap = new Point(obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
             g.FillRectangle(Brushes.Black, obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
             //右上角
-            m_SelectList[5].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
             g.FillRectangle(Brushes.Black, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
             //右下角
-            m_SelectList[6].LocationInMap = new Point(obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
             g.FillRectangle(Brushes.Black, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
             //左下角
-            m_SelectList[7].LocationInMap = new Point(obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2);
             g.DrawRectangle(new Pen(Color.Black), obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
             g.FillRectangle(Brushes.Black, obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
+        }
+        /// <summary>
+        /// 绘制对象
+        /// </summary>
+        /// <param name="equtype">设备类型</param>
+        /// <param name="p">位置</param>
+        /// <returns></returns>
+        public MyObject DrawObject(string equtype, Point p)
+        {
+            MyObject m_object = null;
+            m_object = CreateObject(equtype, p);
+            if (m_object != null)
+            {
+                var location = LocationUtil.ConvertToMapLocation(p, scale);
+                m_object.equ.PointX = location.X.ToString();
+                m_object.equ.PointY = location.Y.ToString();
+                ChangeCurrentObject(m_object);
+                m_object.equ.MapID = mapPro.MapID;
+                m_object.equ.EquID = NameTool.CreateEquId(m_object.equtype);
+                DBOPs db = new DBOPs();
+                if (db.InsertEqu(m_object) > 0)
+                {
+                    if (m_object is PObject)
+                    {
+                        var areas = (from a in PlcString.p_area_cfg where a.equid == m_object.equ.FatherEquID select a).ToList();
+                        if (areas.Count <= 0)
+                        {
+                            foreach (p_area_cfg area_cfg in PlcString.p_config.areas)
+                            {
+                                area_cfg.equid = m_object.equ.EquID;
+                            }
+                            int i = db.InsertAreas(PlcString.p_config.areas);
+                            if (i > 0)
+                            {
+                                PlcString.p_area_cfg.Clear();
+                                DataStorage ds = new DataStorage();
+                                PlcString.p_area_cfg = ds.GetAllArea();
+                            }
+                        }
+                    }
+                    m_pCurrentObject = m_object;
+                    m_ObjectList.Add(m_object);
+                }
+            }
+            return m_object;
         }
 
         /// <summary>
@@ -574,24 +570,20 @@ namespace WindowMake
             return null;
         }
         /// <summary>
-        /// 绘制选中对象的选中效果
+        /// 区域选中设备的标记
         /// </summary>
         /// <param name="s">起始坐标</param>
         /// <param name="e">结束坐标</param>
         /// <returns></returns>
         private void CreateSelectedObjectArea(Point s, Point e)
         {
-            //PLCEqu obj = null;
             for (int i = m_ObjectList.Count - 1; i >= 0; i--)
             {
-                // || ((m_ObjectList[i].LocationInMap.X > e.X && m_ObjectList[i].LocationInMap.Y > e.Y) && (m_ObjectList[i].LocationInMap.X + objSize.Width < s.X && m_ObjectList[i].LocationInMap.Y < s.Y))
                 if ((m_ObjectList[i].LocationInMap.X + objSize.Width > s.X && m_ObjectList[i].LocationInMap.Y + objSize.Height > s.Y) && (m_ObjectList[i].LocationInMap.X < e.X && m_ObjectList[i].LocationInMap.Y < e.Y))
                 {
                     m_ObjectList[i].obj_bSelect = true;
-                    //obj = m_ObjectList[i];
                 }
             }
-            //return obj;
         }
 
         /// <summary>
@@ -1632,7 +1624,7 @@ namespace WindowMake
         {//粘贴
             int i = 0;
             MyObject m_object = null;
-            Point start;
+            PointF start;
             int iMovePix = 50;
             for (i = 0; i < m_ObjectList.Count; i++)
             {
@@ -1641,7 +1633,7 @@ namespace WindowMake
                     m_ObjectList[i].obj_bSelect = false;
                     m_ObjectList[i].obj_bCopy = false;
                     MyObjectInvalidate(m_ObjectList[i].LocationInMap);
-                    start = new Point(m_ObjectList[i].LocationInMap.X + iMovePix, m_ObjectList[i].LocationInMap.Y + iMovePix);
+                    start = new PointF(m_ObjectList[i].LocationInMap.X + iMovePix, m_ObjectList[i].LocationInMap.Y + iMovePix);
                     m_object = CreateObject(m_ObjectList[i].equtype.ToString(), start);
                     if (m_object != null)
                     {
@@ -1731,7 +1723,7 @@ namespace WindowMake
         /// <param name="m_object">对象实体</param>
         /// <param name="start">坐标</param>
         /// <returns></returns>
-        public MyObject CreateObject(string equtype, Point start)
+        public MyObject CreateObject(string equtype, PointF start)
         {
             MyObject m_object = null;
             #region 
@@ -1924,7 +1916,7 @@ namespace WindowMake
         {
             if (!ScaleChanging)
             {
-                e.equ.LocationMap = LocationUtil.ConvertToMapLocation(e.LocationInMap, MapScale);
+                //e.equ.LocationMap = LocationUtil.ConvertToMapLocation(e.LocationInMap, MapScale);
             }
         }
 

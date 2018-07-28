@@ -4,7 +4,7 @@ namespace WindowMake.Device
 {
     public class EMO2Object : EMEqu
     {
-        public EMO2Object(Point p)
+        public EMO2Object(PointF p)
         {
             this.init(p);
         }
@@ -14,7 +14,7 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
             this.equtype = MyObject.ObjectType.EM_O2;

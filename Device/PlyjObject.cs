@@ -5,7 +5,7 @@ namespace WindowMake.Device
 {
     public class PlyjObject : PLCEqu
     {
-        public PlyjObject(Point p)
+        public PlyjObject(PointF p)
         {
             this.init(p);
         }
@@ -15,10 +15,9 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
-            //this.end = new Point(p.X + 30, p.Y + 30);
             this.equtype = MyObject.ObjectType.P_LYJ;
             this.equ.EquID = (int)equtype + "0001";
             this.picName = "P_LYJ.png";

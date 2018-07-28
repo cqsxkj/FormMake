@@ -5,9 +5,13 @@ namespace WindowMake.Device
 {
     public class PhlObject : PLCEqu
     {
-        public PhlObject(Point p)
+        public PhlObject(PointF p)
         {
-            this.init(p);
+            this.LocationInMap = p;
+            this.equtype = MyObject.ObjectType.P_HL;
+            this.equ.EquID = (int)equtype + "0001";
+            this.picName = "P_HL.png";
+            this.equ.EquName = "三显交通灯";
         }
 
         public PhlObject()
@@ -15,10 +19,9 @@ namespace WindowMake.Device
             this.init(this.LocationInMap);
         }
 
-        public void init(Point p)
+        public void init(PointF p)
         {
             this.LocationInMap = p;
-            //this.end = new Point(p.X + 30, p.Y + 30);
             this.equtype = MyObject.ObjectType.P_HL;
             this.equ.EquID = (int)equtype + "0001";
             this.picName = "P_HL.png";
