@@ -21,7 +21,7 @@ namespace WindowMake
         //设备大小
         public Size objSize { get { return new Size(30, 30); } }
         private Point m_oldMousePoint = new Point(0, 0);
-        private int m_MoveUnit = 2;//方向键移动时的步长
+        private int m_MoveUnit = 4;//方向键移动时的步长
         private bool m_bCopy = false;//是否有对象可以复制
         //设备缓存列表
         public List<MyObject> m_ObjectList = new List<MyObject>();
@@ -762,41 +762,6 @@ namespace WindowMake
             ////}
             base.OnPaint(e);
         }
-        /// <summary>
-        /// 绘制选择框
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="obj"></param>
-        /// <param name="color"></param>
-        private void DrawSelectRect2(Graphics g, MyObject obj, Color color, Brush brush)
-        {
-            //上边线
-            float t = (obj.LocationInMap.X + objSize.Width + obj.LocationInMap.X) / 2 - 2;
-            g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(brush, t, obj.LocationInMap.Y - 2, 3, 3);
-            //下边线
-            g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(brush, t, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
-            //左边线
-            t = (obj.LocationInMap.Y + objSize.Width + obj.LocationInMap.Y) / 2 - 2;
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, t, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X - 2, t, 3, 3);
-            //右边线
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, t, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, t, 3, 3);
-            //左上角
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 3, 3);
-            //右上角
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 3, 3);
-            //右下角
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
-            //左下角
-            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
-        }
 
         /// <summary>
         /// 清除选中对象
@@ -808,6 +773,7 @@ namespace WindowMake
             {
                 if (m_ObjectList[i].obj_bSelect)
                 {
+                    m_ObjectList[i].obj_bCopy = false;
                     m_ObjectList[i].obj_bSelect = false;
                     MyObjectInvalidate(m_ObjectList[i].LocationInMap);
                     m_ObjectList[i].DrawOjbect(g);
@@ -847,19 +813,6 @@ namespace WindowMake
             }
         }
 
-        /// <summary>
-        /// 刷新制定矩形区域的画面, Point e
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="e"></param>
-        private void MyObjectInvalidate(PointF s)
-        {
-            var e = s;
-            e.X += objSize.Width;
-            e.Y += objSize.Height;
-            Rectangle r = new Rectangle((int)(s.X - 3), (int)(s.Y - 3), (int)(e.X - s.X + 6) + 1, (int)(e.Y - s.Y + 6) + 1);
-            this.Invalidate(r, false);
-        }
         /// <summary>
         /// 实例化对象
         /// </summary>
@@ -1330,8 +1283,11 @@ namespace WindowMake
         }
 
         #endregion
+        /// <summary>
+        /// 复制 
+        /// </summary>
         public void toolCopyObject()
-        {//复制 
+        {
             int i = 0;
             m_bCopy = false;
             for (i = 0; i < m_ObjectList.Count; i++)
@@ -1345,9 +1301,11 @@ namespace WindowMake
             if (SelectChanged != null)
                 SelectChanged(this, new SelectEventArgs(m_bMultiMove, m_bCopy));
         }
-        //粘贴
+        /// <summary>
+        /// 粘贴
+        /// </summary>
         public void toolPasteObject()
-        {//粘贴
+        {
             int i = 0;
             MyObject m_object = null;
             PointF start;
@@ -1437,11 +1395,12 @@ namespace WindowMake
                             m_ObjectList.Add(m_object);
                             m_pCurrentObject = m_object;
                             m_object.DrawOjbect(g);
+                            //DrawSelectRect2(g, m_object, Color.White, Brushes.Black);
                         }
                     }
                 }
             }
-            //this.Invalidate(new Rectangle(m_StartPt.X + iMovePix, m_StartPt.Y + iMovePix, M_EndPt.X + iMovePix, M_EndPt.Y + iMovePix));
+            DrawSelectRect2All();
         }
 
         /// <summary>
@@ -1457,7 +1416,7 @@ namespace WindowMake
             }
             else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)//粘贴
             {
-                 toolPasteObject();
+                toolPasteObject();
             }
             Graphics g = CreateGraphics();
             int i = 0;
@@ -1469,8 +1428,8 @@ namespace WindowMake
                         {
                             if (m_ObjectList[j].obj_bSelect)
                             {
-                                m_ObjectList.Remove(m_ObjectList[j]);
                                 MyObjectInvalidate(m_ObjectList[j].LocationInMap);
+                                m_ObjectList.Remove(m_ObjectList[j]);
                             }
                         }
                         m_pCurrentObject = null;
@@ -1543,8 +1502,16 @@ namespace WindowMake
                     }
                     break;
             }
+            DrawSelectRect2All();
         }
-
+        protected override bool IsInputKey(Keys keyData)
+        {
+            if (keyData == Keys.Left || keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Right)
+                return true;
+            if (keyData == Keys.Alt || keyData == Keys.Control)
+                return true;
+            return base.IsInputKey(keyData);
+        }
         private void FormView_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -1552,9 +1519,21 @@ namespace WindowMake
                 case Keys.ControlKey:
                     m_bMultiMove = false;
                     break;
-                //case Keys.Menu:
-                //    m_bAltDown = false;
-                //    break;
+                    //case Keys.Menu:
+                    //    m_bAltDown = false;
+                    //    break;
+            }
+        }
+
+        private void DrawSelectRect2All()
+        {
+            Graphics g = CreateGraphics();
+            for (int i = 0; i < m_ObjectList.Count; i++)
+            {
+                if (m_ObjectList[i].obj_bSelect)
+                {
+                    DrawSelectRect2(g, m_ObjectList[i], Color.White, Brushes.Black);
+                }
             }
         }
 
@@ -1574,13 +1553,14 @@ namespace WindowMake
                         ClearSelectObject();
                     }
                     m_pCurrentObject = temp;
+                    m_pCurrentObject.obj_bCopy = true;
                     m_pCurrentObject.obj_bSelect = true;
-                    DrawSelectRect2(CreateGraphics(), m_pCurrentObject, Color.White, Brushes.White);
+                    DrawSelectRect2All();
                 }
             }
             else
             {
-                if (m_pCurrentObject!=null)
+                if (m_pCurrentObject != null)
                 {
                     ClearSelectObject();
                     m_pCurrentObject = null;
@@ -1614,8 +1594,10 @@ namespace WindowMake
                                 location.Y += y;
                                 m_ObjectList[i].LocationInMap = location;
                                 m_ObjectList[i].DrawOjbect(g);
+                                //DrawSelectRect2(g, m_ObjectList[i], Color.White, Brushes.Black);
                             }
                         }
+                        DrawSelectRect2All();
                         m_oldMousePoint = e.Location;
                     }
                 }
@@ -1628,7 +1610,7 @@ namespace WindowMake
             Cursor.Clip = Rectangle.Empty;
             mouseIsDown = false;
             DrawRectangle();
-            if (mouseRect.Width>0||mouseRect.Height>0)
+            if (mouseRect.Width > 0 || mouseRect.Height > 0)
             {
                 CreateSelectedObjectArea(mouseRect);
             }
@@ -1657,7 +1639,55 @@ namespace WindowMake
             }
             return null;
         }
+        /// <summary>
+        /// 绘制选择框
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="obj"></param>
+        /// <param name="color"></param>
+        private void DrawSelectRect2(Graphics g, MyObject obj, Color color, Brush brush)
+        {
+            //上边线
+            float t = (obj.LocationInMap.X + objSize.Width + obj.LocationInMap.X) / 2 - 2;
+            g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y - 2, 4, 4);
+            g.FillRectangle(brush, t, obj.LocationInMap.Y - 2, 3, 3);
+            //下边线
+            g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
+            g.FillRectangle(brush, t, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+            //左边线
+            t = (obj.LocationInMap.Y + objSize.Width + obj.LocationInMap.Y) / 2 - 2;
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, t, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, t, 3, 3);
+            //右边线
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, t, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, t, 3, 3);
+            //左上角
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 3, 3);
+            //右上角
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 3, 3);
+            //右下角
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+            //左下角
+            g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+        }
 
+        /// <summary>
+        /// 刷新制定矩形区域的画面, Point e
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        private void MyObjectInvalidate(PointF s)
+        {
+            var e = s;
+            e.X += objSize.Width;
+            e.Y += objSize.Height;
+            Rectangle r = new Rectangle((int)(s.X - 3), (int)(s.Y - 3), (int)(e.X - s.X + 6) + 1, (int)(e.Y - s.Y + 6) + 1);
+            this.Invalidate(r, false);
+        }
         /// <summary>
         /// 初始化选择框
         /// </summary>
