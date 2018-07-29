@@ -1,4 +1,7 @@
-﻿namespace WindowMake
+﻿using System;
+using System.Windows.Forms;
+
+namespace WindowMake
 {
     partial class FormView
     {
@@ -32,12 +35,17 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.objectPro = new System.Windows.Forms.ToolStripMenuItem();
             this.pictruePro = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.objectPro,
+            this.pictruePro});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // objectPro
             // 
@@ -65,17 +73,18 @@
             this.MdiChildActivate += new System.EventHandler(this.FormView_MdiChildActivate);
             this.DoubleClick += new System.EventHandler(this.FormView_DoubleClick);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormView_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormView_KeyUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormView_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormView_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormView_MouseUp);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
-
         #endregion
 
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem pictruePro;
-        private System.Windows.Forms.ToolStripMenuItem objectPro;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem objectPro;
+        private ToolStripMenuItem pictruePro;
     }
 }

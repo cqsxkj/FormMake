@@ -12,13 +12,6 @@ using WindowMake.Tool;
 
 namespace WindowMake
 {
-    public class DinoComparer : IComparer<MyObject>
-    {
-        public int Compare(MyObject x, MyObject y)
-        {
-            return x.equ.EquID.CompareTo(y.equ.EquID);
-        }
-    }
     public partial class FormView : Form
     {
         private bool mouseIsDown = false;
@@ -29,6 +22,7 @@ namespace WindowMake
         public Size objSize { get { return new Size(30, 30); } }
         private Point m_oldMousePoint = new Point(0, 0);
         private int m_MoveUnit = 2;//方向键移动时的步长
+        private bool m_bCopy = false;//是否有对象可以复制
         //设备缓存列表
         public List<MyObject> m_ObjectList = new List<MyObject>();
         public Map mapPro = new Map();//画面背景属性 
@@ -44,13 +38,14 @@ namespace WindowMake
         public FormView()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
-            SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
+            //SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
+            //SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
         }
         private void FormView_MdiChildActivate(object sender, EventArgs e)
         {
             gMain.CurrentPictrueBox = m_pCurrentObject;
         }
+        #region 缩放相关
         public bool ScaleChanging
         {
             get;
@@ -94,6 +89,7 @@ namespace WindowMake
                 MapScale -= 0.1;
             }
         }
+        #endregion
         private void RefreshWindow()
         {
             if (mapBackgroundImage != null)
@@ -117,215 +113,268 @@ namespace WindowMake
         {
             try
             {
-                //if (this.panel1.m_pCurrentObject == null)
-                //{
-                //    #region create object
-                //    createAddDialog.StartPosition = FormStartPosition.CenterParent;
-                //    if (createAddDialog.ShowDialog(this) == DialogResult.OK)
-                //    {
-                //        MyObject.ObjectType obj = (MyObject.ObjectType)createAddDialog.cb_equtype.SelectedValue;
-                //        int count = (int)createAddDialog.nd_equNum.Value;//需要生成对象的数量
-                //        int startNum = 1;
-                //        int.TryParse(createAddDialog.tb_startNum.Text, out startNum);
-                //        int cfgNum = 0;
-                //        try
-                //        {
-                //            cfgNum = int.Parse(createAddDialog.tb_cfgnum.Text);
-                //        }
-                //        catch (Exception)
-                //        {
-                //            Log.WriteLog("配置号码格式不正确");
-                //            createAddDialog.Hide();
-                //        }
-                //        DBOPs db = new DBOPs();
-                //        int parentWith = this.panel1.BackgroundImage.Size.Width;
-                //        for (int i = 0; i < count; i++)
-                //        {
-                //            var lacation = ((MouseEventArgs)e).Location;
-                //            int x = (int)(parentWith - 2 * lacation.X) / (count - 1) * i + lacation.X;
-                //            lacation = new System.Drawing.Point { X = x, Y = lacation.Y };
-                //            MyObject myObject = panel1.DrawObject(obj.ToString(), lacation);
-                //            if (createAddDialog.checkbox_way.Checked)
-                //            {
-                //                myObject.equ.EquName = createAddDialog.tb_nameFirst.Text + (startNum++);
-                //            }
-                //            else
-                //            {
-                //                myObject.equ.EquName = createAddDialog.tb_nameFirst.Text + (startNum--);
-                //            }
-                //            if (obj == MyObject.ObjectType.EP_T)
-                //            {
-                //                ep_c_cfg ep = new ep_c_cfg();
-                //                ep.EquID = myObject.equ.EquID;
-                //                ep.Mesg = myObject.equ.EquName;
-                //                if (createAddDialog.checkbox_way.Checked)
-                //                {
-                //                    ep.EPNum = (cfgNum++).ToString(); ;
-                //                }
-                //                else
-                //                {
-                //                    ep.EPNum = (cfgNum--).ToString();
-                //                }
-                //                db.InsertEp(ep);
-                //            }
-                //            else if (obj == MyObject.ObjectType.F_L || obj == MyObject.ObjectType.F_SB || obj == MyObject.ObjectType.F_YG)
-                //            {
+                if (m_pCurrentObject == null)
+                {
+                    #region create object
+                    createAddDialog.StartPosition = FormStartPosition.CenterParent;
+                    if (createAddDialog.ShowDialog(this) == DialogResult.OK)
+                    {
+                        MyObject.ObjectType obj = (MyObject.ObjectType)createAddDialog.cb_equtype.SelectedValue;
+                        int count = (int)createAddDialog.nd_equNum.Value;//需要生成对象的数量
+                        int startNum = 1;
+                        int.TryParse(createAddDialog.tb_startNum.Text, out startNum);
+                        int cfgNum = 0;
+                        try
+                        {
+                            cfgNum = int.Parse(createAddDialog.tb_cfgnum.Text);
+                        }
+                        catch (Exception)
+                        {
+                            Log.WriteLog("配置号码格式不正确");
+                            createAddDialog.Hide();
+                        }
+                        DBOPs db = new DBOPs();
+                        int parentWith = BackgroundImage.Size.Width;
+                        for (int i = 0; i < count; i++)
+                        {
+                            var lacation = ((MouseEventArgs)e).Location;
+                            int x = (int)(parentWith - 2 * lacation.X) / (count - 1) * i + lacation.X;
+                            lacation = new System.Drawing.Point { X = x, Y = lacation.Y };
+                            MyObject myObject = DrawObject(obj.ToString(), lacation);
+                            if (createAddDialog.checkbox_way.Checked)
+                            {
+                                myObject.equ.EquName = createAddDialog.tb_nameFirst.Text + (startNum++);
+                            }
+                            else
+                            {
+                                myObject.equ.EquName = createAddDialog.tb_nameFirst.Text + (startNum--);
+                            }
+                            if (obj == MyObject.ObjectType.EP_T)
+                            {
+                                ep_c_cfg ep = new ep_c_cfg();
+                                ep.EquID = myObject.equ.EquID;
+                                ep.Mesg = myObject.equ.EquName;
+                                if (createAddDialog.checkbox_way.Checked)
+                                {
+                                    ep.EPNum = (cfgNum++).ToString(); ;
+                                }
+                                else
+                                {
+                                    ep.EPNum = (cfgNum--).ToString();
+                                }
+                                db.InsertEp(ep);
+                            }
+                            else if (obj == MyObject.ObjectType.F_L || obj == MyObject.ObjectType.F_SB || obj == MyObject.ObjectType.F_YG)
+                            {
 
-                //            }
-                //        }
-                //    }
-                //    #endregion
-                //}
-                //else
-                //{
-                SetObjectPro();
-                //}
+                            }
+                        }
+                    }
+                    #endregion
+                }
+                else
+                {
+                    SetObjectPro();
+                }
             }
             catch (Exception ex)
             {
                 Log.WriteLog(ex);
             }
         }
-        ///// <summary>
-        ///// 设置地图属性
-        ///// </summary>
-        //private void SetMapPro()
-        //{
-        //    PicturePro mapinfo = new PicturePro();
-        //    mapinfo.mapId_tb.Text = panel1.mapPro.MapID;
-        //    mapinfo.mapName_tb.Text = panel1.mapPro.MapName;
-        //    mapinfo.IsRoad_check.Checked = panel1.mapPro.IsRoad == 1;
-        //    mapinfo.url_tb.Text = panel1.mapPro.MapAddress;
-        //    mapinfo.text_filebk.Text = @"BK/" + panel1.mapPro.MapName + ".png";
-        //    if (mapinfo.ShowDialog() == DialogResult.OK)
-        //    {
-        //        this.panel1.mapPro.MapName = mapinfo.mapName_tb.Text;
-        //        this.panel1.mapPro.IsRoad = mapinfo.IsRoad_check.Checked == true ? 1 : 0;
-        //        this.panel1.mapPro.MapAddress = mapinfo.url_tb.Text;
-        //        this.panel1.mapPro.MapID = mapinfo.mapId_tb.Text;
-        //        this.panel1.BackgroundImageLayout = ImageLayout.Stretch;
-        //        if (!string.IsNullOrEmpty(mapinfo.text_filebk.Text))
-        //        {
-        //            this.panel1.SetBackgroud(mapinfo.text_filebk.Text);
-        //        }
-        //        else
-        //            this.panel1.BackgroundImage = null;
-        //    }
-        //    mapinfo.Close();
-        //}
+        /// <summary>
+        /// 绘制对象
+        /// </summary>
+        /// <param name="equtype">设备类型</param>
+        /// <param name="p">位置</param>
+        /// <returns></returns>
+        public MyObject DrawObject(string equtype, Point p)
+        {
+            MyObject m_object = null;
+            m_object = CreateObject(equtype, p);
+            if (m_object != null)
+            {
+                var location = LocationUtil.ConvertToMapLocation(p, scale);
+                m_object.equ.PointX = location.X.ToString();
+                m_object.equ.PointY = location.Y.ToString();
+                ChangeCurrentObject(m_object);
+                m_object.equ.MapID = mapPro.MapID;
+                m_object.equ.EquID = NameTool.CreateEquId(m_object.equtype);
+                DBOPs db = new DBOPs();
+                if (db.InsertEqu(m_object) > 0)
+                {
+                    if (m_object is PObject)
+                    {
+                        var areas = (from a in PlcString.p_area_cfg where a.equid == m_object.equ.FatherEquID select a).ToList();
+                        if (areas.Count <= 0)
+                        {
+                            foreach (p_area_cfg area_cfg in PlcString.p_config.areas)
+                            {
+                                area_cfg.equid = m_object.equ.EquID;
+                            }
+                            int i = db.InsertAreas(PlcString.p_config.areas);
+                            if (i > 0)
+                            {
+                                PlcString.p_area_cfg.Clear();
+                                DataStorage ds = new DataStorage();
+                                PlcString.p_area_cfg = ds.GetAllArea();
+                            }
+                        }
+                    }
+                    m_pCurrentObject = m_object;
+                    m_ObjectList.Add(m_object);
+                }
+            }
+            return m_object;
+        }
 
-        ///// <summary>
-        ///// 右键菜单
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        //{
-        //    switch (e.ClickedItem.Name)
-        //    {
-        //        case "pictruePro":
-        //            SetMapPro();
-        //            break;
-        //        case "objectPro":
-        //            SetMapPro();
-        //            break;
-        //        case "rename":
-        //            MyObject.ObjectType equtype = MyObject.ObjectType.UnKnow;
-        //            List<MyObject> reNameEquList = new List<MyObject>();
-        //            for (int i = 0; i < panel1.m_ObjectList.Count; i++)
-        //            {
-        //                if (panel1.m_ObjectList[i].obj_bSelect)
-        //                {
-        //                    if (MyObject.ObjectType.UnKnow == equtype)
-        //                    {
-        //                        equtype = panel1.m_ObjectList[i].equtype;
+        /// <summary>
+        /// 切换当前选中对象
+        /// </summary>
+        /// <param name="obj"></param>
+        private void ChangeCurrentObject(MyObject obj)
+        {
+            if (!m_bMultiMove)
+            {
+                if (null != m_pCurrentObject)
+                {
+                    m_pCurrentObject = obj;
+                    m_pCurrentObject.obj_bSelect = true;
+                    DrawSelectRect2(CreateGraphics(), m_pCurrentObject, Color.White, Brushes.White);
+                }
+            }
+        }
+        /// <summary>
+        /// 设置地图属性
+        /// </summary>
+        private void SetMapPro()
+        {
+            PicturePro mapinfo = new PicturePro();
+            mapinfo.mapId_tb.Text = mapPro.MapID;
+            mapinfo.mapName_tb.Text = mapPro.MapName;
+            mapinfo.IsRoad_check.Checked = mapPro.IsRoad == 1;
+            mapinfo.url_tb.Text = mapPro.MapAddress;
+            mapinfo.text_filebk.Text = @"BK/" + mapPro.MapName + ".png";
+            if (mapinfo.ShowDialog() == DialogResult.OK)
+            {
+                mapPro.MapName = mapinfo.mapName_tb.Text;
+                mapPro.IsRoad = mapinfo.IsRoad_check.Checked == true ? 1 : 0;
+                mapPro.MapAddress = mapinfo.url_tb.Text;
+                mapPro.MapID = mapinfo.mapId_tb.Text;
+                BackgroundImageLayout = ImageLayout.Stretch;
+                if (!string.IsNullOrEmpty(mapinfo.text_filebk.Text))
+                {
+                    SetBackgroud(mapinfo.text_filebk.Text);
+                }
+                else
+                    BackgroundImage = null;
+            }
+            mapinfo.Close();
+        }
 
-        //                    }
-        //                    if (panel1.m_ObjectList[i].equtype == equtype)
-        //                    {
+        /// <summary>
+        /// 右键菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name)
+            {
+                case "picturePro":
+                    SetMapPro();
+                    break;
+                case "objectPro":
+                    SetObjectPro();
+                    break;
+                case "rename":
+                    MyObject.ObjectType equtype = MyObject.ObjectType.UnKnow;
+                    List<MyObject> reNameEquList = new List<MyObject>();
+                    for (int i = 0; i < m_ObjectList.Count; i++)
+                    {
+                        if (m_ObjectList[i].obj_bSelect)
+                        {
+                            if (MyObject.ObjectType.UnKnow == equtype)
+                            {
+                                equtype = m_ObjectList[i].equtype;
 
-        //                        reNameEquList.Add(panel1.m_ObjectList[i]);
+                            }
+                            if (m_ObjectList[i].equtype == equtype)
+                            {
 
-        //                    }
-        //                }
-        //            }
-        //            ReNameSameTypeObj(reNameEquList);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    //if (this.panel1.m_pCurrentObject == null)
-        //    //{
-        //    //    SetMapPro();
-        //    //}
-        //    //else
-        //    //{
-        //    //    SetObjectPro();
-        //    //}
-        //}
-        ///// <summary>
-        ///// 修改同类型设备名称
-        ///// </summary>
-        ///// <param name="reNameEquList"></param>
-        //private void ReNameSameTypeObj(List<MyObject> reNameEquList)
-        //{
-        //    string directiongStr ="";
-        //    try
-        //    {
-        //        if (reNameEquList.Count > 0)
-        //        {
-        //            if (string.IsNullOrEmpty(reName.NameStr))   //输入框中显示选中设备所在隧道和方向
-        //            {
-        //                string mapNameStr = panel1.mapPro.MapName;
-        //                if (reNameEquList.Count > 0)      //获取选中设备的设备类型
-        //                {
-        //                    string typename = reNameEquList[0].equTypeName;
+                                reNameEquList.Add(m_ObjectList[i]);
 
-        //                    reName.lb_equtype.Text = typename;      //被选中设备类型名称显示到窗体中
-        //                    if (null != reNameEquList[0].equ.DirectionID)
-        //                    {
-        //                        directiongStr = (Enum.Parse(typeof(DirectionEnum), reNameEquList[0].equ.DirectionID.ToString())).ToString();
+                            }
+                        }
+                    }
+                    ReNameSameTypeObj(reNameEquList);
+                    break;
+                default:
+                    break;
+            }
+        }
+        /// <summary>
+        /// 修改同类型设备名称
+        /// </summary>
+        /// <param name="reNameEquList"></param>
+        private void ReNameSameTypeObj(List<MyObject> reNameEquList)
+        {
+            string directiongStr = "";
+            try
+            {
+                if (reNameEquList.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(reName.NameStr))   //输入框中显示选中设备所在隧道和方向
+                    {
+                        if (reNameEquList.Count > 0)      //获取选中设备的设备类型
+                        {
+                            string typename = reNameEquList[0].equTypeName;
 
-        //                    }
-        //                    else
-        //                    {
-        //                        directiongStr = "%行";
-        //                    }
-        //                    string str = mapNameStr + directiongStr + typename;
+                            reName.lb_equtype.Text = typename;      //被选中设备类型名称显示到窗体中
+                            if (null != reNameEquList[0].equ.DirectionID)
+                            {
+                                directiongStr = (Enum.Parse(typeof(DirectionEnum), reNameEquList[0].equ.DirectionID.ToString())).ToString();
+
+                            }
+                            else
+                            {
+                                directiongStr = "%行";
+                            }
+                            string str = mapPro.MapName + directiongStr + typename;
 
 
-        //                    reName.SetShow(str);                    //被选中设备名称前缀显示到窗体输入框中
-        //                }
-        //            }
-        //            if (reName.ShowDialog(this) == DialogResult.OK) //点击修改按钮后，组合新的设备名称
-        //            {
-        //                List<MyObject> orderObject = new List<MyObject>();
-        //                if (reName.IsAdd)
-        //                {
-        //                    orderObject = (from a in reNameEquList orderby a.LocationInMap.X ascending select a).ToList();
-        //                }
-        //                else
-        //                {
-        //                    orderObject = (from a in reNameEquList orderby a.LocationInMap.X descending select a).ToList();
-        //                }
-        //                for (int i = 0; i < orderObject.Count; i++)
-        //                {
-        //                    orderObject[i].equ.EquName = reName.NameStr + (reName.NameCount + i);
-        //                }
-        //            }
-        //            for (int i = 0; i < reNameEquList.Count; i++) //遍历设备，给选中设备名称赋值
-        //            {
-        //                //查询法
-        //                var current = (from a in panel1.m_ObjectList where a.equ.EquID == reNameEquList[i].equ.EquID select a).FirstOrDefault();
-        //                current.equ.EquName = reNameEquList[i].equ.EquName;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Log.WriteLog("修改同类型设备名称:" + e);
-        //    }
-        //}
+                            reName.SetShow(str);                    //被选中设备名称前缀显示到窗体输入框中
+                        }
+                    }
+                    if (reName.ShowDialog(this) == DialogResult.OK) //点击修改按钮后，组合新的设备名称
+                    {
+                        List<MyObject> orderObject = new List<MyObject>();
+                        if (reName.IsAdd)
+                        {
+                            orderObject = (from a in reNameEquList orderby a.LocationInMap.X ascending select a).ToList();
+                        }
+                        else
+                        {
+                            orderObject = (from a in reNameEquList orderby a.LocationInMap.X descending select a).ToList();
+                        }
+                        for (int i = 0; i < orderObject.Count; i++)
+                        {
+                            orderObject[i].equ.EquName = reName.NameStr + (reName.NameCount + i);
+                        }
+                    }
+                    for (int i = 0; i < reNameEquList.Count; i++) //遍历设备，给选中设备名称赋值
+                    {
+                        //查询法
+                        var current = (from a in m_ObjectList where a.equ.EquID == reNameEquList[i].equ.EquID select a).FirstOrDefault();
+                        current.equ.EquName = reNameEquList[i].equ.EquName;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("修改同类型设备名称:" + e);
+            }
+        }
 
         private string InitBackground()
         {
@@ -366,76 +415,76 @@ namespace WindowMake
             if (m_pCurrentObject == null)
                 return;
             ObjectPro objdialog = new ObjectPro();
-            // MyObject m_temp = this.panel1.m_pCurrentObject;
+            MyObject m_temp = m_pCurrentObject;
 
-            //if (panel1.m_bMultiMove)//选中多个进行批量编辑
-            //{
-            //    objBase.FartherID = "";
-            //    if (!string.IsNullOrEmpty(panel1.m_pCurrentObject.equ.FatherEquID))
-            //    {
-            //        objBase.FartherID = panel1.m_pCurrentObject.equ.FatherEquID;
-            //    }
-            //    for (int i = 0; i < panel1.m_ObjectList.Count; i++)
-            //    {
-            //        if (panel1.m_ObjectList[i].obj_bSelect)
-            //        {
-            //            if (!(objBase.FartherID).Equals(panel1.m_ObjectList[i].equ.FatherEquID))
-            //            {
-            //                objBase.FartherID = "";
-            //                objBase.AlertFartherid = false;
-            //                break;
-            //            }
-            //            objBase.AlertFartherid = true;
-            //        }
-            //    }
-            //    objBase.StartPosition = FormStartPosition.CenterParent;
-            //    if (!objBase.AlertFartherid)
-            //    {
-            //        objBase.label1.Hide();
-            //        objBase.tb_fartherid.Hide();
-            //    }
-
-            //    if (objBase.ShowDialog() == DialogResult.OK)
-            //    {
-            //        for (int i = 0; i < panel1.m_ObjectList.Count; i++)
-            //        {
-            //            if (panel1.m_ObjectList[i].obj_bSelect)
-            //            {
-            //                if (objBase.AlertFartherid)
-            //                {
-            //                    panel1.m_ObjectList[i].equ.FatherEquID = objBase.FartherID;
-            //                }
-            //                panel1.m_ObjectList[i].equ.DirectionID = objBase.Direction;
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            if (m_pCurrentObject is PLCEqu)
+            if (m_bMultiMove)//选中多个进行批量编辑
             {
-                objdialog.m_pro = (m_pCurrentObject as PLCEqu).plc_pro;
+                objBase.FartherID = "";
+                if (!string.IsNullOrEmpty(m_pCurrentObject.equ.FatherEquID))
+                {
+                    objBase.FartherID = m_pCurrentObject.equ.FatherEquID;
+                }
+                for (int i = 0; i < m_ObjectList.Count; i++)
+                {
+                    if (m_ObjectList[i].obj_bSelect)
+                    {
+                        if (!(objBase.FartherID).Equals(m_ObjectList[i].equ.FatherEquID))
+                        {
+                            objBase.FartherID = "";
+                            objBase.AlertFartherid = false;
+                            break;
+                        }
+                        objBase.AlertFartherid = true;
+                    }
+                }
+                objBase.StartPosition = FormStartPosition.CenterParent;
+                if (!objBase.AlertFartherid)
+                {
+                    objBase.label1.Hide();
+                    objBase.tb_fartherid.Hide();
+                }
+
+                if (objBase.ShowDialog() == DialogResult.OK)
+                {
+                    for (int i = 0; i < m_ObjectList.Count; i++)
+                    {
+                        if (m_ObjectList[i].obj_bSelect)
+                        {
+                            if (objBase.AlertFartherid)
+                            {
+                                m_ObjectList[i].equ.FatherEquID = objBase.FartherID;
+                            }
+                            m_ObjectList[i].equ.DirectionID = objBase.Direction;
+                        }
+                    }
+                }
             }
             else
             {
-                objdialog.groupBox1.Hide();
-                objdialog.groupBox2.Hide();
-                objdialog.groupBox3.Hide();
-                if (m_pCurrentObject is EptObject)
-                {
-                    objdialog.SetEP((m_pCurrentObject as EptObject).ep_pro);
-                }
-            }
-            objdialog.m_obj = m_pCurrentObject;
-            objdialog.StartPosition = FormStartPosition.CenterParent;
-            if (objdialog.ShowDialog() == DialogResult.OK)
-            {
                 if (m_pCurrentObject is PLCEqu)
                 {
-                    (m_pCurrentObject as PLCEqu).plc_pro = objdialog.m_pro;
+                    objdialog.m_pro = (m_pCurrentObject as PLCEqu).plc_pro;
+                }
+                else
+                {
+                    objdialog.groupBox1.Hide();
+                    objdialog.groupBox2.Hide();
+                    objdialog.groupBox3.Hide();
+                    if (m_pCurrentObject is EptObject)
+                    {
+                        objdialog.SetEP((m_pCurrentObject as EptObject).ep_pro);
+                    }
+                }
+                objdialog.m_obj = m_pCurrentObject;
+                objdialog.StartPosition = FormStartPosition.CenterParent;
+                if (objdialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (m_pCurrentObject is PLCEqu)
+                    {
+                        (m_pCurrentObject as PLCEqu).plc_pro = objdialog.m_pro;
+                    }
                 }
             }
-            //}
             DrawCurrentObject();
         }
         /// <summary>
@@ -460,8 +509,9 @@ namespace WindowMake
         {
             //this.panel1.SaveAsDocument(fname);
         }
-
-        //保存到数据库
+        /// <summary>
+        /// 保存到数据库
+        /// </summary>
         public void SaveDocument()
         {
             try
@@ -698,11 +748,11 @@ namespace WindowMake
             for (int i = 0; i < m_ObjectList.Count; i++)
             {
                 m_ObjectList[i].DrawOjbect(e.Graphics);
-                if (m_ObjectList[i].obj_bSelect)
-                {
-                    //DrawSelectRect(e.Graphics, m_ObjectList[i]);
-                    DrawSelectRect2(e.Graphics, m_ObjectList[i], Color.White);
-                }
+                //if (m_ObjectList[i].obj_bSelect)
+                //{
+                //    //DrawSelectRect(e.Graphics, m_ObjectList[i]);
+                //    DrawSelectRect2(e.Graphics, m_ObjectList[i], Color.White, Brushes.White);
+                //}
             }
             ////if (m_bAltDown && m_DrawMode == DrawMode.Move)
             ////{
@@ -718,34 +768,34 @@ namespace WindowMake
         /// <param name="g"></param>
         /// <param name="obj"></param>
         /// <param name="color"></param>
-        private void DrawSelectRect2(Graphics g, MyObject obj, Color color)
+        private void DrawSelectRect2(Graphics g, MyObject obj, Color color, Brush brush)
         {
             //上边线
             float t = (obj.LocationInMap.X + objSize.Width + obj.LocationInMap.X) / 2 - 2;
             g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, t, obj.LocationInMap.Y - 2, 3, 3);
+            g.FillRectangle(brush, t, obj.LocationInMap.Y - 2, 3, 3);
             //下边线
             g.DrawRectangle(new Pen(color), t, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, t, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+            g.FillRectangle(brush, t, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
             //左边线
             t = (obj.LocationInMap.Y + objSize.Width + obj.LocationInMap.Y) / 2 - 2;
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, t, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X - 2, t, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, t, 3, 3);
             //右边线
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, t, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X + objSize.Width - 2, t, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, t, 3, 3);
             //左上角
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y - 2, 3, 3);
             //右上角
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y - 2, 3, 3);
             //右下角
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X + objSize.Width - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
             //左下角
             g.DrawRectangle(new Pen(color), obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 4, 4);
-            g.FillRectangle(Brushes.Black, obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
+            g.FillRectangle(brush, obj.LocationInMap.X - 2, obj.LocationInMap.Y + objSize.Width - 2, 3, 3);
         }
 
         /// <summary>
@@ -763,7 +813,40 @@ namespace WindowMake
                     m_ObjectList[i].DrawOjbect(g);
                 }
             }
+            m_bMultiMove = false;
         }
+
+        /// <summary>
+        /// 区域选中设备的标记
+        /// </summary>
+        /// <param name="s">起始坐标</param>
+        /// <param name="e">结束坐标</param>
+        /// <returns></returns>
+        private void CreateSelectedObjectArea(RectangleF rect)
+        {
+            Graphics g = CreateGraphics();
+            int n = 0;
+            for (int i = m_ObjectList.Count - 1; i >= 0; i--)
+            {
+                if ((m_ObjectList[i].LocationInMap.X + objSize.Width > rect.X && m_ObjectList[i].LocationInMap.Y + objSize.Height > rect.Y) && (m_ObjectList[i].LocationInMap.X < rect.X + rect.Width && m_ObjectList[i].LocationInMap.Y < rect.Y + rect.Height))
+                {
+                    n++;
+                    m_ObjectList[i].obj_bCopy = true;
+                    m_ObjectList[i].obj_bSelect = true;
+                    DrawSelectRect2(g, m_ObjectList[i], Color.White, Brushes.Black);
+                    m_pCurrentObject = m_ObjectList[i];
+                }
+            }
+            if (n > 1)
+            {
+                m_bMultiMove = true;
+            }
+            else
+            {
+                m_bMultiMove = false;
+            }
+        }
+
         /// <summary>
         /// 刷新制定矩形区域的画面, Point e
         /// </summary>
@@ -1247,139 +1330,118 @@ namespace WindowMake
         }
 
         #endregion
-        //public void toolCopyObject()
-        //{//复制 
-        //    int i = 0;
-        //    m_bCopy = false;
-        //    for (i = 0; i < m_ObjectList.Count; i++)
-        //    {
-        //        if (m_ObjectList[i].obj_bSelect)
-        //        {
-        //            m_ObjectList[i].obj_bCopy = true;
-        //            m_bCopy = true;
-        //        }
-        //    }
-        //    if (SelectChanged != null)
-        //        SelectChanged(this, new SelectEventArgs(m_bMultiMove, m_bCopy));
-        //}
-        ////粘贴
-        //public void toolPasteObject()
-        //{//粘贴
-        //    int i = 0;
-        //    MyObject m_object = null;
-        //    Point start;
-        //    int iMovePix = 50;
-        //    for (i = 0; i < m_ObjectList.Count; i++)
-        //    {
-        //        if (m_ObjectList[i].obj_bCopy)
-        //        {
-        //            m_ObjectList[i].obj_bSelect = false;
-        //            m_ObjectList[i].obj_bCopy = false;
-        //            MyObjectInvalidate(m_ObjectList[i].LocationInMap);
-        //            start = new Point(m_ObjectList[i].LocationInMap.X + iMovePix, m_ObjectList[i].LocationInMap.Y + iMovePix);
-        //            m_object = CreateObject(m_ObjectList[i].equtype.ToString(), start);
-        //            if (m_object != null)
-        //            {
-        //                #region 基础信息
-        //                m_object.equ.EquName = m_ObjectList[i].equ.EquName;
-        //                m_object.equ.FatherEquID = m_ObjectList[i].equ.FatherEquID;
-        //                m_object.equ.IP = m_ObjectList[i].equ.IP;
-        //                m_object.equ.Port = m_ObjectList[i].equ.Port;
-        //                m_object.equ.PointX = m_ObjectList[i].equ.PointX;
-        //                m_object.equ.PointY = m_ObjectList[i].equ.PointY;
-        //                m_object.equ.MapID = m_ObjectList[i].equ.MapID;
-        //                m_object.equ.msgTimeoutSec = m_ObjectList[i].equ.msgTimeoutSec;
-        //                m_object.equ.plcStationAddress = m_ObjectList[i].equ.plcStationAddress;
-        //                m_object.equ.Vendor = m_ObjectList[i].equ.Vendor;
-        //                m_object.equ.TaskWV = m_ObjectList[i].equ.TaskWV;
-        //                m_object.equ.RunMode = m_ObjectList[i].equ.RunMode;
-        //                m_object.equ.DirectionID = m_ObjectList[i].equ.DirectionID;
-        //                m_object.equ.AddressDiscribe = m_ObjectList[i].equ.AddressDiscribe;
-        //                m_object.equ.AlarmMethod = m_ObjectList[i].equ.AlarmMethod;
-        //                m_object.equ.Note = m_ObjectList[i].equ.Note;
-        //                #endregion
-        //                #region plc配置信息
-        //                if (m_object is PObject)
-        //                {
-
-        //                }
-        //                if (m_object is PLCEqu)
-        //                {
-        //                    PLCEqu plcEqu = m_ObjectList[i] as PLCEqu;
-        //                    for (int j = 0; j < plcEqu.plc_pro.yxcfgList.Count; j++)
-        //                    {
-        //                        Yx_cfg yx = new Yx_cfg();
-        //                        yx.AddrAndBit = plcEqu.plc_pro.yxcfgList[j].AddrAndBit;
-        //                        yx.AreaID = plcEqu.plc_pro.yxcfgList[j].AreaID;
-        //                        yx.IsError = plcEqu.plc_pro.yxcfgList[j].IsError;
-        //                        yx.Order = plcEqu.plc_pro.yxcfgList[j].Order;
-        //                        ((PLCEqu)m_object).plc_pro.yxcfgList.Add(yx);
-        //                    }
-        //                    for (int j = 0; j < plcEqu.plc_pro.ykcfgList.Count; j++)
-        //                    {
-        //                        Yk_cfg yk = new Yk_cfg();
-        //                        yk.AddrAndBit = plcEqu.plc_pro.ykcfgList[j].AddrAndBit;
-        //                        yk.AreaID = plcEqu.plc_pro.ykcfgList[j].AreaID;
-        //                        yk.Order = plcEqu.plc_pro.ykcfgList[j].Order;
-        //                        ((PLCEqu)m_object).plc_pro.ykcfgList.Add(yk);
-        //                    }
-        //                    for (int j = 0; j < plcEqu.plc_pro.yxcfgList.Count; j++)
-        //                    {
-        //                        Yx_cfg yx = new Yx_cfg();
-        //                        yx.AddrAndBit = plcEqu.plc_pro.yxcfgList[j].AddrAndBit;
-        //                        yx.AreaID = plcEqu.plc_pro.yxcfgList[j].AreaID;
-        //                        yx.IsError = plcEqu.plc_pro.yxcfgList[j].IsError;
-        //                        yx.Order = plcEqu.plc_pro.yxcfgList[j].Order;
-        //                        ((PLCEqu)m_object).plc_pro.yxcfgList.Add(yx);
-        //                    }
-        //                    for (int j = 0; j < plcEqu.plc_pro.ykcfgList.Count; j++)
-        //                    {
-        //                        Yk_cfg yk = new Yk_cfg();
-        //                        yk.AddrAndBit = plcEqu.plc_pro.ykcfgList[j].AddrAndBit;
-        //                        yk.AreaID = plcEqu.plc_pro.ykcfgList[j].AreaID;
-        //                        yk.Order = plcEqu.plc_pro.ykcfgList[j].Order;
-        //                        ((PLCEqu)m_object).plc_pro.ykcfgList.Add(yk);
-        //                    }
-        //                }
-
-        //                #endregion
-        //                m_object.picName = m_ObjectList[i].picName;
-        //                m_object.obj_bSelect = true;
-        //                m_object.equ.MapID = mapPro.MapID;
-        //                m_object.equ.EquID = NameTool.CreateEquId(m_object.equtype);
-        //                DBOPs db = new DBOPs();
-        //                if (db.InsertEqu(m_object) > 0)
-        //                {
-        //                    m_ObjectList.Add(m_object);
-        //                    m_pCurrentObject = m_object;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    this.Invalidate(new Rectangle(m_StartPt.X + iMovePix, m_StartPt.Y + iMovePix, M_EndPt.X + iMovePix, M_EndPt.Y + iMovePix));
-        //}
-
-        /// <summary>
-        /// 区域选中设备的标记
-        /// </summary>
-        /// <param name="s">起始坐标</param>
-        /// <param name="e">结束坐标</param>
-        /// <returns></returns>
-        private void CreateSelectedObjectArea(RectangleF rect)
-        {
-            Graphics g = CreateGraphics();
-            for (int i = m_ObjectList.Count - 1; i >= 0; i--)
+        public void toolCopyObject()
+        {//复制 
+            int i = 0;
+            m_bCopy = false;
+            for (i = 0; i < m_ObjectList.Count; i++)
             {
-                //if (Math.Abs(m_ObjectList[i].LocationInMap.X-rect.X)< Math.Abs(rect.Width)&& Math.Abs(m_ObjectList[i].LocationInMap.Y-rect.Y)< Math.Abs(rect.Height))
-                //if (rect.Contains(m_ObjectList[i].LocationInMap.X, m_ObjectList[i].LocationInMap.Y))
-                //if (IsPointInMatrix(rect, m_ObjectList[i].LocationInMap))
-                if((m_ObjectList[i].LocationInMap.X + objSize.Width > rect.X && m_ObjectList[i].LocationInMap.Y + objSize.Height > rect.Y) && (m_ObjectList[i].LocationInMap.X < rect.X+rect.Width && m_ObjectList[i].LocationInMap.Y < rect.Y+rect.Height))
+                if (m_ObjectList[i].obj_bSelect)
                 {
                     m_ObjectList[i].obj_bCopy = true;
-                    m_ObjectList[i].obj_bSelect = true;
-                    DrawSelectRect2(g, m_ObjectList[i], Color.White);
+                    m_bCopy = true;
                 }
             }
+            if (SelectChanged != null)
+                SelectChanged(this, new SelectEventArgs(m_bMultiMove, m_bCopy));
+        }
+        //粘贴
+        public void toolPasteObject()
+        {//粘贴
+            int i = 0;
+            MyObject m_object = null;
+            PointF start;
+            int iMovePix = 50;
+            Graphics g = CreateGraphics();
+            for (i = 0; i < m_ObjectList.Count; i++)
+            {
+                if (m_ObjectList[i].obj_bCopy)
+                {
+                    m_ObjectList[i].obj_bSelect = false;
+                    m_ObjectList[i].obj_bCopy = false;
+                    MyObjectInvalidate(m_ObjectList[i].LocationInMap);
+                    start = new PointF(m_ObjectList[i].LocationInMap.X + iMovePix, m_ObjectList[i].LocationInMap.Y + iMovePix);
+                    m_object = CreateObject(m_ObjectList[i].equtype.ToString(), start);
+                    if (m_object != null)
+                    {
+                        #region 基础信息
+                        m_object.equ.EquName = m_ObjectList[i].equ.EquName;
+                        m_object.equ.FatherEquID = m_ObjectList[i].equ.FatherEquID;
+                        m_object.equ.IP = m_ObjectList[i].equ.IP;
+                        m_object.equ.Port = m_ObjectList[i].equ.Port;
+                        m_object.equ.PointX = m_ObjectList[i].equ.PointX;
+                        m_object.equ.PointY = m_ObjectList[i].equ.PointY;
+                        m_object.equ.MapID = m_ObjectList[i].equ.MapID;
+                        m_object.equ.msgTimeoutSec = m_ObjectList[i].equ.msgTimeoutSec;
+                        m_object.equ.plcStationAddress = m_ObjectList[i].equ.plcStationAddress;
+                        m_object.equ.Vendor = m_ObjectList[i].equ.Vendor;
+                        m_object.equ.TaskWV = m_ObjectList[i].equ.TaskWV;
+                        m_object.equ.RunMode = m_ObjectList[i].equ.RunMode;
+                        m_object.equ.DirectionID = m_ObjectList[i].equ.DirectionID;
+                        m_object.equ.AddressDiscribe = m_ObjectList[i].equ.AddressDiscribe;
+                        m_object.equ.AlarmMethod = m_ObjectList[i].equ.AlarmMethod;
+                        m_object.equ.Note = m_ObjectList[i].equ.Note;
+                        #endregion
+                        #region plc配置信息
+                        if (m_object is PObject)
+                        {
+
+                        }
+                        if (m_object is PLCEqu)
+                        {
+                            PLCEqu plcEqu = m_ObjectList[i] as PLCEqu;
+                            for (int j = 0; j < plcEqu.plc_pro.yxcfgList.Count; j++)
+                            {
+                                Yx_cfg yx = new Yx_cfg();
+                                yx.AddrAndBit = plcEqu.plc_pro.yxcfgList[j].AddrAndBit;
+                                yx.AreaID = plcEqu.plc_pro.yxcfgList[j].AreaID;
+                                yx.IsError = plcEqu.plc_pro.yxcfgList[j].IsError;
+                                yx.Order = plcEqu.plc_pro.yxcfgList[j].Order;
+                                ((PLCEqu)m_object).plc_pro.yxcfgList.Add(yx);
+                            }
+                            for (int j = 0; j < plcEqu.plc_pro.ykcfgList.Count; j++)
+                            {
+                                Yk_cfg yk = new Yk_cfg();
+                                yk.AddrAndBit = plcEqu.plc_pro.ykcfgList[j].AddrAndBit;
+                                yk.AreaID = plcEqu.plc_pro.ykcfgList[j].AreaID;
+                                yk.Order = plcEqu.plc_pro.ykcfgList[j].Order;
+                                ((PLCEqu)m_object).plc_pro.ykcfgList.Add(yk);
+                            }
+                            for (int j = 0; j < plcEqu.plc_pro.yxcfgList.Count; j++)
+                            {
+                                Yx_cfg yx = new Yx_cfg();
+                                yx.AddrAndBit = plcEqu.plc_pro.yxcfgList[j].AddrAndBit;
+                                yx.AreaID = plcEqu.plc_pro.yxcfgList[j].AreaID;
+                                yx.IsError = plcEqu.plc_pro.yxcfgList[j].IsError;
+                                yx.Order = plcEqu.plc_pro.yxcfgList[j].Order;
+                                ((PLCEqu)m_object).plc_pro.yxcfgList.Add(yx);
+                            }
+                            for (int j = 0; j < plcEqu.plc_pro.ykcfgList.Count; j++)
+                            {
+                                Yk_cfg yk = new Yk_cfg();
+                                yk.AddrAndBit = plcEqu.plc_pro.ykcfgList[j].AddrAndBit;
+                                yk.AreaID = plcEqu.plc_pro.ykcfgList[j].AreaID;
+                                yk.Order = plcEqu.plc_pro.ykcfgList[j].Order;
+                                ((PLCEqu)m_object).plc_pro.ykcfgList.Add(yk);
+                            }
+                        }
+
+                        #endregion
+                        m_object.picName = m_ObjectList[i].picName;
+                        m_object.obj_bSelect = true;
+                        m_object.equ.MapID = mapPro.MapID;
+                        m_object.equ.EquID = NameTool.CreateEquId(m_object.equtype);
+                        DBOPs db = new DBOPs();
+                        if (db.InsertEqu(m_object) > 0)
+                        {
+                            m_ObjectList.Add(m_object);
+                            m_pCurrentObject = m_object;
+                            m_object.DrawOjbect(g);
+                        }
+                    }
+                }
+            }
+            //this.Invalidate(new Rectangle(m_StartPt.X + iMovePix, m_StartPt.Y + iMovePix, M_EndPt.X + iMovePix, M_EndPt.Y + iMovePix));
         }
 
         /// <summary>
@@ -1389,32 +1451,140 @@ namespace WindowMake
         /// <param name="e"></param>
         private void FormView_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.Modifiers == Keys.Control && e.KeyCode == Keys.C)//复制
-            //{
-            //    panel1.toolCopyObject();
-            //}
-            //else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)//粘贴
-            //{
-            //    panel1.toolPasteObject();
-            //}
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.C)//复制
+            {
+                toolCopyObject();
+            }
+            else if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)//粘贴
+            {
+                 toolPasteObject();
+            }
+            Graphics g = CreateGraphics();
+            int i = 0;
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    {
+                        for (int j = m_ObjectList.Count - 1; j >= 0; j--)
+                        {
+                            if (m_ObjectList[j].obj_bSelect)
+                            {
+                                m_ObjectList.Remove(m_ObjectList[j]);
+                                MyObjectInvalidate(m_ObjectList[j].LocationInMap);
+                            }
+                        }
+                        m_pCurrentObject = null;
+                    }
+                    break;
+                //case Keys.Menu:
+                //    m_bAltDown = true; //框选状态
+                //    break;
+                case Keys.ControlKey:
+                    m_bMultiMove = true;
+                    break;
+                case Keys.Up:
+                    {
+                        for (i = 0; i < m_ObjectList.Count; i++)
+                        {
+                            if (m_ObjectList[i].obj_bSelect)
+                            {
+                                MyObjectInvalidate(m_ObjectList[i].LocationInMap);
+                                var location = m_ObjectList[i].LocationInMap;
+                                location.Y -= m_MoveUnit;
+                                m_ObjectList[i].LocationInMap = location;
+                                m_ObjectList[i].DrawOjbect(g);
+                            }
+                        }
+                    }
+                    break;
+                case Keys.Down:
+                    {
+                        for (i = 0; i < m_ObjectList.Count; i++)
+                        {
+                            if (m_ObjectList[i].obj_bSelect)
+                            {
+                                MyObjectInvalidate(m_ObjectList[i].LocationInMap);
+                                var location = m_ObjectList[i].LocationInMap;
+                                location.Y += m_MoveUnit;
+                                m_ObjectList[i].LocationInMap = location;
+                                m_ObjectList[i].DrawOjbect(g);
+                            }
+                        }
+                    }
+                    break;
+                case Keys.Left:
+                    {
+                        for (i = 0; i < m_ObjectList.Count; i++)
+                        {
+                            if (m_ObjectList[i].obj_bSelect)
+                            {
+                                MyObjectInvalidate(m_ObjectList[i].LocationInMap);
+                                var location = m_ObjectList[i].LocationInMap;
+                                location.X -= m_MoveUnit;
+                                m_ObjectList[i].LocationInMap = location;
+                                m_ObjectList[i].DrawOjbect(g);
+                            }
+                        }
+                    }
+                    break;
+                case Keys.Right:
+                    {
+                        for (i = 0; i < m_ObjectList.Count; i++)
+                        {
+                            if (m_ObjectList[i].obj_bSelect)
+                            {
+                                MyObjectInvalidate(m_ObjectList[i].LocationInMap);
+                                var location = m_ObjectList[i].LocationInMap;
+                                location.X += m_MoveUnit;
+                                m_ObjectList[i].LocationInMap = location;
+                                m_ObjectList[i].DrawOjbect(g);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        private void FormView_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.ControlKey:
+                    m_bMultiMove = false;
+                    break;
+                //case Keys.Menu:
+                //    m_bAltDown = false;
+                //    break;
+            }
         }
 
         private void FormView_MouseDown(object sender, MouseEventArgs e)
         {
             mouseIsDown = true;
             m_oldMousePoint = e.Location;
-            if (!m_bMultiMove)
+            MyObject temp = SeachObject(e.Location);
+            if (temp != null)
             {
-                if (m_pCurrentObject != null)
+                if (!m_bMultiMove)
                 {
-                    m_pCurrentObject.obj_bCopy = false;
-                    ClearSelectObject();
+                    if (m_pCurrentObject != null)
+                    {
+                        m_pCurrentObject.obj_bCopy = false;
+                        m_pCurrentObject = null;
+                        ClearSelectObject();
+                    }
+                    m_pCurrentObject = temp;
+                    m_pCurrentObject.obj_bSelect = true;
+                    DrawSelectRect2(CreateGraphics(), m_pCurrentObject, Color.White, Brushes.White);
                 }
-                m_pCurrentObject = SeachObject(e.Location);
             }
-            if (m_pCurrentObject == null)
+            else
             {
-                ClearSelectObject();
+                if (m_pCurrentObject!=null)
+                {
+                    ClearSelectObject();
+                    m_pCurrentObject = null;
+                }
                 DrawStart(e.Location);
             }
         }
@@ -1458,8 +1628,15 @@ namespace WindowMake
             Cursor.Clip = Rectangle.Empty;
             mouseIsDown = false;
             DrawRectangle();
-            CreateSelectedObjectArea(mouseRect);
+            if (mouseRect.Width>0||mouseRect.Height>0)
+            {
+                CreateSelectedObjectArea(mouseRect);
+            }
             mouseRect = Rectangle.Empty;
+            if (e.Button == MouseButtons.Right)
+            {
+                contextMenuStrip1.Show(this, e.Location);
+            }
         }
         /// <summary>
         /// 根据坐标查找选中对象
@@ -1475,7 +1652,6 @@ namespace WindowMake
                 {
                     m_ObjectList[i].obj_bSelect = true;
                     m_ObjectList[i].obj_bCopy = true;
-                    DrawSelectRect2(CreateGraphics(), m_ObjectList[i], Color.White);
                     return m_ObjectList[i];
                 }
             }
