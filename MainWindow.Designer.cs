@@ -176,6 +176,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.测试ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yX取反ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -199,7 +200,6 @@
             this.toolStripButton20 = new System.Windows.Forms.ToolStripButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.yX取反ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -411,9 +411,16 @@
             // 测试ToolStripMenuItem
             // 
             this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
-            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.测试ToolStripMenuItem.Text = "测试";
             this.测试ToolStripMenuItem.Click += new System.EventHandler(this.测试ToolStripMenuItem_Click);
+            // 
+            // yX取反ToolStripMenuItem
+            // 
+            this.yX取反ToolStripMenuItem.Name = "yX取反ToolStripMenuItem";
+            this.yX取反ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.yX取反ToolStripMenuItem.Text = "YX取反";
+            this.yX取反ToolStripMenuItem.Click += new System.EventHandler(this.yX取反ToolStripMenuItem_Click);
             // 
             // toolStrip1
             // 
@@ -761,13 +768,6 @@
             this.splitter1.TabIndex = 10;
             this.splitter1.TabStop = false;
             // 
-            // yX取反ToolStripMenuItem
-            // 
-            this.yX取反ToolStripMenuItem.Name = "yX取反ToolStripMenuItem";
-            this.yX取反ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.yX取反ToolStripMenuItem.Text = "YX取反";
-            this.yX取反ToolStripMenuItem.Click += new System.EventHandler(this.yX取反ToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -783,6 +783,7 @@
             this.Name = "MainWindow";
             this.Text = "WindowMake";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseMove);
             this.statusStrip1.ResumeLayout(false);

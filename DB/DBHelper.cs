@@ -100,7 +100,7 @@ namespace WindowMake.DB
             }
         }
 
-        private static void CloseConnection()
+        public static void CloseConnection()
         {
             try
             {

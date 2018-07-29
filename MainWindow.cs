@@ -45,7 +45,7 @@ namespace WindowMake
                 FormView frmTemp = new FormView(); //新建一个窗体对象，可根据需要新建自己设计的窗体 
                 frmTemp.MdiParent = this; //设置窗口的MdiParent属性为当前主窗口，成为MDI子窗体 
                 frmTemp.Text = "画面" + FormCount.ToString(); //设定MDI窗体的标题 
-                frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
+                //frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
                 FormCount++; //FormCount是定义在主程序中的一个变量来记录产生的子窗口个数
                 m_CurrentView = frmTemp;
                 frmTemp.Show(); //把此MDI窗体显示出来
@@ -56,43 +56,6 @@ namespace WindowMake
             }
         }
 
-        private void FormView_ObjectSelectChanged(object sender, SelectEventArgs e)
-        {
-            //if (e.bSelect)
-            //{
-            //    this.toolStripButton4.Enabled = true;
-            //    this.toolStripButton5.Enabled = true;
-            //    this.toolStripButton6.Enabled = true;
-            //    this.toolStripButton7.Enabled = true;
-            //    this.toolStripButton8.Enabled = true;
-            //    this.toolStripButton9.Enabled = true;
-            //    this.toolStripButton10.Enabled = true;
-            //    this.toolStripButton11.Enabled = true;
-            //    this.toolStripButton13.Enabled = true;
-            //    this.toolStripButton14.Enabled = true;
-            //    this.toolStripButton15.Enabled = true;
-            //    this.CopyToolStripMenuItem.Enabled = true;
-            //}
-            //else
-            //{
-            //    this.toolStripButton4.Enabled = false;
-            //    this.toolStripButton5.Enabled = false;
-            //    this.toolStripButton6.Enabled = false;
-            //    this.toolStripButton7.Enabled = false;
-            //    this.toolStripButton8.Enabled = false;
-            //    this.toolStripButton9.Enabled = false;
-            //    this.toolStripButton10.Enabled = false;
-            //    this.toolStripButton11.Enabled = false;
-            //    this.toolStripButton13.Enabled = false;
-            //    this.toolStripButton14.Enabled = false;
-            //    this.toolStripButton15.Enabled = false;
-            //    this.CopyToolStripMenuItem.Enabled = false;
-            //}
-            if (e.bCopy)
-                this.PasteToolStripMenuItem.Enabled = true;
-            else
-                this.PasteToolStripMenuItem.Enabled = false;
-        }
         private void Menu_Cascade_Click(object sender, EventArgs e)// MDI窗体的层叠操作
         {
             this.LayoutMdi(MdiLayout.Cascade);
@@ -123,7 +86,7 @@ namespace WindowMake
             if (1 < e.Node.Level)
             {
                 gMain.drawType = (MyObject.ObjectType)Enum.Parse(typeof(MyObject.ObjectType), e.Node.Name);
-               
+
             }
             else
                 gMain.drawType = MyObject.ObjectType.UnKnow;
@@ -131,7 +94,6 @@ namespace WindowMake
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            //CreateView();
             this.treeView1.ExpandAll();
         }
         private void MainWindow_MouseMove(object sender, MouseEventArgs e)
@@ -271,7 +233,7 @@ namespace WindowMake
                 m_CurrentView.MultiObjectSet(9);
             }
         }
-        
+
         private void toolStripButton14_Click(object sender, EventArgs e)
         {//增加水平间距
             if (m_CurrentView != null)
@@ -342,29 +304,22 @@ namespace WindowMake
                 if (openMap.ShowDialog() == DialogResult.OK)
                 {
                     Map map = (Map)openMap.comboBoxMapList.SelectedItem;
-                    //CreateView();
                     FormView frmTemp = new FormView(); //新建一个窗体对象，可根据需要新建自己设计的窗体 
                     frmTemp.MdiParent = this; //设置窗口的MdiParent属性为当前主窗口，成为MDI子窗体 
                     frmTemp.Text = map.MapName; ; //设定MDI窗体的标题 
                     frmTemp.Name = map.MapID;
-                    frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
+                    Log.WriteLog("打开地图" + map.MapName + " :" + map.MapAddress);
+                    //frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
                     FormCount++; //FormCount是定义在主程序中的一个变量来记录产生的子窗口个数
                     m_CurrentView = frmTemp;
                     frmTemp.SetContextMenu(int.Parse(map.MapID));
                     frmTemp.OpenDB(map);
                     frmTemp.Show(); //把此MDI窗体显示出来
-                    //if (m_CurrentView != null)
-                    //{
-                    //    //m_CurrentView.Name = map.MapID;
-                    //    //m_CurrentView.Text = map.MapName;
-                    //    m_CurrentView.SetContextMenu(int.Parse(map.MapID));
-                    //    m_CurrentView.OpenDB(map);
-                    //}
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog("打开数据库数据错误："+e);
+                Log.WriteLog("打开数据库数据错误：" + e);
             }
         }
 
@@ -405,6 +360,11 @@ namespace WindowMake
         private void yX取反ToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DBHelper.CloseConnection();
         }
     }
 }
