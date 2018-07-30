@@ -136,21 +136,21 @@ namespace WindowMake
         {
             try
             {
-                //OpenFileDialog opendialog = new OpenFileDialog();
-                //opendialog.Title = "请选择文件";
-                //opendialog.Filter = "所有文件(*.*)|*.*";
-                //if (opendialog.ShowDialog() == DialogResult.OK)
-                //{
-                //    CreateView();
-                //    if (m_CurrentView != null)
-                //    {
-                //        Map map = m_CurrentView.OpenDocument(opendialog.FileName);
-                //        m_CurrentView.Name = map.MapID;
-                //        m_CurrentView.Text = map.MapName;
-                //        m_CurrentView.fileName = opendialog.FileName;
-                //        m_CurrentView.OpenDB(map);
-                //    }
-                //}
+                OpenFileDialog opendialog = new OpenFileDialog();
+                opendialog.Title = "请选择文件";
+                opendialog.Filter = "所有文件(*.*)|*.*";
+                if (opendialog.ShowDialog() == DialogResult.OK)
+                {
+                    CreateView();
+                    if (m_CurrentView != null)
+                    {
+                        Map map = m_CurrentView.OpenDocument(opendialog.FileName);
+                        m_CurrentView.Name = map.MapID;
+                        m_CurrentView.Text = map.MapName;
+                        m_CurrentView.fileName = opendialog.FileName;
+                        m_CurrentView.OpenDB(map);
+                    }
+                }
             }
             catch (Exception ex)
             {

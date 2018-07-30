@@ -148,6 +148,7 @@ namespace WindowMake
                             createAddDialog.Hide();
                         }
                         DBOPs db = new DBOPs();
+                        Log.WriteLog("批量生成设备：" + obj);
                         int parentWith = BackgroundImage.Size.Width;
                         for (int i = 0; i < count; i++)
                         {
@@ -745,11 +746,10 @@ namespace WindowMake
             for (int i = 0; i < m_ObjectList.Count; i++)
             {
                 m_ObjectList[i].DrawOjbect(e.Graphics);
-                //if (m_ObjectList[i].obj_bSelect)
-                //{
-                //    //DrawSelectRect(e.Graphics, m_ObjectList[i]);
-                //    DrawSelectRect2(e.Graphics, m_ObjectList[i], Color.White, Brushes.White);
-                //}
+                if (m_ObjectList[i].obj_bSelect)
+                {
+                    DrawSelectRect2(e.Graphics, m_ObjectList[i], Color.White, Brushes.Black);
+                }
             }
             ////if (m_bAltDown && m_DrawMode == DrawMode.Move)
             ////{
@@ -2041,7 +2041,6 @@ namespace WindowMake
                                 location.Y += y;
                                 m_ObjectList[i].LocationInMap = location;
                                 m_ObjectList[i].DrawOjbect(g);
-                                //DrawSelectRect2(g, m_ObjectList[i], Color.White, Brushes.Black);
                             }
                         }
                         DrawSelectRect2All();
@@ -2107,6 +2106,7 @@ namespace WindowMake
             }
             return null;
         }
+      
         /// <summary>
         /// 绘制选择框
         /// </summary>
