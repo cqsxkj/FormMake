@@ -92,8 +92,13 @@
             this.Controls.Add(this.bt_save);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.groupBox2);
+            this.MinimizeBox = false;
             this.Name = "AddTrigger2Group";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AddTrigger2Group";
+            this.TopMost = true;
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 

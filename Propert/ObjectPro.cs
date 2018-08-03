@@ -383,6 +383,11 @@ namespace WindowMake.Propert
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
                 {
+                    if (cb_yxarea.SelectedItem == null)
+                    {
+                        MessageBox.Show("请选择分区");
+                        return;
+                    }
                     Yx_cfg yxcfg = new Yx_cfg();
                     yxcfg.IsError = 0;
                     yxcfg.AreaID = (int)cb_yxarea.SelectedValue;
@@ -427,6 +432,11 @@ namespace WindowMake.Propert
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
                 {
+                    if (cb_ykarea.SelectedItem == null)
+                    {
+                        MessageBox.Show("请选择分区");
+                        return;
+                    }
                     Yk_cfg ykcfg = new Yk_cfg();
                     ykcfg.AreaID = (int)cb_ykarea.SelectedValue;
                     ykcfg.Order = Byklist.Count;
