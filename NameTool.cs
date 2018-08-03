@@ -31,7 +31,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("nameTool:" + e.Message);
+                gMain.log.WriteLog("nameTool:" + e.Message);
             }
         }
         /// <summary>

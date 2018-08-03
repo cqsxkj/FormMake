@@ -41,7 +41,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("尝试打开 " + this._fileName + " 失败, 请确认文件是否存在！");
+                gMain.log.WriteLog("尝试打开 " + this._fileName + " 失败, 请确认文件是否存在！");
                 throw e;
             }
         }
@@ -54,7 +54,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("ExcuteSql:" + e);
+                gMain.log.WriteLog("ExcuteSql:" + e);
                 throw e;
             }
         }
@@ -83,7 +83,7 @@ namespace WindowMake.DB
             }
             catch (Exception)
             {
-                Log.WriteLog("sql语句： " + sql + " 执行失败！");
+                gMain.log.WriteLog("sql语句： " + sql + " 执行失败！");
                 throw new Exception("sql语句： " + sql + " 执行失败！");
             }
             return ds;

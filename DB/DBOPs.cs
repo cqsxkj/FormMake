@@ -31,13 +31,13 @@ namespace WindowMake.DB
                 }
                 if (!string.IsNullOrEmpty(sql))
                 {
-                    Log.WriteLog("InsertC_cfgList:" + sql);
+                    gMain.log.WriteLog("InsertC_cfgList:" + sql);
                     value = DBHelper.ExcuteTransactionSql(sql);
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog("InsertC_cfgList:" + e);
+                gMain.log.WriteLog("InsertC_cfgList:" + e);
             }
             return value;
         }
@@ -103,13 +103,13 @@ namespace WindowMake.DB
                 }
                 if (!string.IsNullOrEmpty(strSql))
                 {
-                    Log.WriteLog("InsertFire:" + strSql);
+                    gMain.log.WriteLog("InsertFire:" + strSql);
                     value = DBHelper.ExcuteTransactionSql(strSql);
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog("InsertFire:" + e);
+                gMain.log.WriteLog("InsertFire:" + e);
             }
             return value;
         }
@@ -136,7 +136,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
             }
             return value;
         }
@@ -158,7 +158,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
             }
             return value;
         }
@@ -300,7 +300,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return i;
                 throw e;
             }
@@ -682,7 +682,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("InsertAreas:" + e);
+                gMain.log.WriteLog("InsertAreas:" + e);
                 throw;
             }
             return isSuccess;
@@ -701,7 +701,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("InsertArea:" + e.Message);
+                gMain.log.WriteLog("InsertArea:" + e.Message);
                 return isSuccess;
                 throw;
             }
@@ -725,7 +725,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
             }
             return isSuccess;
@@ -745,7 +745,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
             }
             return isSuccess;
         }
@@ -775,7 +775,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
             }
             return isSuccess;
@@ -803,7 +803,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
             }
             return isSuccess;
@@ -830,7 +830,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
             }
             return isSuccess;
@@ -853,7 +853,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
             }
             return isSuccess;
@@ -873,7 +873,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return isSuccess;
                 throw;
             }
@@ -894,7 +894,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("InsertYCCfg" + e);
+                gMain.log.WriteLog("InsertYCCfg" + e);
                 return isSuccess;
                 throw;
             }
@@ -1000,7 +1000,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("DeleteEqu:" + e);
+                gMain.log.WriteLog("DeleteEqu:" + e);
                 return -1;
                 throw e;
             }
@@ -1154,7 +1154,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("CreateInsertC_cfgSql:" + e);
+                gMain.log.WriteLog("CreateInsertC_cfgSql:" + e);
                 return null;
             }
             return sql.ToString();
@@ -1244,7 +1244,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return null;
             }
             return sql.ToString();
@@ -1359,7 +1359,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("创建yc表插入语句:" + e);
+                gMain.log.WriteLog("创建yc表插入语句:" + e);
                 return null;
             }
             return sql.ToString();
@@ -1406,7 +1406,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("创建插入遥测配置信息语句:" + e);
+                gMain.log.WriteLog("创建插入遥测配置信息语句:" + e);
                 return null;
             }
             return sql.ToString();
@@ -1456,7 +1456,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("创建插入yx_cfg表语句错误：" + e.Message);
+                gMain.log.WriteLog("创建插入yx_cfg表语句错误：" + e.Message);
                 return null;
             }
             return sql.ToString();
@@ -1522,7 +1522,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("生成插入紧急电话配置语句:" + e);
+                gMain.log.WriteLog("生成插入紧急电话配置语句:" + e);
             }
             return sql;
         }
@@ -1543,7 +1543,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("插入火灾配置信息语句:" + e);
+                gMain.log.WriteLog("插入火灾配置信息语句:" + e);
             }
             return sql;
         }
@@ -1560,7 +1560,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("生成插入地图信息语句:" + e);
+                gMain.log.WriteLog("生成插入地图信息语句:" + e);
                 return null;
             }
         }
@@ -1588,7 +1588,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("新增摄像机配置信息:" + e);
+                gMain.log.WriteLog("新增摄像机配置信息:" + e);
                 return null;
             }
         }
@@ -1638,7 +1638,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("根据equid更新ip和port:" + e);
+                gMain.log.WriteLog("根据equid更新ip和port:" + e);
                 return null;
             }
         }
@@ -1687,7 +1687,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("更新PLC分区表:" + e);
+                gMain.log.WriteLog("更新PLC分区表:" + e);
                 return null;
             }
         }

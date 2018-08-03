@@ -31,7 +31,7 @@ namespace WindowMake.Propert
             }
             catch (Exception e)
             {
-                Log.WriteLog("绑定预案下拉菜单错误！" + e.Message);
+                gMain.log.WriteLog("绑定预案下拉菜单错误！" + e.Message);
             }
         }
 
@@ -82,7 +82,7 @@ namespace WindowMake.Propert
             }
             catch (Exception e)
             {
-                Log.WriteLog("添加触发设备到列表错误：" + e);
+                gMain.log.WriteLog("添加触发设备到列表错误：" + e);
             }
         }
         private void bt_triggerDelete_Click(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace WindowMake.Propert
                     }
                     catch (Exception ex)
                     {
-                        Log.WriteLog("群控触发设备保存失败:" + ex);
+                        gMain.log.WriteLog("群控触发设备保存失败:" + ex);
                         MessageBox.Show("保存失败！");
                     }
                 }

@@ -29,7 +29,7 @@ namespace WindowMake.Tool
             }
             catch (Exception ex)
             {
-                Log.WriteLog("xml反序列化" + ex.Message);
+                gMain.log.WriteLog("xml反序列化" + ex.Message);
                 return null;
             }
         }
@@ -56,7 +56,7 @@ namespace WindowMake.Tool
             }
             catch (Exception e)
             {
-                Log.WriteLog("xml序列化" + e.Message);
+                gMain.log.WriteLog("xml序列化" + e.Message);
                 throw e;
             }
         }

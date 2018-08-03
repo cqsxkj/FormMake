@@ -74,7 +74,7 @@ namespace WindowMake.Propert
             }
             catch (Exception ex)
             {
-                Log.WriteLog(ex);
+                gMain.log.WriteLog(ex);
             }
         }
 
@@ -378,7 +378,7 @@ namespace WindowMake.Propert
         //增加遥信点位
         private void bt_yxadd_Click(object sender, EventArgs e)
         {
-            Log.WriteLog("新增遥信");
+            gMain.log.WriteLog("新增遥信");
             try
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
@@ -400,12 +400,12 @@ namespace WindowMake.Propert
                         yxcfg.ID = i;
                         Byxlist.Add(yxcfg);
                     }
-                    Log.WriteLog("新增遥信并添加到列表完毕");
+                    gMain.log.WriteLog("新增遥信并添加到列表完毕");
                 }
             }
             catch (Exception ee)
             {
-                Log.WriteLog("新增遥信错误：" + ee.Message);
+                gMain.log.WriteLog("新增遥信错误：" + ee.Message);
             }
         }
         /// <summary>
@@ -425,7 +425,7 @@ namespace WindowMake.Propert
         /// <param name="e"></param>
         private void bt_ykadd_Click(object sender, EventArgs e)
         {
-            Log.WriteLog("新增遥控");
+            gMain.log.WriteLog("新增遥控");
             try
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
@@ -446,12 +446,12 @@ namespace WindowMake.Propert
                         ykcfg.ID = i;
                         Byklist.Add(ykcfg);
                     }
-                    Log.WriteLog("新增遥控并添加到列表完毕");
+                    gMain.log.WriteLog("新增遥控并添加到列表完毕");
                 }
             }
             catch (Exception ee)
             {
-                Log.WriteLog("新增遥控错误：" + ee.Message);
+                gMain.log.WriteLog("新增遥控错误：" + ee.Message);
             }
         }
         /// <summary>
@@ -506,7 +506,7 @@ namespace WindowMake.Propert
             }
             catch (Exception ex)
             {
-                Log.WriteLog(ex);
+                gMain.log.WriteLog(ex);
             }
         }
         //修改遥控点位
@@ -529,7 +529,7 @@ namespace WindowMake.Propert
             }
             catch (Exception ex)
             {
-                Log.WriteLog(ex);
+                gMain.log.WriteLog(ex);
             }
         }
         //修改遥测点位
@@ -557,7 +557,7 @@ namespace WindowMake.Propert
             }
             catch (Exception ex)
             {
-                Log.WriteLog(ex);
+                gMain.log.WriteLog(ex);
             }
         }
         //遥测新增

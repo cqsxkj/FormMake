@@ -150,7 +150,7 @@ namespace WindowMake.Device
             }
             catch (Exception e)
             {
-                Log.WriteLog("图片不存在" + e.Message);
+                gMain.log.WriteLog("图片不存在" + e.Message);
             }
         }
         public virtual XmlElement SaveObject(XmlDocument doc)

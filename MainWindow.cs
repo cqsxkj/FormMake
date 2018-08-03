@@ -16,7 +16,7 @@ namespace WindowMake
         private FormView m_CurrentView;
         public MainWindow()
         {
-            Log.WriteLog("【系统启动】");
+            gMain.log.WriteLog("【系统启动】");
             InitializeComponent();
             try
             {
@@ -27,7 +27,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
             }
         }
 
@@ -308,7 +308,7 @@ namespace WindowMake
                     frmTemp.MdiParent = this; //设置窗口的MdiParent属性为当前主窗口，成为MDI子窗体 
                     frmTemp.Text = map.MapName; ; //设定MDI窗体的标题 
                     frmTemp.Name = map.MapID;
-                    Log.WriteLog("打开地图" + map.MapName + " :" + map.MapAddress);
+                    gMain.log.WriteLog("打开地图" + map.MapName + " :" + map.MapAddress);
                     //frmTemp.SelectChanged += new System.EventHandler<SelectEventArgs>(this.FormView_ObjectSelectChanged);
                     FormCount++; //FormCount是定义在主程序中的一个变量来记录产生的子窗口个数
                     m_CurrentView = frmTemp;
@@ -319,7 +319,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("打开数据库数据错误：" + e);
+                gMain.log.WriteLog("打开数据库数据错误：" + e);
             }
         }
 
@@ -365,7 +365,7 @@ namespace WindowMake
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             DBHelper.CloseConnection();
-            Log.WriteLog("【系统退出】");
+            gMain.log.WriteLog("【系统退出】");
         }
 
         private void addTrigger2GroupToolStripMenuItem_Click(object sender, EventArgs e)

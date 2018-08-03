@@ -30,7 +30,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetGctriggerEqu：" + e);
+                gMain.log.WriteLog("GetGctriggerEqu：" + e);
             }
             return gc_triggerequ;
         }
@@ -48,7 +48,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetGcEqu：" + e);
+                gMain.log.WriteLog("GetGcEqu：" + e);
             }
             return gc_equ;
         }
@@ -71,7 +71,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetGcByMapID：" + e);
+                gMain.log.WriteLog("GetGcByMapID：" + e);
             }
             return null;
         }
@@ -88,7 +88,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetGcByMapID：" + e);
+                gMain.log.WriteLog("GetGcByMapID：" + e);
             }
             return gcs;
         }
@@ -106,7 +106,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetAllGc：" + e);
+                gMain.log.WriteLog("GetAllGc：" + e);
             }
             return gcs;
         }
@@ -124,7 +124,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetAllCommand：" + e);
+                gMain.log.WriteLog("GetAllCommand：" + e);
             }
             return commands;
         }
@@ -141,7 +141,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetCommandType：" + e);
+                gMain.log.WriteLog("GetCommandType：" + e);
             }
             return commands;
         }
@@ -158,7 +158,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetAllArea：" + e.Message);
+                gMain.log.WriteLog("GetAllArea：" + e.Message);
             }
             return areas;
         }
@@ -179,7 +179,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetAreaByEquID：" + e.Message);
+                gMain.log.WriteLog("GetAreaByEquID：" + e.Message);
             }
             return areas;
         }
@@ -197,7 +197,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetEpConfig" + e.Message);
+                gMain.log.WriteLog("GetEpConfig" + e.Message);
                 return null;
             }
             return cfgs;
@@ -215,7 +215,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetFireConfig" + e.Message);
+                gMain.log.WriteLog("GetFireConfig" + e.Message);
                 return null;
             }
             return cfgs;
@@ -233,7 +233,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetTVConfig" + e.Message);
+                gMain.log.WriteLog("GetTVConfig" + e.Message);
                 return null;
             }
             return cfgs;
@@ -251,7 +251,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetCMSConfig" + e.Message);
+                gMain.log.WriteLog("GetCMSConfig" + e.Message);
                 return null;
             }
             return cfgs;
@@ -293,7 +293,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("ReadEqu:" + e.Message);
+                gMain.log.WriteLog("ReadEqu:" + e.Message);
                 return null;
             }
             return equs;
@@ -316,7 +316,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog(e.Message);
+                gMain.log.WriteLog(e.Message);
                 return null;
             }
             return null;
@@ -338,7 +338,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetTunnel:" + e.Message);
+                gMain.log.WriteLog("GetTunnel:" + e.Message);
                 return null;
             }
             return tunnels;
@@ -358,7 +358,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("GetToll:" + e.Message);
+                gMain.log.WriteLog("GetToll:" + e.Message);
                 return null;
             }
             return tolls;

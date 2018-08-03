@@ -33,7 +33,7 @@ namespace WindowMake.DB
             }
             catch (Exception)
             {
-                Log.WriteLog("打开数据库失败！");
+                gMain.log.WriteLog("打开数据库失败！");
                 return -1;
             }
             transaction = connection.BeginTransaction();
@@ -52,7 +52,7 @@ namespace WindowMake.DB
                 {
                     transaction.Rollback();
                     transaction.Dispose();
-                    Log.WriteLog("ExcuteTransactionSql:" + e);
+                    gMain.log.WriteLog("ExcuteTransactionSql:" + e);
                     CloseConnection();
                     return i;
                 }
@@ -71,7 +71,7 @@ namespace WindowMake.DB
             }
             catch (Exception)
             {
-                Log.WriteLog("打开数据库失败！");
+                gMain.log.WriteLog("打开数据库失败！");
                 return -1;
             }
             using (MySqlCommand cmd = new MySqlCommand(SQLString, connection))
@@ -84,7 +84,7 @@ namespace WindowMake.DB
                 }
                 catch (MySql.Data.MySqlClient.MySqlException e)
                 {
-                    Log.WriteLog("ExcuteSql:" + e);
+                    gMain.log.WriteLog("ExcuteSql:" + e);
                     CloseConnection();
                     return -1;
                 }
@@ -96,7 +96,7 @@ namespace WindowMake.DB
             {
                 connection.Open();
                 DBalive = true;
-                Log.WriteLog("数据库连接打开" + connection.DataSource + " " + connection.Database);
+                gMain.log.WriteLog("数据库连接打开" + connection.DataSource + " " + connection.Database);
             }
         }
 
@@ -106,11 +106,11 @@ namespace WindowMake.DB
             {
                 connection.Close();
                 DBalive = false;
-                Log.WriteLog("数据库连接关闭。");
+                gMain.log.WriteLog("数据库连接关闭。");
             }
             catch (Exception)
             {
-                Log.WriteLog("关闭连接异常!");
+                gMain.log.WriteLog("关闭连接异常!");
             }
         }
         /// <summary>
@@ -129,7 +129,7 @@ namespace WindowMake.DB
             }
             catch (MySql.Data.MySqlClient.MySqlException ex)
             {
-                Log.WriteLog("ExcuteSql:" + ex);
+                gMain.log.WriteLog("ExcuteSql:" + ex);
             }
             return ds;
         }
@@ -143,7 +143,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("ExcuteSql:" + e);
+                gMain.log.WriteLog("ExcuteSql:" + e);
                 throw e;
             }
         }
@@ -160,7 +160,7 @@ namespace WindowMake.DB
             }
             catch (Exception e)
             {
-                Log.WriteLog("ExcuteSql:" + e);
+                gMain.log.WriteLog("ExcuteSql:" + e);
                 throw e;
             }
         }

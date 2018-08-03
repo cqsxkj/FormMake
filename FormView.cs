@@ -52,7 +52,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("读取命令枚举错误" + e.Message);
+                gMain.log.WriteLog("读取命令枚举错误" + e.Message);
             }
         }
         private void FormView_MdiChildActivate(object sender, EventArgs e)
@@ -145,11 +145,11 @@ namespace WindowMake
                         }
                         catch (Exception)
                         {
-                            Log.WriteLog("配置号码格式不正确");
+                            gMain.log.WriteLog("配置号码格式不正确");
                             createAddDialog.Hide();
                         }
                         DBOPs db = new DBOPs();
-                        Log.WriteLog("批量生成设备：" + obj);
+                        gMain.log.WriteLog("批量生成设备：" + obj);
                         int parentWith = BackgroundImage.Size.Width;
                         for (int i = 0; i < count; i++)
                         {
@@ -196,7 +196,7 @@ namespace WindowMake
             }
             catch (Exception ex)
             {
-                Log.WriteLog(ex);
+                gMain.log.WriteLog(ex);
             }
         }
         /// <summary>
@@ -374,7 +374,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("修改同类型设备名称:" + e);
+                gMain.log.WriteLog("修改同类型设备名称:" + e);
             }
         }
 
@@ -404,7 +404,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog("设置右键菜单内容:" + e);
+                gMain.log.WriteLog("设置右键菜单内容:" + e);
                 throw e;
             }
         }
@@ -538,7 +538,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 throw e;
             }
         }
@@ -572,7 +572,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog(e.Message);
+                gMain.log.WriteLog(e.Message);
                 throw;
             }
             DinoComparer dc = new DinoComparer();
@@ -738,7 +738,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 throw;
             }
         }

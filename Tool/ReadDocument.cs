@@ -80,7 +80,7 @@ namespace WindowMake.Tool
                 List<yc> ycs = ds.GetYcs();
                 List<Yc_cfg> yccfgs = ds.GetYccfgs();
                 List<p_area_cfg> areas = ds.GetAllArea();
-                Log.WriteLog("start readxml:" + DateTime.Now.ToString("HH:mm:ss.fff"));
+                gMain.log.WriteLog("start readxml:" + DateTime.Now.ToString("HH:mm:ss.fff"));
                 List<Yx_cfg> yxcfgdb = new List<Yx_cfg>();
                 List<Yk_cfg> ykcfgdb = new List<Yk_cfg>();
                 //交大地图的宽度和高度
@@ -467,17 +467,17 @@ namespace WindowMake.Tool
                         List<f_c_cfg> fireinfos = new List<f_c_cfg>();
                         List<ep_c_cfg> epinfos = new List<ep_c_cfg>();
                         List<c_cfg> cms = new List<c_cfg>();
-                        Log.WriteLog("yxcfgdb:" + DateTime.Now);
+                        gMain.log.WriteLog("yxcfgdb:" + DateTime.Now);
                         if (yxcfgdb.Count > 0)
                         {
                             dbop.InsertYXConfig(yxcfgdb);
                         }
-                        Log.WriteLog("ykcfgdb:" + DateTime.Now);
+                        gMain.log.WriteLog("ykcfgdb:" + DateTime.Now);
                         if (ykcfgdb.Count > 0)
                         {
                             dbop.InsertYKConfig(ykcfgdb);
                         }
-                        Log.WriteLog("子系统:" + DateTime.Now);
+                        gMain.log.WriteLog("子系统:" + DateTime.Now);
                         for (int i = 0; i < equList.Count; i++)
                         {
                             if (equList[i] is FireEqu)//插入火灾配置信息
@@ -500,17 +500,17 @@ namespace WindowMake.Tool
                                 cms.Add((equList[i] as CMSEqu).cms_pro);
                             }
                         }
-                        Log.WriteLog("火灾配置条数:" + dbop.InsertFire(fireinfos));
-                        Log.WriteLog("摄像机配置条数：" + dbop.InsertCCTV(tvinfos));
-                        Log.WriteLog("紧急电话配置条数：" + dbop.InsertEpList(epinfos));
-                        Log.WriteLog("情报板配置条数：" + dbop.InsertC_cfgList(cms));
+                        gMain.log.WriteLog("火灾配置条数:" + dbop.InsertFire(fireinfos));
+                        gMain.log.WriteLog("摄像机配置条数：" + dbop.InsertCCTV(tvinfos));
+                        gMain.log.WriteLog("紧急电话配置条数：" + dbop.InsertEpList(epinfos));
+                        gMain.log.WriteLog("情报板配置条数：" + dbop.InsertC_cfgList(cms));
                     }
-                    //Log.WriteLog("InsertCount:" + InsertCount);
+                    //gMain.log.WriteLog("InsertCount:" + InsertCount);
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
                 return false;
             }
             return true;
@@ -580,7 +580,7 @@ namespace WindowMake.Tool
             }
             catch (Exception e)
             {
-                Log.WriteLog("SetPLCFartherInfo:" + e);
+                gMain.log.WriteLog("SetPLCFartherInfo:" + e);
                 return -1;
             }
             return areaID;
@@ -776,7 +776,7 @@ namespace WindowMake.Tool
             }
             catch (Exception e)
             {
-                Log.WriteLog(e);
+                gMain.log.WriteLog(e);
             }
         }
         /// <summary>

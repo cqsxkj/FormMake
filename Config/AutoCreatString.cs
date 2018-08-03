@@ -152,12 +152,12 @@ namespace WindowMake.Config
                 {
                     DBOPs db = new DBOPs();
                     db.InsertYX(insertEqu);
-                    Log.WriteLog("自动生成遥信字符串成功！");
+                    gMain.log.WriteLog("自动生成遥信字符串成功！");
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog("生成遥信字符串错误：" + e);
+                gMain.log.WriteLog("生成遥信字符串错误：" + e);
             }
         }
         /// <summary>
@@ -296,12 +296,12 @@ namespace WindowMake.Config
                 if (insertEqu.Count > 0)
                 {
                     db.InsertYK(insertEqu);
-                    Log.WriteLog("自动生成遥控字符串成功！");
+                    gMain.log.WriteLog("自动生成遥控字符串成功！");
                 }
             }
             catch (Exception e)
             {
-                Log.WriteLog("AutoCreateYK:" + e);
+                gMain.log.WriteLog("AutoCreateYK:" + e);
             }
         }
         /// <summary>
