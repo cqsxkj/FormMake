@@ -28,27 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lb_equType = new System.Windows.Forms.Label();
+            this.lb_direction = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(154, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "火灾手报 紧急电话修改桩号";
             // 
             // label2
             // 
@@ -67,25 +60,22 @@
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 2;
             this.label3.Text = "方向：";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // label4
+            // lb_equType
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(83, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "label4";
+            this.lb_equType.AutoSize = true;
+            this.lb_equType.Location = new System.Drawing.Point(83, 30);
+            this.lb_equType.Name = "lb_equType";
+            this.lb_equType.Size = new System.Drawing.Size(41, 12);
+            this.lb_equType.TabIndex = 3;
             // 
-            // label5
+            // lb_direction
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(268, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "label5";
+            this.lb_direction.AutoSize = true;
+            this.lb_direction.Location = new System.Drawing.Point(268, 30);
+            this.lb_direction.Name = "lb_direction";
+            this.lb_direction.Size = new System.Drawing.Size(0, 12);
+            this.lb_direction.TabIndex = 4;
             // 
             // label6
             // 
@@ -130,28 +120,56 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 105);
+            this.label9.Location = new System.Drawing.Point(217, 67);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(125, 12);
             this.label9.TabIndex = 10;
             this.label9.Text = "设备间隔距离（米）：";
             // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(348, 64);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(62, 21);
+            this.textBox3.TabIndex = 11;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 102);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(126, 16);
+            this.checkBox1.TabIndex = 12;
+            this.checkBox1.Text = "X坐标递增方向修改";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(159, 146);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "修改";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FEupdatePileNo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 261);
+            this.ClientSize = new System.Drawing.Size(438, 181);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lb_direction);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "FEupdatePileNo";
             this.Text = "FEupdatePileNo";
             this.ResumeLayout(false);
@@ -161,16 +179,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lb_equType;
+        private System.Windows.Forms.Label lb_direction;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
