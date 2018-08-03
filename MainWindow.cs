@@ -365,6 +365,7 @@ namespace WindowMake
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             DBHelper.CloseConnection();
+            Log.WriteLog("【系统退出】");
         }
 
         private void addTrigger2GroupToolStripMenuItem_Click(object sender, EventArgs e)

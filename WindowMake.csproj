@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\AutoCreatString.cs" />
     <Compile Include="DB\MDBHelper.cs" />
     <Compile Include="Device\services.cs" />
     <Compile Include="Device\EMO2Object.cs" />

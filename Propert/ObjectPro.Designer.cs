@@ -32,6 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tb_address = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.radio_all = new System.Windows.Forms.RadioButton();
             this.tb_fatherid = new System.Windows.Forms.TextBox();
             this.cb_activeUp = new System.Windows.Forms.CheckBox();
@@ -80,8 +82,6 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.tb_address = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -165,6 +165,22 @@
             this.tabPage1.Text = "基础属性";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // tb_address
+            // 
+            this.tb_address.Location = new System.Drawing.Point(68, 147);
+            this.tb_address.Name = "tb_address";
+            this.tb_address.Size = new System.Drawing.Size(115, 21);
+            this.tb_address.TabIndex = 45;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 150);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 12);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "地址描述：";
             // 
             // radio_all
             // 
@@ -332,14 +348,6 @@
             // cb_ycarea
             // 
             this.cb_ycarea.FormattingEnabled = true;
-            this.cb_ycarea.Items.AddRange(new object[] {
-            "B0",
-            "B1",
-            "B2",
-            "30",
-            "31",
-            "32",
-            "82"});
             this.cb_ycarea.Location = new System.Drawing.Point(409, 33);
             this.cb_ycarea.Name = "cb_ycarea";
             this.cb_ycarea.Size = new System.Drawing.Size(39, 20);
@@ -413,14 +421,6 @@
             // cb_ykarea
             // 
             this.cb_ykarea.FormattingEnabled = true;
-            this.cb_ykarea.Items.AddRange(new object[] {
-            "B0",
-            "B1",
-            "B2",
-            "30",
-            "31",
-            "32",
-            "82"});
             this.cb_ykarea.Location = new System.Drawing.Point(402, 30);
             this.cb_ykarea.Name = "cb_ykarea";
             this.cb_ykarea.Size = new System.Drawing.Size(39, 20);
@@ -464,14 +464,6 @@
             // cb_yxarea
             // 
             this.cb_yxarea.FormattingEnabled = true;
-            this.cb_yxarea.Items.AddRange(new object[] {
-            "B0",
-            "B1",
-            "B2",
-            "30",
-            "31",
-            "32",
-            "82"});
             this.cb_yxarea.Location = new System.Drawing.Point(410, 43);
             this.cb_yxarea.Name = "cb_yxarea";
             this.cb_yxarea.Size = new System.Drawing.Size(39, 20);
@@ -621,7 +613,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(495, 570);
+            this.tabPage2.Size = new System.Drawing.Size(495, 635);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "控制属性";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -645,22 +637,6 @@
             this.button2.Text = "取消";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // tb_address
-            // 
-            this.tb_address.Location = new System.Drawing.Point(68, 147);
-            this.tb_address.Name = "tb_address";
-            this.tb_address.Size = new System.Drawing.Size(115, 21);
-            this.tb_address.TabIndex = 45;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 150);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 12);
-            this.label14.TabIndex = 44;
-            this.label14.Text = "地址描述：";
             // 
             // ObjectPro
             // 

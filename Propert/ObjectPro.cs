@@ -394,9 +394,7 @@ namespace WindowMake.Propert
                     yxcfg.Order = Byxlist.Count;
                     yxcfg.EquID = m_obj.equ.EquID;
                     string sql = InsertYXcfg(yxcfg);
-                    Log.WriteLog("新增遥信语句生成完成");
                     int i = DBHelper.ExcuteSql(sql);
-                    Log.WriteLog("新增遥信执行完毕");
                     if (i > -1)
                     {
                         yxcfg.ID = i;
@@ -443,7 +441,6 @@ namespace WindowMake.Propert
                     ykcfg.EquID = m_obj.equ.EquID;
                     DBOPs ds = new DBOPs();
                     int i = ds.InsertYKConfig(ykcfg);
-                    Log.WriteLog("新增遥控执行完毕");
                     if (i > -1)
                     {
                         ykcfg.ID = i;

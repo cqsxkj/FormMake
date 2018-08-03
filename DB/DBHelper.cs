@@ -96,7 +96,7 @@ namespace WindowMake.DB
             {
                 connection.Open();
                 DBalive = true;
-                Log.WriteLog("数据库连接打开");
+                Log.WriteLog("数据库连接打开" + connection.DataSource + " " + connection.Database);
             }
         }
 
