@@ -15,6 +15,136 @@ namespace WindowMake
 {
     public class DataStorage
     {
+        #region 预案相关
+        /// <summary>
+        /// 获取单个预案触发设备
+        /// </summary>
+        /// <param name="gcid"></param>
+        /// <returns></returns>
+        public List<Gc_triggerequ> GetGctriggerEqu(string gcid)
+        {
+            List<Gc_triggerequ> gc_triggerequ = new List<Gc_triggerequ>();
+            try
+            {
+                gc_triggerequ = (List<Gc_triggerequ>)DBHelper.Query<Gc_triggerequ>(string.Format("select * from gc_triggerequ where gcid='{0}' order by equid;", gcid));
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetGctriggerEqu：" + e);
+            }
+            return gc_triggerequ;
+        }
+        /// <summary>
+        /// 获取单个预案控制设备
+        /// </summary>
+        /// <param name="gcid"></param>
+        /// <returns></returns>
+        public List<Gc_equ> GetGcEqu(string gcid)
+        {
+            List<Gc_equ> gc_equ = new List<Gc_equ>();
+            try
+            {
+                gc_equ = (List<Gc_equ>)DBHelper.Query<Gc_equ>(string.Format("select * from gc_equ where gcid='{0}' order by equid;", gcid));
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetGcEqu：" + e);
+            }
+            return gc_equ;
+        }
+
+        /// <summary>
+        /// 根据群控ID查询群控
+        /// </summary>
+        /// <param name="gcid"></param>
+        /// <returns></returns>
+        public Gc GetGcByGCID(string gcid)
+        {
+            List<Gc> gcs = new List<Gc>();
+            try
+            {
+                gcs = (List<Gc>)DBHelper.Query<Gc>(string.Format("select * from gc where GCID='{0}' order by gcid;", gcid));
+                if (gcs.Count > 0)
+                {
+                    return gcs[0];
+                }
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetGcByMapID：" + e);
+            }
+            return null;
+        }
+        /// <summary>
+        /// 查询地图内群控
+        /// </summary>
+        /// <returns></returns>
+        public List<Gc> GetGcByMapID(int mapid)
+        {
+            List<Gc> gcs = new List<Gc>();
+            try
+            {
+                gcs = (List<Gc>)DBHelper.Query<Gc>(string.Format("select * from gc where mapid='{0}' order by gcid;", mapid));
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetGcByMapID：" + e);
+            }
+            return gcs;
+        }
+
+        /// <summary>
+        /// 查询所有群控预案
+        /// </summary>
+        /// <returns></returns>
+        public List<Gc> GetAllGc()
+        {
+            List<Gc> gcs = new List<Gc>();
+            try
+            {
+                gcs = (List<Gc>)DBHelper.Query<Gc>("select * from gc order by gcid;");
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetAllGc：" + e);
+            }
+            return gcs;
+        }
+        #endregion
+        /// <summary>
+        /// 获取所有命令
+        /// </summary>
+        /// <returns></returns>
+        public List<Command> GetAllCommand()
+        {
+            List<Command> commands = new List<Command>();
+            try
+            {
+                commands = (List<Command>)DBHelper.Query<Command>("select * from command  order by id;");
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetAllCommand：" + e);
+            }
+            return commands;
+        }
+        /// <summary>
+        /// 获取控制设备的命令及反馈状态
+        /// </summary>
+        /// <returns></returns>
+        public List<Command2Type> GetCommandType()
+        {
+            List<Command2Type> commands = new List<Command2Type>();
+            try
+            {
+                commands = (List<Command2Type>)DBHelper.Query<Command2Type>("SELECT command.CommandID,command.EquTypeID,command.`Name`,command.EquStateID,equ_rs_type.ImageUrl FROM command INNER JOIN equ_rs_type ON command.EquStateID = equ_rs_type.EquStateID; ");
+            }
+            catch (Exception e)
+            {
+                Log.WriteLog("GetCommandType：" + e);
+            }
+            return commands;
+        }
         /// <summary>
         /// 获取所有的分区信息
         /// </summary>

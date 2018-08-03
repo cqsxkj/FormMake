@@ -120,6 +120,7 @@
     <Compile Include="Device\PKObject.cs" />
     <Compile Include="Device\tunnel.cs" />
     <Compile Include="DinoComparer.cs" />
+    <Compile Include="Entity\Command2Type.cs" />
     <Compile Include="Entity\slopeInfo.cs" />
     <Compile Include="Entity\bridgeInfo.cs" />
     <Compile Include="Entity\ReadEquType.cs" />
@@ -128,6 +129,12 @@
     <Compile Include="Entity\tunnelInfo.cs" />
     <Compile Include="Entity\火灾地址映射表.cs" />
     <Compile Include="Log\Log.cs" />
+    <Compile Include="Propert\AddTrigger2Group.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\AddTrigger2Group.Designer.cs">
+      <DependentUpon>AddTrigger2Group.cs</DependentUpon>
+    </Compile>
     <Compile Include="Propert\ObjectBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +160,7 @@
       <DependentUpon>ReadInit.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectEventArgs.cs" />
+    <Compile Include="Tool\BackGroundUtil.cs" />
     <Compile Include="Tool\JsonUtil.cs" />
     <Compile Include="Entity\PLCConfig.cs" />
     <Compile Include="Config\PlcString.cs" />
@@ -264,6 +272,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\AddTrigger2Group.resx">
+      <DependentUpon>AddTrigger2Group.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Propert\CreateAddDialog.resx">
       <DependentUpon>CreateAddDialog.cs</DependentUpon>

@@ -108,7 +108,8 @@ namespace WindowMake
         {
             if (mapBackgroundImage != null)
             {
-                this.BackgroundImage = CreateBackgroundImage(mapBackgroundImage, scale);
+                BackGroundUtil bg = new BackGroundUtil();
+                this.BackgroundImage = bg.CreateBackgroundImage(mapBackgroundImage, scale);
                 this.Size = BackgroundImage.Size;
                 this.Width = Size.Width;
                 this.Height = Size.Height;
@@ -502,7 +503,7 @@ namespace WindowMake
         }
 
         public event EventHandler<SelectEventArgs> SelectChanged;
-      
+
         public void SaveAsDocument(string fname)
         {
             //this.panel1.SaveAsDocument(fname);
@@ -584,20 +585,21 @@ namespace WindowMake
         /// <param name="mappic">图片地址</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
-        public Size SetBackgroud(string mappic, int width, int height)
+        public Size SetBackgroud(string mappic, int width = 1920, int height = 1080)
         {
-            this.BackgroundImageLayout = ImageLayout.Stretch;
+            BackGroundUtil bg = new BackGroundUtil();
+            //this.BackgroundImageLayout = ImageLayout.Stretch;
             try
             {
                 mapBackgroundImage = Image.FromFile(mappic);
-                this.BackgroundImage = CreateBackgroundImage(Image.FromFile(mappic), scale);
+                this.BackgroundImage = bg.CreateBackgroundImage(mapBackgroundImage, scale);
                 this.Size = mapBackgroundImage.Size;
                 return this.Size;
             }
             catch (Exception)
             {
-                var tempimg = new Bitmap(1920, 1080);
-                this.BackgroundImage = CreateBackgroundImage(tempimg, scale);
+                var tempimg = new Bitmap(width, height);
+                this.BackgroundImage = bg.CreateBackgroundImage(tempimg, scale);
                 return this.BackgroundImage.Size;
             }
         }
@@ -1015,25 +1017,7 @@ namespace WindowMake
                 e.equ.PointY = localtion.Y.ToString();
             }
         }
-        /// <summary>
-        /// 设置背景图片及大小
-        /// </summary>
-        /// <param name="mappic"></param>
-        public void SetBackgroud(string mappic)
-        {
-            this.BackgroundImageLayout = ImageLayout.Stretch;
-            try
-            {
-                mapBackgroundImage = Image.FromFile(mappic);
-                this.BackgroundImage = CreateBackgroundImage(mapBackgroundImage, scale);
-                this.Size = BackgroundImage.Size;
-            }
-            catch (Exception)
-            {
-                var tempimg = new Bitmap(1920, 1080);
-                this.BackgroundImage = CreateBackgroundImage(tempimg, scale);
-            }
-        }
+
         /// <summary>
         /// 根据点位自动生成遥信字符串和遥控字符串
         /// </summary>
@@ -1192,7 +1176,7 @@ namespace WindowMake
             }
             catch (Exception e)
             {
-                throw e;
+                Log.WriteLog("生成遥信字符串错误：" + e);
             }
         }
         /// <summary>
@@ -2106,7 +2090,7 @@ namespace WindowMake
             }
             return null;
         }
-      
+
         /// <summary>
         /// 绘制选择框
         /// </summary>
@@ -2185,34 +2169,6 @@ namespace WindowMake
         {
             Rectangle rect = RectangleToScreen(mouseRect);
             ControlPaint.DrawReversibleFrame(rect, Color.White, FrameStyle.Dashed);
-        }
-        /// <summary>
-        /// 底图绘制
-        /// </summary>
-        /// <param name="scale"></param>
-        /// <returns></returns>
-        private Image CreateBackgroundImage(Image originalImage, double scale)
-        {
-            var resultImage = new Bitmap((int)(originalImage.Width * scale) + LocationUtil.MapStartX * 2, (int)(originalImage.Height * scale) + LocationUtil.MapStartY * 2);
-
-            Graphics gh = Graphics.FromImage(resultImage);
-            gh.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            gh.Clear(Color.White);
-            int destX = LocationUtil.MapStartX;
-            int destY = LocationUtil.MapStartY;
-            int destWidth = (int)(originalImage.Width * scale);
-            int destHeight = (int)(originalImage.Height * scale);
-
-            int sourceX = 0;
-            int sourceY = 0;
-            int sourceWidth = originalImage.Width;
-            int sourceHeight = originalImage.Height;
-
-            gh.DrawImage(originalImage, new Rectangle(destX, destY, destWidth, destHeight), new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight), GraphicsUnit.Pixel);
-
-            gh.Dispose();
-
-            return resultImage;
         }
     }
 }
