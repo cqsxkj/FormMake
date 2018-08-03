@@ -311,10 +311,38 @@ namespace WindowMake
                     }
                     ReNameSameTypeObj(reNameEquList);
                     break;
+                case "updatePileNo":
+                    MyObject.ObjectType equtype_1 = MyObject.ObjectType.UnKnow;
+                    List<MyObject> updatePileNoEquList = new List<MyObject>();
+                     for (int j = 0; j < m_ObjectList.Count; j++)
+                    {
+                        if (m_ObjectList[j].obj_bSelect)
+                        {
+                            if (MyObject.ObjectType.UnKnow == equtype_1)
+                            {
+                                equtype_1 = m_ObjectList[j].equtype;
+
+                            }
+                            if (m_ObjectList[j].equtype == equtype_1)
+                            {
+
+                                updatePileNoEquList.Add(m_ObjectList[j]);
+
+                            }
+                        }
+                    }
+                   // if(updatePileNoEquList[0].equtype =="")
+                    break;
                 default:
                     break;
             }
         }
+
+        private void UpdatePileNo(List<MyObject> updatePileNoEquList)
+        {
+
+        }
+
         /// <summary>
         /// 修改同类型设备名称
         /// </summary>
@@ -401,6 +429,13 @@ namespace WindowMake
                 rename.Size = new System.Drawing.Size(124, 22);
                 rename.Text = " 重命名 ";
                 contextMenuStrip1.Items.Add(rename);
+
+                ToolStripMenuItem updatePileNo = new System.Windows.Forms.ToolStripMenuItem();
+                updatePileNo.Name = "updatePileNo";
+                updatePileNo.Size = new System.Drawing.Size(124, 22);
+                updatePileNo.Text = " 批量生成桩号 ";
+                contextMenuStrip1.Items.Add(updatePileNo);
+
             }
             catch (Exception e)
             {
