@@ -119,26 +119,7 @@ namespace WindowMake.Device
             equ = new Equ();
             LocationInMap = new PointF(0, 0);
             picName = "";
-            //if (LocationInMapChangeChanged!=null)
-            //{
-            //    this.LocationInMapChangeChanged += MyObject_LocationInMapChangeChanged;
-            //}
         }
-        ///// <summary>
-        ///// 地图坐标改变对数据库位置进行改变
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //private void MyObject_LocationInMapChangeChanged(object sender, EventArgs e)
-        //{
-        //    if (this.p != null && this.Parent.Parent is CustForm)
-        //    {
-        //        if (!(this.Parent.Parent as CustForm).ScaleChanging)
-        //        {
-        //            basicInfo.LocationInMap = LocationUtil.ConvertToMapLocation(this.LocationInMap, (this.Parent.Parent as CustForm).MapScale);
-        //        }
-        //    }
-        //}
 
         public virtual void DrawOjbect(Graphics g)
         {

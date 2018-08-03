@@ -14,7 +14,7 @@ namespace WindowMake
         /// 写入日志文件
         /// </summary>
         /// <param name="logstring">日志信息</param>
-        /// <param name="leve">等级，1-fire,2-send,3-debug</param>
+        /// <param name="leve">等级，1-debug,2-insertDB,3-sys</param>
         public void WriteLog(object logstring, int leve = 0)
         {
             logstring = DateTime.Now.ToString() + " " + logstring;
@@ -24,7 +24,7 @@ namespace WindowMake
         /// 写入日志文件
         /// </summary>
         /// <param name="logstring">日志信息</param>
-        /// <param name="leve">等级，1-fire,2-send,3-debug</param>
+        /// <param name="leve">等级，1-debug,2-insertDB,3-sys</param>
         public void WriteLog(string logstring, int leve = 0)
         {
             logstring = DateTime.Now.ToString() + " " + logstring;
@@ -40,7 +40,7 @@ namespace WindowMake
                     FileName = "deubg.log";
                     break;
                 case 2:
-                    FileName = "insert.log";
+                    FileName = "insertDB.log";
                     break;
                 default:
                     FileName = "sys.log";
