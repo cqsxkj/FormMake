@@ -647,6 +647,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl1);
             this.Name = "ObjectPro";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "属性";
             this.Load += new System.EventHandler(this.ObjectPro_Load);
             this.tabControl1.ResumeLayout(false);

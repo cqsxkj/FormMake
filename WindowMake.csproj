@@ -136,6 +136,12 @@
     <Compile Include="Propert\AddTrigger2Group.Designer.cs">
       <DependentUpon>AddTrigger2Group.cs</DependentUpon>
     </Compile>
+    <Compile Include="Propert\FEupdatePileNo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Propert\FEupdatePileNo.Designer.cs">
+      <DependentUpon>FEupdatePileNo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Propert\ObjectBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Propert\CreateAddDialog.resx">
       <DependentUpon>CreateAddDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Propert\FEupdatePileNo.resx">
+      <DependentUpon>FEupdatePileNo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Propert\LinePro.resx">
       <DependentUpon>LinePro.cs</DependentUpon>

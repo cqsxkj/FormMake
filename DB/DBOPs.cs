@@ -14,6 +14,34 @@ namespace WindowMake.DB
 {
     public class DBOPs
     {
+        #region GC
+        /// <summary>
+        /// 插入触发设备
+        /// </summary>
+        /// <returns></returns>
+        public int InsertAddTrigger(List<Gc_triggerequ> triggers)
+        {
+            int value = -1; ;
+            try
+            {
+                string strSql = string.Empty;
+                for (int i = 0; i < triggers.Count; i++)
+                {
+                    strSql += CreateInsertTriggerSql(triggers[i]);
+                }
+                if (!string.IsNullOrEmpty(strSql))
+                {
+                    value = DBHelper.ExcuteTransactionSql(strSql);
+                }
+            }
+            catch (Exception e)
+            {
+                gMain.log.WriteLog("插入触发设备异常:" + e);
+            }
+            return value;
+        }
+        #endregion
+        #region CMS
         /// <summary>
         /// 插入情报板配置
         /// </summary>
@@ -63,7 +91,8 @@ namespace WindowMake.DB
             }
             return value;
         }
-
+        #endregion
+        #region Fire
         /// <summary>
         /// 插入火灾配置信息
         /// </summary>
@@ -113,7 +142,8 @@ namespace WindowMake.DB
             }
             return value;
         }
-
+        #endregion
+        #region Ep
         /// <summary>
         /// 插入紧急电话配置信息
         /// </summary>
@@ -162,6 +192,7 @@ namespace WindowMake.DB
             }
             return value;
         }
+        #endregion
         /// <summary>
         /// 新增地图信息
         /// </summary>
@@ -181,6 +212,7 @@ namespace WindowMake.DB
             }
             return value;
         }
+        #region cctv
         /// <summary>
         /// 新增摄像机配置信息
         /// </summary>
@@ -225,6 +257,7 @@ namespace WindowMake.DB
             }
             return value;
         }
+        #endregion
         /// <summary>
         /// 根据equid更新ip和port
         /// </summary>
@@ -238,29 +271,6 @@ namespace WindowMake.DB
                 if (equs.Count > 0)
                 {
                     string strSql = UpdateEquString(equs);
-                    value = DBHelper.ExcuteTransactionSql(strSql);
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return value;
-        }
-
-        /// <summary>
-        /// 更新分区
-        /// </summary>
-        /// <param name="areas"></param>
-        /// <returns></returns>
-        public int UpdateArea(IList<p_area_cfg> areas)
-        {
-            int value = -1;
-            try
-            {
-                if (areas.Count > 0)
-                {
-                    string strSql = UpdateAreaString(areas);
                     value = DBHelper.ExcuteTransactionSql(strSql);
                 }
             }
@@ -306,276 +316,6 @@ namespace WindowMake.DB
             }
             return i;
         }
-        /// <summary>
-        /// 尝试插入设备基础信息语句
-        /// </summary>
-        /// <param name="current"></param>
-        /// <returns>sql语句</returns>
-        public string InsertEquSql(Equ current)
-        {
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                #region 默认报警方法
-                switch (current.EquTypeID)
-                {
-                    case "CM":
-                    case "CF":
-                    case "CL":
-                        current.AlarmMethod = null;
-                        break;
-                    case "F":
-                    case "E":
-                    case "EP":
-                        current.AlarmMethod = "123";
-                        current.msgTimeoutSec = -1;
-                        break;
-                    case "P":
-                        current.AlarmMethod = "32";
-                        break;
-                    case "VC":
-                        current.AlarmMethod = "NORMAL";
-                        break;
-                    case "VI":
-                        current.AlarmMethod = "YW";
-                        break;
-                    case "P_CO":
-                        current.AlarmMethod = "COYCAlarm";
-                        break;
-                    case "P_GJ":
-                        current.AlarmMethod = "GJYCAlarm";
-                        break;
-                    case "P_VI":
-                        current.AlarmMethod = "VIYCAlarm";
-                        break;
-                    case "P_TW":
-                        current.AlarmMethod = "TWYCAlarm";
-                        break;
-                    case "P_LLDI":
-                        current.AlarmMethod = "LqdYCAlarm";
-                        break;
-                    case "P_JF":
-                        current.AlarmMethod = "StFanYCAlarm";
-                        break;
-                    default:
-                        break;
-                }
-                #endregion
-                StringBuilder sb1 = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
-                StringBuilder sb3 = new StringBuilder();
-                StringBuilder sb4 = new StringBuilder();
-                #region SQL create
-                if (!string.IsNullOrEmpty(current.EquID))
-                {
-                    sb2.Append("equid,");
-                    sb3.Append("'" + current.EquID + "',");
-                    sb4.Append("equid='" + current.EquID + "',");
-                }
-                if (!string.IsNullOrEmpty(current.EquName))
-                {
-                    sb2.Append("EquName,");
-                    sb3.Append("'" + current.EquName + "',");
-                    sb4.Append("EquName='" + current.EquName + "',");
-                }
-                sb2.Append("EquTypeID,");
-                sb3.Append("'" + current.EquTypeID + "',");
-                sb4.Append("EquTypeID='" + current.EquTypeID + "',");
-                if (!string.IsNullOrEmpty(current.PointX))
-                {
-                    sb2.Append("PointX,");
-                    sb3.Append("'" + current.PointX + "',");
-                    sb4.Append("PointX='" + current.PointX + "',");
-                }
-                if (!string.IsNullOrEmpty(current.PointY))
-                {
-                    sb2.Append("PointY,");
-                    sb3.Append("'" + current.PointY + "',");
-                    sb4.Append("PointY='" + current.PointY + "',");
-                }
-                if (!string.IsNullOrEmpty(current.PileNo))
-                {
-                    sb2.Append("PileNo,");
-                    sb3.Append("'" + current.PileNo + "',");
-                    sb4.Append("PileNo='" + current.PileNo + "',");
-                }
-                if (!string.IsNullOrEmpty(current.Code))
-                {
-                    sb2.Append("`Code`,");
-                    sb3.Append("'" + current.Code + "',");
-                    sb4.Append("`Code`='" + current.Code + "',");
-                }
-                if (!string.IsNullOrEmpty(current.MapID))
-                {
-                    sb2.Append("MapID,");
-                    sb3.Append("'" + current.MapID + "',");
-                    sb4.Append("MapID='" + current.MapID + "',");
-                }
-                if (current.DirectionID != null)
-                {
-                    sb2.Append("DirectionID,");
-                    sb3.Append(current.DirectionID + ",");
-                    sb4.Append("DirectionID=" + current.DirectionID + ",");
-                }
-                if (!string.IsNullOrEmpty(current.AddressDiscribe))
-                {
-                    sb2.Append("AddressDiscribe,");
-                    sb3.Append("'" + current.AddressDiscribe + "',");
-                    sb4.Append("AddressDiscribe='" + current.AddressDiscribe + "',");
-                }
-                if (!string.IsNullOrEmpty(current.AlarmMethod))
-                {
-                    sb2.Append("AlarmMethod,");
-                    sb3.Append("'" + current.AlarmMethod + "',");
-                    sb4.Append("AlarmMethod='" + current.AlarmMethod + "',");
-                }
-                if (!string.IsNullOrEmpty(current.IP))
-                {
-                    sb2.Append("IP,");
-                    sb3.Append("'" + current.IP + "',");
-                    sb4.Append("IP='" + current.IP + "',");
-                }
-                if (current.Port != null)
-                {
-                    sb2.Append("`Port`,");
-                    sb3.Append(current.Port + ",");
-                    sb4.Append("`Port`=" + current.Port + ",");
-                }
-                sb2.Append("FatherEquID,");
-                sb3.Append("'" + current.FatherEquID + "',");
-                sb4.Append("FatherEquID='" + current.FatherEquID + "',");
-                if (current.TaskWV != null)
-                {
-                    sb2.Append("TaskWV,");
-                    sb3.Append(current.TaskWV + ",");
-                    sb4.Append("TaskWV=" + current.TaskWV + ",");
-                }
-                if (current.msgTimeoutSec != null)
-                {
-                    sb2.Append("msgTimeoutSec,");
-                    sb3.Append(current.msgTimeoutSec + ",");
-                    sb4.Append("msgTimeoutSec=" + current.msgTimeoutSec + ",");
-                }
-                if (!string.IsNullOrEmpty(current.Encode))
-                {
-                    sb2.Append("Encode,");
-                    sb3.Append("'" + current.Encode + "',");
-                    sb4.Append("Encode='" + current.Encode + "',");
-                }
-                if (!string.IsNullOrEmpty(current.Note))
-                {
-                    sb2.Append("Note,");
-                    sb3.Append("'" + current.Note + "',");
-                    sb4.Append("Note='" + current.Note + "',");
-                }
-                if (!string.IsNullOrEmpty(current.plcStationAddress))
-                {
-                    sb2.Append("plcStationAddress,");
-                    sb3.Append("'" + current.plcStationAddress + "',");
-                    sb4.Append("plcStationAddress='" + current.plcStationAddress + "',");
-                }
-                if (!string.IsNullOrEmpty(current.Vendor))
-                {
-                    sb2.Append("Vendor,");
-                    sb3.Append("'" + current.Vendor + "',");
-                    sb4.Append("Vendor='" + current.Vendor + "',");
-                }
-                if (!string.IsNullOrEmpty(current.RunMode))
-                {
-                    sb2.Append("RunMode,");
-                    sb3.Append("'" + current.RunMode + "',");
-                    sb4.Append("RunMode='" + current.RunMode + "',");
-                }
-                int index = sb2.ToString().LastIndexOf(',');
-                sb2.Remove(index, 1);
-                index = sb3.ToString().LastIndexOf(',');
-                sb3.Remove(index, 1);
-                index = sb4.ToString().LastIndexOf(',');
-                sb4.Remove(index, 1);
-                sb1.AppendFormat("insert into equ({0})values({1}) on duplicate key update {2};", sb2, sb3, sb4);
-                sb.Append(sb1);
-                #endregion
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return sb.ToString();
-        }
-        /// <summary>
-        /// 尝试插入隧道信息语句
-        /// </summary>
-        /// <param name="current"></param>
-        /// <returns>sql语句</returns>
-        public string InsertTunnelSql(tunnel current)
-        {
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                StringBuilder sb1 = new StringBuilder();
-                StringBuilder sb2 = new StringBuilder();
-                StringBuilder sb3 = new StringBuilder();
-                StringBuilder sb4 = new StringBuilder();
-                #region SQL create
-                if (!string.IsNullOrEmpty(current.equ.EquID))
-                {
-                    sb2.Append("BM,");
-                    sb3.Append("'" + current.equ.EquID + "',");
-                    sb4.Append("BM='" + current.equ.EquID + "',");
-                }
-                if (!string.IsNullOrEmpty(current.equ.EquName))
-                {
-                    sb2.Append("Name,");
-                    sb3.Append("'" + current.equ.EquName + "',");
-                    sb4.Append("Name='" + current.equ.EquName + "',");
-                }
-                if (!string.IsNullOrEmpty(current.equ.PointX))
-                {
-                    sb2.Append("PointX,");
-                    sb3.Append("'" + current.equ.PointX + "',");
-                    sb4.Append("PointX='" + current.equ.PointX + "',");
-                }
-                if (!string.IsNullOrEmpty(current.equ.PointY))
-                {
-                    sb2.Append("PointY,");
-                    sb3.Append("'" + current.equ.PointY + "',");
-                    sb4.Append("PointY='" + current.equ.PointY + "',");
-                }
-
-                if (!string.IsNullOrEmpty(current.equ.PileNo))
-                {
-                    sb2.Append("CenterStake,");
-                    sb3.Append("'" + current.equ.PileNo + "',");
-                    sb4.Append("CenterStake='" + current.equ.PileNo + "',");
-                }
-                if (!string.IsNullOrEmpty(current.equ.Note))
-                {
-                    sb2.Append("Mesg,");
-                    sb3.Append("'" + current.equ.Note + "',");
-                    sb4.Append("Mesg='" + current.equ.Note + "',");
-                }
-                int index = sb2.ToString().LastIndexOf(',');
-                sb2.Remove(index, 1);
-                index = sb3.ToString().LastIndexOf(',');
-                sb3.Remove(index, 1);
-                index = sb4.ToString().LastIndexOf(',');
-                sb4.Remove(index, 1);
-                sb1.AppendFormat("insert into tunnel({0})values({1}) on duplicate key update {2};", sb2, sb3, sb4);
-                sb.Append(sb1);
-                #endregion
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return sb.ToString();
-        }
-
-        private static void CreateEquSQL(MyObject current, StringBuilder sb, StringBuilder sb1, StringBuilder sb2, StringBuilder sb3, StringBuilder sb4)
-        {
-            
-        }
-
 
         /// <summary>
         /// 插入设备基础信息，只操作equ表
@@ -609,6 +349,30 @@ namespace WindowMake.DB
             }
             return -1;
         }
+        #region plc
+        /// <summary>
+        /// 更新分区
+        /// </summary>
+        /// <param name="areas"></param>
+        /// <returns></returns>
+        public int UpdateArea(IList<p_area_cfg> areas)
+        {
+            int value = -1;
+            try
+            {
+                if (areas.Count > 0)
+                {
+                    string strSql = UpdateAreaString(areas);
+                    value = DBHelper.ExcuteTransactionSql(strSql);
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return value;
+        }
+
         /// <summary>
         /// 插入遥信
         /// </summary>
@@ -859,6 +623,7 @@ namespace WindowMake.DB
             return isSuccess;
         }
         #endregion
+        #region yc
         /// <summary>
         /// 插入单个遥测信息
         /// </summary>
@@ -900,7 +665,50 @@ namespace WindowMake.DB
             }
             return isSuccess;
         }
+        #endregion
+        /// <summary>
+        /// 整个地图遥信点位取反
+        /// </summary>
+        /// <param name="mapid">地图id</param>
+        private void TakeYXBack(int mapid)
+        {
+            try
+            {
+                IList<yx> yxlist = DBHelper.Query<yx>(string.Format("SELECT yx.YXInfoID,yx.YXInfoMesg,yx.EquStateID,yx.IsState,yx.EquID FROM equ INNER JOIN yx ON yx.EquID = equ.EquID WHERE equ.MapID = '{0}' AND equ.EquTypeID LIKE 'P_TL%'", mapid));
+                for (int i = 0; i < yxlist.Count; i++)
+                {
+                    if (yxlist[i].IsState == 1)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        for (int j = 0; j < yxlist[i].YXInfoMesg.Length; j++)
+                        {
+                            if (yxlist[i].YXInfoMesg.Substring(j, 1) == "1")
+                            {
+                                sb.Append("0");
+                            }
+                            else
+                            {
+                                sb.Append("1");
+                            }
+                        }
+                        yxlist[i].YXInfoMesg = sb.ToString();
+                    }
+                }
+                StringBuilder sb1 = new StringBuilder();
+                for (int i = 0; i < yxlist.Count; i++)
+                {
+                    sb1.AppendFormat("update yx set yxinfomesg='{0}' where(YXInfoID={1});", yxlist[i].YXInfoMesg, yxlist[i].YXInfoID);
+                }
+                string sql = sb1.ToString();
+                int issucces = DBHelper.ExcuteSql(sql);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
+        #endregion
         /// <summary>
         /// 删除设备
         /// </summary>
@@ -1006,51 +814,289 @@ namespace WindowMake.DB
             }
             return 0;
         }
+        #region 私有方法
+        /// <summary>
+        /// 尝试插入设备基础信息语句
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns>sql语句</returns>
+        public string InsertEquSql(Equ current)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                #region 默认报警方法
+                switch (current.EquTypeID)
+                {
+                    case "CM":
+                    case "CF":
+                    case "CL":
+                        current.AlarmMethod = null;
+                        break;
+                    case "F":
+                    case "E":
+                    case "EP":
+                        current.AlarmMethod = "123";
+                        current.msgTimeoutSec = -1;
+                        break;
+                    case "P":
+                        current.AlarmMethod = "32";
+                        break;
+                    case "VC":
+                        current.AlarmMethod = "NORMAL";
+                        break;
+                    case "VI":
+                        current.AlarmMethod = "YW";
+                        break;
+                    case "P_CO":
+                        current.AlarmMethod = "COYCAlarm";
+                        break;
+                    case "P_GJ":
+                        current.AlarmMethod = "GJYCAlarm";
+                        break;
+                    case "P_VI":
+                        current.AlarmMethod = "VIYCAlarm";
+                        break;
+                    case "P_TW":
+                        current.AlarmMethod = "TWYCAlarm";
+                        break;
+                    case "P_LLDI":
+                        current.AlarmMethod = "LqdYCAlarm";
+                        break;
+                    case "P_JF":
+                        current.AlarmMethod = "StFanYCAlarm";
+                        break;
+                    default:
+                        break;
+                }
+                #endregion
+                StringBuilder sb1 = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+                StringBuilder sb3 = new StringBuilder();
+                StringBuilder sb4 = new StringBuilder();
+                #region SQL create
+                if (!string.IsNullOrEmpty(current.EquID))
+                {
+                    sb2.Append("equid,");
+                    sb3.Append("'" + current.EquID + "',");
+                    sb4.Append("equid='" + current.EquID + "',");
+                }
+                if (!string.IsNullOrEmpty(current.EquName))
+                {
+                    sb2.Append("EquName,");
+                    sb3.Append("'" + current.EquName + "',");
+                    sb4.Append("EquName='" + current.EquName + "',");
+                }
+                sb2.Append("EquTypeID,");
+                sb3.Append("'" + current.EquTypeID + "',");
+                sb4.Append("EquTypeID='" + current.EquTypeID + "',");
+                if (!string.IsNullOrEmpty(current.PointX))
+                {
+                    sb2.Append("PointX,");
+                    sb3.Append("'" + current.PointX + "',");
+                    sb4.Append("PointX='" + current.PointX + "',");
+                }
+                if (!string.IsNullOrEmpty(current.PointY))
+                {
+                    sb2.Append("PointY,");
+                    sb3.Append("'" + current.PointY + "',");
+                    sb4.Append("PointY='" + current.PointY + "',");
+                }
+                if (!string.IsNullOrEmpty(current.PileNo))
+                {
+                    sb2.Append("PileNo,");
+                    sb3.Append("'" + current.PileNo + "',");
+                    sb4.Append("PileNo='" + current.PileNo + "',");
+                }
+                if (!string.IsNullOrEmpty(current.Code))
+                {
+                    sb2.Append("`Code`,");
+                    sb3.Append("'" + current.Code + "',");
+                    sb4.Append("`Code`='" + current.Code + "',");
+                }
+                if (!string.IsNullOrEmpty(current.MapID))
+                {
+                    sb2.Append("MapID,");
+                    sb3.Append("'" + current.MapID + "',");
+                    sb4.Append("MapID='" + current.MapID + "',");
+                }
+                if (current.DirectionID != null)
+                {
+                    sb2.Append("DirectionID,");
+                    sb3.Append(current.DirectionID + ",");
+                    sb4.Append("DirectionID=" + current.DirectionID + ",");
+                }
+                if (!string.IsNullOrEmpty(current.AddressDiscribe))
+                {
+                    sb2.Append("AddressDiscribe,");
+                    sb3.Append("'" + current.AddressDiscribe + "',");
+                    sb4.Append("AddressDiscribe='" + current.AddressDiscribe + "',");
+                }
+                if (!string.IsNullOrEmpty(current.AlarmMethod))
+                {
+                    sb2.Append("AlarmMethod,");
+                    sb3.Append("'" + current.AlarmMethod + "',");
+                    sb4.Append("AlarmMethod='" + current.AlarmMethod + "',");
+                }
+                if (!string.IsNullOrEmpty(current.IP))
+                {
+                    sb2.Append("IP,");
+                    sb3.Append("'" + current.IP + "',");
+                    sb4.Append("IP='" + current.IP + "',");
+                }
+                if (current.Port != null)
+                {
+                    sb2.Append("`Port`,");
+                    sb3.Append(current.Port + ",");
+                    sb4.Append("`Port`=" + current.Port + ",");
+                }
+                sb2.Append("FatherEquID,");
+                sb3.Append("'" + current.FatherEquID + "',");
+                sb4.Append("FatherEquID='" + current.FatherEquID + "',");
+                if (current.TaskWV != null)
+                {
+                    sb2.Append("TaskWV,");
+                    sb3.Append(current.TaskWV + ",");
+                    sb4.Append("TaskWV=" + current.TaskWV + ",");
+                }
+                if (current.msgTimeoutSec != null)
+                {
+                    sb2.Append("msgTimeoutSec,");
+                    sb3.Append(current.msgTimeoutSec + ",");
+                    sb4.Append("msgTimeoutSec=" + current.msgTimeoutSec + ",");
+                }
+                if (!string.IsNullOrEmpty(current.Encode))
+                {
+                    sb2.Append("Encode,");
+                    sb3.Append("'" + current.Encode + "',");
+                    sb4.Append("Encode='" + current.Encode + "',");
+                }
+                if (!string.IsNullOrEmpty(current.Note))
+                {
+                    sb2.Append("Note,");
+                    sb3.Append("'" + current.Note + "',");
+                    sb4.Append("Note='" + current.Note + "',");
+                }
+                if (!string.IsNullOrEmpty(current.plcStationAddress))
+                {
+                    sb2.Append("plcStationAddress,");
+                    sb3.Append("'" + current.plcStationAddress + "',");
+                    sb4.Append("plcStationAddress='" + current.plcStationAddress + "',");
+                }
+                if (!string.IsNullOrEmpty(current.Vendor))
+                {
+                    sb2.Append("Vendor,");
+                    sb3.Append("'" + current.Vendor + "',");
+                    sb4.Append("Vendor='" + current.Vendor + "',");
+                }
+                if (!string.IsNullOrEmpty(current.RunMode))
+                {
+                    sb2.Append("RunMode,");
+                    sb3.Append("'" + current.RunMode + "',");
+                    sb4.Append("RunMode='" + current.RunMode + "',");
+                }
+                int index = sb2.ToString().LastIndexOf(',');
+                sb2.Remove(index, 1);
+                index = sb3.ToString().LastIndexOf(',');
+                sb3.Remove(index, 1);
+                index = sb4.ToString().LastIndexOf(',');
+                sb4.Remove(index, 1);
+                sb1.AppendFormat("insert into equ({0})values({1}) on duplicate key update {2};", sb2, sb3, sb4);
+                sb.Append(sb1);
+                #endregion
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return sb.ToString();
+        }
+        /// <summary>
+        /// 尝试插入隧道信息语句
+        /// </summary>
+        /// <param name="current"></param>
+        /// <returns>sql语句</returns>
+        private string InsertTunnelSql(tunnel current)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                StringBuilder sb1 = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
+                StringBuilder sb3 = new StringBuilder();
+                StringBuilder sb4 = new StringBuilder();
+                #region SQL create
+                if (!string.IsNullOrEmpty(current.equ.EquID))
+                {
+                    sb2.Append("BM,");
+                    sb3.Append("'" + current.equ.EquID + "',");
+                    sb4.Append("BM='" + current.equ.EquID + "',");
+                }
+                if (!string.IsNullOrEmpty(current.equ.EquName))
+                {
+                    sb2.Append("Name,");
+                    sb3.Append("'" + current.equ.EquName + "',");
+                    sb4.Append("Name='" + current.equ.EquName + "',");
+                }
+                if (!string.IsNullOrEmpty(current.equ.PointX))
+                {
+                    sb2.Append("PointX,");
+                    sb3.Append("'" + current.equ.PointX + "',");
+                    sb4.Append("PointX='" + current.equ.PointX + "',");
+                }
+                if (!string.IsNullOrEmpty(current.equ.PointY))
+                {
+                    sb2.Append("PointY,");
+                    sb3.Append("'" + current.equ.PointY + "',");
+                    sb4.Append("PointY='" + current.equ.PointY + "',");
+                }
+
+                if (!string.IsNullOrEmpty(current.equ.PileNo))
+                {
+                    sb2.Append("CenterStake,");
+                    sb3.Append("'" + current.equ.PileNo + "',");
+                    sb4.Append("CenterStake='" + current.equ.PileNo + "',");
+                }
+                if (!string.IsNullOrEmpty(current.equ.Note))
+                {
+                    sb2.Append("Mesg,");
+                    sb3.Append("'" + current.equ.Note + "',");
+                    sb4.Append("Mesg='" + current.equ.Note + "',");
+                }
+                int index = sb2.ToString().LastIndexOf(',');
+                sb2.Remove(index, 1);
+                index = sb3.ToString().LastIndexOf(',');
+                sb3.Remove(index, 1);
+                index = sb4.ToString().LastIndexOf(',');
+                sb4.Remove(index, 1);
+                sb1.AppendFormat("insert into tunnel({0})values({1}) on duplicate key update {2};", sb2, sb3, sb4);
+                sb.Append(sb1);
+                #endregion
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            return sb.ToString();
+        }
 
         /// <summary>
-        /// 整个地图遥信点位取反
+        /// 创建触发设备语句
         /// </summary>
-        /// <param name="mapid">地图id</param>
-        private void TakeYXBack(int mapid)
+        /// <param name="gctrigger"></param>
+        /// <returns></returns>
+        private string CreateInsertTriggerSql(Gc_triggerequ gctrigger)
         {
             try
             {
-                IList<yx> yxlist = DBHelper.Query<yx>(string.Format("SELECT yx.YXInfoID,yx.YXInfoMesg,yx.EquStateID,yx.IsState,yx.EquID FROM equ INNER JOIN yx ON yx.EquID = equ.EquID WHERE equ.MapID = '{0}' AND equ.EquTypeID LIKE 'P_TL%'", mapid));
-                for (int i = 0; i < yxlist.Count; i++)
-                {
-                    if (yxlist[i].IsState == 1)
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        for (int j = 0; j < yxlist[i].YXInfoMesg.Length; j++)
-                        {
-                            if (yxlist[i].YXInfoMesg.Substring(j, 1) == "1")
-                            {
-                                sb.Append("0");
-                            }
-                            else
-                            {
-                                sb.Append("1");
-                            }
-                        }
-                        yxlist[i].YXInfoMesg = sb.ToString();
-                    }
-                }
-                StringBuilder sb1 = new StringBuilder();
-                for (int i = 0; i < yxlist.Count; i++)
-                {
-                    sb1.AppendFormat("update yx set yxinfomesg='{0}' where(YXInfoID={1});", yxlist[i].YXInfoMesg, yxlist[i].YXInfoID);
-                }
-                string sql = sb1.ToString();
-                int issucces = DBHelper.ExcuteSql(sql);
+                return string.Format("INSERT INTO `gc_triggerequ` (`EquID`, `AlarmTypeID`, `EquRStateID`, `GCID`, `IsAlarm`) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}');", gctrigger.EquID, gctrigger.AlarmTypeID, gctrigger.EquRStateID, gctrigger.GCID, gctrigger.IsAlarm);
             }
             catch (Exception e)
             {
-                throw;
+                gMain.log.WriteLog("创建插入触发设备配置信息语句:" + e);
+                return null;
             }
         }
-
-        #region 私有方法
-
         private string CreateInsertC_cfgSql(c_cfg cfg)
         {
             StringBuilder sql = new StringBuilder();

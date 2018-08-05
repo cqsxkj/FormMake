@@ -123,6 +123,8 @@
             this.Controls.Add(this.tb_fartherid);
             this.Controls.Add(this.label1);
             this.Name = "ObjectBase";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "ObjectBase";
             this.ResumeLayout(false);
             this.PerformLayout();

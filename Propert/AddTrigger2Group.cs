@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using WindowMake.DB;
 using WindowMake.Device;
 using WindowMake.Entity;
 
@@ -22,7 +23,7 @@ namespace WindowMake.Propert
             try
             {
                 List<Gc> groupList = ds.GetAllGc();
-                if(groupList.Count > 0)
+                if (groupList.Count > 0)
                 {
                     comboBox1.DataSource = groupList;
                     comboBox1.DisplayMember = "Name";
@@ -104,26 +105,27 @@ namespace WindowMake.Propert
                     {
                         DataStorage ds = new DataStorage();
                         List<Gc_triggerequ> triList = ds.GetGctriggerEqu(gcid);
-                        //using (MapModelContainer container = new MapModelContainer())
-                        //{
-                        //    var trigList = (from a in container.gc_triggerequ where a.GCID == gcid select a).ToList();
-                            for (int i = 0; i < listView1.Items.Count; i++)
+                        List<Gc_triggerequ> addTriList = new List<Gc_triggerequ>();
+                        for (int i = 0; i < listView1.Items.Count; i++)
+                        {
+                            var trigger = triList.Where(p => p.EquID == listView1.Items[i].SubItems[0].Text).FirstOrDefault();
+                            if (trigger == null)
                             {
-                                var trigger = triList.Where(p => p.EquID == listView1.Items[i].SubItems[0].Text).FirstOrDefault();
-                                if (trigger == null)
-                                {
-                                    int alarmID = int.Parse(listView1.Items[i].SubItems[2].Text);
-                                    //container.gc_triggerequ.Add(new Gc_triggerequ { EquID = listView1.Items[i].SubItems[0].Text, GCID = gcid, AlarmTypeID = alarmID, EquRStateID = 0, IsAlarm = 0 });
-                                }
+                                int alarmID = int.Parse(listView1.Items[i].SubItems[2].Text);
+                                addTriList.Add(new Gc_triggerequ { EquID = listView1.Items[i].SubItems[0].Text, GCID = gcid, AlarmTypeID = alarmID, EquRStateID = 0, IsAlarm = 0 });
+                            }
                         }
-                        //container.SaveChanges();
+                        DBOPs db = new DBOPs();
+                        if (db.InsertAddTrigger(addTriList) < 1)
+                        {
+                            gMain.log.WriteLog("群控触发设备保存失败!插入数据库失败");
+                        }
                         this.Hide();
-                        //}
                     }
                     catch (Exception ex)
                     {
                         gMain.log.WriteLog("群控触发设备保存失败:" + ex);
-                        MessageBox.Show("保存失败！");
+                        MessageBox.Show("群控触发保存失败！");
                     }
                 }
             }

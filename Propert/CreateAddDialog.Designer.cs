@@ -210,6 +210,8 @@
             this.Controls.Add(this.cb_equtype);
             this.Controls.Add(this.label1);
             this.Name = "CreateAddDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "CreateAddDialog";
             ((System.ComponentModel.ISupportInitialize)(this.nd_equNum)).EndInit();
             this.ResumeLayout(false);

@@ -80,6 +80,8 @@
             this.Controls.Add(this.comboBoxMapList);
             this.Controls.Add(this.label1);
             this.Name = "OpenMap";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "OpenMap";
             this.ResumeLayout(false);
             this.PerformLayout();

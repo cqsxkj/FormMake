@@ -28,127 +28,127 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode62 = new System.Windows.Forms.TreeNode("立柱情报板");
-            System.Windows.Forms.TreeNode treeNode63 = new System.Windows.Forms.TreeNode("F情报板");
-            System.Windows.Forms.TreeNode treeNode64 = new System.Windows.Forms.TreeNode("车检器");
-            System.Windows.Forms.TreeNode treeNode65 = new System.Windows.Forms.TreeNode("气象仪");
-            System.Windows.Forms.TreeNode treeNode66 = new System.Windows.Forms.TreeNode("门架情报板");
-            System.Windows.Forms.TreeNode treeNode67 = new System.Windows.Forms.TreeNode("限速标志");
-            System.Windows.Forms.TreeNode treeNode68 = new System.Windows.Forms.TreeNode("火灾主机");
-            System.Windows.Forms.TreeNode treeNode69 = new System.Windows.Forms.TreeNode("火灾手报");
-            System.Windows.Forms.TreeNode treeNode70 = new System.Windows.Forms.TreeNode("火灾光纤");
-            System.Windows.Forms.TreeNode treeNode71 = new System.Windows.Forms.TreeNode("烟感");
-            System.Windows.Forms.TreeNode treeNode72 = new System.Windows.Forms.TreeNode("火灾", new System.Windows.Forms.TreeNode[] {
-            treeNode68,
-            treeNode69,
-            treeNode70,
-            treeNode71});
-            System.Windows.Forms.TreeNode treeNode73 = new System.Windows.Forms.TreeNode("双显左向");
-            System.Windows.Forms.TreeNode treeNode74 = new System.Windows.Forms.TreeNode("双显右向");
-            System.Windows.Forms.TreeNode treeNode75 = new System.Windows.Forms.TreeNode("单显禁止");
-            System.Windows.Forms.TreeNode treeNode76 = new System.Windows.Forms.TreeNode("单显上向");
-            System.Windows.Forms.TreeNode treeNode77 = new System.Windows.Forms.TreeNode("单显下向");
-            System.Windows.Forms.TreeNode treeNode78 = new System.Windows.Forms.TreeNode("三显向右");
-            System.Windows.Forms.TreeNode treeNode79 = new System.Windows.Forms.TreeNode("三显向左");
-            System.Windows.Forms.TreeNode treeNode80 = new System.Windows.Forms.TreeNode("车道指示器", new System.Windows.Forms.TreeNode[] {
-            treeNode73,
-            treeNode74,
-            treeNode75,
-            treeNode76,
-            treeNode77,
-            treeNode78,
-            treeNode79});
-            System.Windows.Forms.TreeNode treeNode81 = new System.Windows.Forms.TreeNode("PLC主机");
-            System.Windows.Forms.TreeNode treeNode82 = new System.Windows.Forms.TreeNode("基本照明");
-            System.Windows.Forms.TreeNode treeNode83 = new System.Windows.Forms.TreeNode("路灯");
-            System.Windows.Forms.TreeNode treeNode84 = new System.Windows.Forms.TreeNode("加强照明");
-            System.Windows.Forms.TreeNode treeNode85 = new System.Windows.Forms.TreeNode("应急照明");
-            System.Windows.Forms.TreeNode treeNode86 = new System.Windows.Forms.TreeNode("横通门");
-            System.Windows.Forms.TreeNode treeNode87 = new System.Windows.Forms.TreeNode("射流风机");
-            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("轴流风机");
-            System.Windows.Forms.TreeNode treeNode89 = new System.Windows.Forms.TreeNode("CO");
-            System.Windows.Forms.TreeNode treeNode90 = new System.Windows.Forms.TreeNode("VI");
-            System.Windows.Forms.TreeNode treeNode91 = new System.Windows.Forms.TreeNode("风速风向");
-            System.Windows.Forms.TreeNode treeNode92 = new System.Windows.Forms.TreeNode("液位检测");
-            System.Windows.Forms.TreeNode treeNode93 = new System.Windows.Forms.TreeNode("水泵");
-            System.Windows.Forms.TreeNode treeNode94 = new System.Windows.Forms.TreeNode("光强");
-            System.Windows.Forms.TreeNode treeNode95 = new System.Windows.Forms.TreeNode("3显交通灯");
-            System.Windows.Forms.TreeNode treeNode96 = new System.Windows.Forms.TreeNode("4显交通灯");
-            System.Windows.Forms.TreeNode treeNode97 = new System.Windows.Forms.TreeNode("电力监控");
-            System.Windows.Forms.TreeNode treeNode98 = new System.Windows.Forms.TreeNode("瓦斯");
-            System.Windows.Forms.TreeNode treeNode99 = new System.Windows.Forms.TreeNode("PLC", new System.Windows.Forms.TreeNode[] {
-            treeNode81,
-            treeNode82,
-            treeNode83,
-            treeNode84,
-            treeNode85,
-            treeNode86,
-            treeNode87,
-            treeNode88,
-            treeNode89,
-            treeNode90,
-            treeNode91,
-            treeNode92,
-            treeNode93,
-            treeNode94,
-            treeNode95,
-            treeNode96,
-            treeNode97,
-            treeNode98});
-            System.Windows.Forms.TreeNode treeNode100 = new System.Windows.Forms.TreeNode("紧急电话主机");
-            System.Windows.Forms.TreeNode treeNode101 = new System.Windows.Forms.TreeNode("紧急电话");
-            System.Windows.Forms.TreeNode treeNode102 = new System.Windows.Forms.TreeNode("广播");
-            System.Windows.Forms.TreeNode treeNode103 = new System.Windows.Forms.TreeNode("球机");
-            System.Windows.Forms.TreeNode treeNode104 = new System.Windows.Forms.TreeNode("事件检测摄像机");
-            System.Windows.Forms.TreeNode treeNode105 = new System.Windows.Forms.TreeNode("枪机");
-            System.Windows.Forms.TreeNode treeNode106 = new System.Windows.Forms.TreeNode("摄像机", new System.Windows.Forms.TreeNode[] {
-            treeNode103,
-            treeNode104,
-            treeNode105});
-            System.Windows.Forms.TreeNode treeNode107 = new System.Windows.Forms.TreeNode("事件检测服务器");
-            System.Windows.Forms.TreeNode treeNode108 = new System.Windows.Forms.TreeNode("海康流媒体服务器");
-            System.Windows.Forms.TreeNode treeNode109 = new System.Windows.Forms.TreeNode("甲烷监测");
-            System.Windows.Forms.TreeNode treeNode110 = new System.Windows.Forms.TreeNode("一氧化碳监测");
-            System.Windows.Forms.TreeNode treeNode111 = new System.Windows.Forms.TreeNode("氧气监测");
-            System.Windows.Forms.TreeNode treeNode112 = new System.Windows.Forms.TreeNode("环境监测", new System.Windows.Forms.TreeNode[] {
-            treeNode109,
-            treeNode110,
-            treeNode111});
-            System.Windows.Forms.TreeNode treeNode113 = new System.Windows.Forms.TreeNode("停车场");
-            System.Windows.Forms.TreeNode treeNode114 = new System.Windows.Forms.TreeNode("洞口交通灯4控（直控）");
-            System.Windows.Forms.TreeNode treeNode115 = new System.Windows.Forms.TreeNode("设备", new System.Windows.Forms.TreeNode[] {
-            treeNode62,
-            treeNode63,
-            treeNode64,
-            treeNode65,
-            treeNode66,
-            treeNode67,
-            treeNode72,
-            treeNode80,
-            treeNode99,
-            treeNode100,
-            treeNode101,
-            treeNode102,
-            treeNode106,
-            treeNode107,
-            treeNode108,
-            treeNode112,
-            treeNode113,
-            treeNode114});
-            System.Windows.Forms.TreeNode treeNode116 = new System.Windows.Forms.TreeNode("隧道");
-            System.Windows.Forms.TreeNode treeNode117 = new System.Windows.Forms.TreeNode("桥梁");
-            System.Windows.Forms.TreeNode treeNode118 = new System.Windows.Forms.TreeNode("收费站");
-            System.Windows.Forms.TreeNode treeNode119 = new System.Windows.Forms.TreeNode("服务区");
-            System.Windows.Forms.TreeNode treeNode120 = new System.Windows.Forms.TreeNode("边坡");
-            System.Windows.Forms.TreeNode treeNode121 = new System.Windows.Forms.TreeNode("结构物", new System.Windows.Forms.TreeNode[] {
-            treeNode116,
-            treeNode117,
-            treeNode118,
-            treeNode119,
-            treeNode120});
-            System.Windows.Forms.TreeNode treeNode122 = new System.Windows.Forms.TreeNode("绘图对象", new System.Windows.Forms.TreeNode[] {
-            treeNode115,
-            treeNode121});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("立柱情报板");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("F情报板");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("车检器");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("气象仪");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("门架情报板");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("限速标志");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("火灾主机");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("火灾手报");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("火灾光纤");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("烟感");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("火灾", new System.Windows.Forms.TreeNode[] {
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10});
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("双显左向");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("双显右向");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("单显禁止");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("单显上向");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("单显下向");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("三显向右");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("三显向左");
+            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("车道指示器", new System.Windows.Forms.TreeNode[] {
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18});
+            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("PLC主机");
+            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("基本照明");
+            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("路灯");
+            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("加强照明");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("应急照明");
+            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("横通门");
+            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("射流风机");
+            System.Windows.Forms.TreeNode treeNode27 = new System.Windows.Forms.TreeNode("轴流风机");
+            System.Windows.Forms.TreeNode treeNode28 = new System.Windows.Forms.TreeNode("CO");
+            System.Windows.Forms.TreeNode treeNode29 = new System.Windows.Forms.TreeNode("VI");
+            System.Windows.Forms.TreeNode treeNode30 = new System.Windows.Forms.TreeNode("风速风向");
+            System.Windows.Forms.TreeNode treeNode31 = new System.Windows.Forms.TreeNode("液位检测");
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("水泵");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("光强");
+            System.Windows.Forms.TreeNode treeNode34 = new System.Windows.Forms.TreeNode("3显交通灯");
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("4显交通灯");
+            System.Windows.Forms.TreeNode treeNode36 = new System.Windows.Forms.TreeNode("电力监控");
+            System.Windows.Forms.TreeNode treeNode37 = new System.Windows.Forms.TreeNode("瓦斯");
+            System.Windows.Forms.TreeNode treeNode38 = new System.Windows.Forms.TreeNode("PLC", new System.Windows.Forms.TreeNode[] {
+            treeNode20,
+            treeNode21,
+            treeNode22,
+            treeNode23,
+            treeNode24,
+            treeNode25,
+            treeNode26,
+            treeNode27,
+            treeNode28,
+            treeNode29,
+            treeNode30,
+            treeNode31,
+            treeNode32,
+            treeNode33,
+            treeNode34,
+            treeNode35,
+            treeNode36,
+            treeNode37});
+            System.Windows.Forms.TreeNode treeNode39 = new System.Windows.Forms.TreeNode("紧急电话主机");
+            System.Windows.Forms.TreeNode treeNode40 = new System.Windows.Forms.TreeNode("紧急电话");
+            System.Windows.Forms.TreeNode treeNode41 = new System.Windows.Forms.TreeNode("广播");
+            System.Windows.Forms.TreeNode treeNode42 = new System.Windows.Forms.TreeNode("球机");
+            System.Windows.Forms.TreeNode treeNode43 = new System.Windows.Forms.TreeNode("事件检测摄像机");
+            System.Windows.Forms.TreeNode treeNode44 = new System.Windows.Forms.TreeNode("枪机");
+            System.Windows.Forms.TreeNode treeNode45 = new System.Windows.Forms.TreeNode("摄像机", new System.Windows.Forms.TreeNode[] {
+            treeNode42,
+            treeNode43,
+            treeNode44});
+            System.Windows.Forms.TreeNode treeNode46 = new System.Windows.Forms.TreeNode("事件检测服务器");
+            System.Windows.Forms.TreeNode treeNode47 = new System.Windows.Forms.TreeNode("海康流媒体服务器");
+            System.Windows.Forms.TreeNode treeNode48 = new System.Windows.Forms.TreeNode("甲烷监测");
+            System.Windows.Forms.TreeNode treeNode49 = new System.Windows.Forms.TreeNode("一氧化碳监测");
+            System.Windows.Forms.TreeNode treeNode50 = new System.Windows.Forms.TreeNode("氧气监测");
+            System.Windows.Forms.TreeNode treeNode51 = new System.Windows.Forms.TreeNode("环境监测", new System.Windows.Forms.TreeNode[] {
+            treeNode48,
+            treeNode49,
+            treeNode50});
+            System.Windows.Forms.TreeNode treeNode52 = new System.Windows.Forms.TreeNode("停车场");
+            System.Windows.Forms.TreeNode treeNode53 = new System.Windows.Forms.TreeNode("洞口交通灯4控（直控）");
+            System.Windows.Forms.TreeNode treeNode54 = new System.Windows.Forms.TreeNode("设备", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode11,
+            treeNode19,
+            treeNode38,
+            treeNode39,
+            treeNode40,
+            treeNode41,
+            treeNode45,
+            treeNode46,
+            treeNode47,
+            treeNode51,
+            treeNode52,
+            treeNode53});
+            System.Windows.Forms.TreeNode treeNode55 = new System.Windows.Forms.TreeNode("隧道");
+            System.Windows.Forms.TreeNode treeNode56 = new System.Windows.Forms.TreeNode("桥梁");
+            System.Windows.Forms.TreeNode treeNode57 = new System.Windows.Forms.TreeNode("收费站");
+            System.Windows.Forms.TreeNode treeNode58 = new System.Windows.Forms.TreeNode("服务区");
+            System.Windows.Forms.TreeNode treeNode59 = new System.Windows.Forms.TreeNode("边坡");
+            System.Windows.Forms.TreeNode treeNode60 = new System.Windows.Forms.TreeNode("结构物", new System.Windows.Forms.TreeNode[] {
+            treeNode55,
+            treeNode56,
+            treeNode57,
+            treeNode58,
+            treeNode59});
+            System.Windows.Forms.TreeNode treeNode61 = new System.Windows.Forms.TreeNode("绘图对象", new System.Windows.Forms.TreeNode[] {
+            treeNode54,
+            treeNode60});
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -198,7 +198,6 @@
             this.toolStripButton20 = new System.Windows.Forms.ToolStripButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.addTrigger2GroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -312,8 +311,7 @@
             // 
             this.编辑ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AutoCreateYXYKTool,
-            this.toolStripSeparator3,
-            this.addTrigger2GroupToolStripMenuItem});
+            this.toolStripSeparator3});
             this.编辑ToolStripMenuItem.Name = "编辑ToolStripMenuItem";
             this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.编辑ToolStripMenuItem.Text = "编辑(E)";
@@ -321,14 +319,14 @@
             // AutoCreateYXYKTool
             // 
             this.AutoCreateYXYKTool.Name = "AutoCreateYXYKTool";
-            this.AutoCreateYXYKTool.Size = new System.Drawing.Size(187, 22);
+            this.AutoCreateYXYKTool.Size = new System.Drawing.Size(152, 22);
             this.AutoCreateYXYKTool.Text = "生成遥信遥控";
             this.AutoCreateYXYKTool.Click += new System.EventHandler(this.AutoCreateYXYKTool_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // 窗口ToolStripMenuItem
             // 
@@ -395,14 +393,14 @@
             // 测试ToolStripMenuItem
             // 
             this.测试ToolStripMenuItem.Name = "测试ToolStripMenuItem";
-            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.测试ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.测试ToolStripMenuItem.Text = "测试";
             this.测试ToolStripMenuItem.Click += new System.EventHandler(this.测试ToolStripMenuItem_Click);
             // 
             // yX取反ToolStripMenuItem
             // 
             this.yX取反ToolStripMenuItem.Name = "yX取反ToolStripMenuItem";
-            this.yX取反ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.yX取反ToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.yX取反ToolStripMenuItem.Text = "YX取反";
             this.yX取反ToolStripMenuItem.Click += new System.EventHandler(this.yX取反ToolStripMenuItem_Click);
             // 
@@ -485,130 +483,130 @@
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.treeView1.Location = new System.Drawing.Point(0, 50);
             this.treeView1.Name = "treeView1";
-            treeNode62.Name = "CL";
-            treeNode62.Text = "立柱情报板";
-            treeNode63.Name = "CF";
-            treeNode63.Text = "F情报板";
-            treeNode64.Name = "VC";
-            treeNode64.Text = "车检器";
-            treeNode65.Name = "VI";
-            treeNode65.Text = "气象仪";
-            treeNode66.Name = "CM";
-            treeNode66.Text = "门架情报板";
-            treeNode67.Name = "S";
-            treeNode67.Text = "限速标志";
-            treeNode68.Name = "F";
-            treeNode68.Text = "火灾主机";
-            treeNode69.Name = "F_SB";
-            treeNode69.Text = "火灾手报";
-            treeNode70.Name = "F_L";
-            treeNode70.Text = "火灾光纤";
-            treeNode71.Name = "F_YG";
-            treeNode71.Text = "烟感";
-            treeNode72.Name = "火灾";
-            treeNode72.Text = "火灾";
-            treeNode73.Name = "P_TL5_Left";
-            treeNode73.Text = "双显左向";
-            treeNode74.Name = "P_TL5_Right";
-            treeNode74.Text = "双显右向";
-            treeNode75.Name = "P_TL2_Close";
-            treeNode75.Text = "单显禁止";
-            treeNode76.Name = "P_TL2_UP";
-            treeNode76.Text = "单显上向";
-            treeNode77.Name = "P_TL2_Down";
-            treeNode77.Text = "单显下向";
-            treeNode78.Name = "P_TL3_Right";
-            treeNode78.Text = "三显向右";
-            treeNode79.Name = "P_TL3_Left";
-            treeNode79.Text = "三显向左";
-            treeNode80.Name = "车道指示器";
-            treeNode80.Text = "车道指示器";
-            treeNode81.Name = "P";
-            treeNode81.Text = "PLC主机";
-            treeNode82.Name = "P_L";
-            treeNode82.Text = "基本照明";
-            treeNode83.Name = "P_RL";
-            treeNode83.Text = "路灯";
-            treeNode84.Name = "P_LJQ";
-            treeNode84.Text = "加强照明";
-            treeNode85.Name = "P_LYJ";
-            treeNode85.Text = "应急照明";
-            treeNode86.Name = "P_TD";
-            treeNode86.Text = "横通门";
-            treeNode87.Name = "P_JF";
-            treeNode87.Text = "射流风机";
-            treeNode88.Name = "P_AF";
-            treeNode88.Text = "轴流风机";
-            treeNode89.Name = "P_CO";
-            treeNode89.Text = "CO";
-            treeNode90.Name = "P_VI";
-            treeNode90.Text = "VI";
-            treeNode91.Name = "P_TW";
-            treeNode91.Text = "风速风向";
-            treeNode92.Name = "P_LLDI";
-            treeNode92.Text = "液位检测";
-            treeNode93.Name = "P_P";
-            treeNode93.Text = "水泵";
-            treeNode94.Name = "P_GJ";
-            treeNode94.Text = "光强";
-            treeNode95.Name = "P_HL";
-            treeNode95.Text = "3显交通灯";
-            treeNode96.Name = "P_HL2";
-            treeNode96.Text = "4显交通灯";
-            treeNode97.Name = "P_EPM";
-            treeNode97.Text = "电力监控";
-            treeNode98.Name = "P_GS";
-            treeNode98.Text = "瓦斯";
-            treeNode99.Name = "PLC设备";
-            treeNode99.Text = "PLC";
-            treeNode100.Name = "EP";
-            treeNode100.Text = "紧急电话主机";
-            treeNode101.Name = "EP_T";
-            treeNode101.Text = "紧急电话";
-            treeNode102.Name = "EP_R";
-            treeNode102.Text = "广播";
-            treeNode103.Name = "TV_CCTV_Ball";
-            treeNode103.Text = "球机";
-            treeNode104.Name = "TV_CCTV_E";
-            treeNode104.Text = "事件检测摄像机";
-            treeNode105.Name = "TV_CCTV_Gun";
-            treeNode105.Text = "枪机";
-            treeNode106.Name = "摄像机";
-            treeNode106.Text = "摄像机";
-            treeNode107.Name = "E";
-            treeNode107.Text = "事件检测服务器";
-            treeNode108.Name = "TV";
-            treeNode108.Text = "海康流媒体服务器";
-            treeNode109.Name = "EM_CH4";
-            treeNode109.Text = "甲烷监测";
-            treeNode110.Name = "EM_CO";
-            treeNode110.Text = "一氧化碳监测";
-            treeNode111.Name = "EM_O2";
-            treeNode111.Text = "氧气监测";
-            treeNode112.Name = "EM";
-            treeNode112.Text = "环境监测";
-            treeNode113.Name = "PK";
-            treeNode113.Text = "停车场";
-            treeNode114.Name = "HL";
-            treeNode114.Text = "洞口交通灯4控（直控）";
-            treeNode115.Name = "设备";
-            treeNode115.Text = "设备";
-            treeNode116.Name = "tunnel";
-            treeNode116.Text = "隧道";
-            treeNode117.Name = "bridge";
-            treeNode117.Text = "桥梁";
-            treeNode118.Name = "toll";
-            treeNode118.Text = "收费站";
-            treeNode119.Name = "services";
-            treeNode119.Text = "服务区";
-            treeNode120.Name = "slope";
-            treeNode120.Text = "边坡";
-            treeNode121.Name = "结构物";
-            treeNode121.Text = "结构物";
-            treeNode122.Name = "绘图对象";
-            treeNode122.Text = "绘图对象";
+            treeNode1.Name = "CL";
+            treeNode1.Text = "立柱情报板";
+            treeNode2.Name = "CF";
+            treeNode2.Text = "F情报板";
+            treeNode3.Name = "VC";
+            treeNode3.Text = "车检器";
+            treeNode4.Name = "VI";
+            treeNode4.Text = "气象仪";
+            treeNode5.Name = "CM";
+            treeNode5.Text = "门架情报板";
+            treeNode6.Name = "S";
+            treeNode6.Text = "限速标志";
+            treeNode7.Name = "F";
+            treeNode7.Text = "火灾主机";
+            treeNode8.Name = "F_SB";
+            treeNode8.Text = "火灾手报";
+            treeNode9.Name = "F_L";
+            treeNode9.Text = "火灾光纤";
+            treeNode10.Name = "F_YG";
+            treeNode10.Text = "烟感";
+            treeNode11.Name = "火灾";
+            treeNode11.Text = "火灾";
+            treeNode12.Name = "P_TL5_Left";
+            treeNode12.Text = "双显左向";
+            treeNode13.Name = "P_TL5_Right";
+            treeNode13.Text = "双显右向";
+            treeNode14.Name = "P_TL2_Close";
+            treeNode14.Text = "单显禁止";
+            treeNode15.Name = "P_TL2_UP";
+            treeNode15.Text = "单显上向";
+            treeNode16.Name = "P_TL2_Down";
+            treeNode16.Text = "单显下向";
+            treeNode17.Name = "P_TL3_Right";
+            treeNode17.Text = "三显向右";
+            treeNode18.Name = "P_TL3_Left";
+            treeNode18.Text = "三显向左";
+            treeNode19.Name = "车道指示器";
+            treeNode19.Text = "车道指示器";
+            treeNode20.Name = "P";
+            treeNode20.Text = "PLC主机";
+            treeNode21.Name = "P_L";
+            treeNode21.Text = "基本照明";
+            treeNode22.Name = "P_RL";
+            treeNode22.Text = "路灯";
+            treeNode23.Name = "P_LJQ";
+            treeNode23.Text = "加强照明";
+            treeNode24.Name = "P_LYJ";
+            treeNode24.Text = "应急照明";
+            treeNode25.Name = "P_TD";
+            treeNode25.Text = "横通门";
+            treeNode26.Name = "P_JF";
+            treeNode26.Text = "射流风机";
+            treeNode27.Name = "P_AF";
+            treeNode27.Text = "轴流风机";
+            treeNode28.Name = "P_CO";
+            treeNode28.Text = "CO";
+            treeNode29.Name = "P_VI";
+            treeNode29.Text = "VI";
+            treeNode30.Name = "P_TW";
+            treeNode30.Text = "风速风向";
+            treeNode31.Name = "P_LLDI";
+            treeNode31.Text = "液位检测";
+            treeNode32.Name = "P_P";
+            treeNode32.Text = "水泵";
+            treeNode33.Name = "P_GJ";
+            treeNode33.Text = "光强";
+            treeNode34.Name = "P_HL";
+            treeNode34.Text = "3显交通灯";
+            treeNode35.Name = "P_HL2";
+            treeNode35.Text = "4显交通灯";
+            treeNode36.Name = "P_EPM";
+            treeNode36.Text = "电力监控";
+            treeNode37.Name = "P_GS";
+            treeNode37.Text = "瓦斯";
+            treeNode38.Name = "PLC设备";
+            treeNode38.Text = "PLC";
+            treeNode39.Name = "EP";
+            treeNode39.Text = "紧急电话主机";
+            treeNode40.Name = "EP_T";
+            treeNode40.Text = "紧急电话";
+            treeNode41.Name = "EP_R";
+            treeNode41.Text = "广播";
+            treeNode42.Name = "TV_CCTV_Ball";
+            treeNode42.Text = "球机";
+            treeNode43.Name = "TV_CCTV_E";
+            treeNode43.Text = "事件检测摄像机";
+            treeNode44.Name = "TV_CCTV_Gun";
+            treeNode44.Text = "枪机";
+            treeNode45.Name = "摄像机";
+            treeNode45.Text = "摄像机";
+            treeNode46.Name = "E";
+            treeNode46.Text = "事件检测服务器";
+            treeNode47.Name = "TV";
+            treeNode47.Text = "海康流媒体服务器";
+            treeNode48.Name = "EM_CH4";
+            treeNode48.Text = "甲烷监测";
+            treeNode49.Name = "EM_CO";
+            treeNode49.Text = "一氧化碳监测";
+            treeNode50.Name = "EM_O2";
+            treeNode50.Text = "氧气监测";
+            treeNode51.Name = "EM";
+            treeNode51.Text = "环境监测";
+            treeNode52.Name = "PK";
+            treeNode52.Text = "停车场";
+            treeNode53.Name = "HL";
+            treeNode53.Text = "洞口交通灯4控（直控）";
+            treeNode54.Name = "设备";
+            treeNode54.Text = "设备";
+            treeNode55.Name = "tunnel";
+            treeNode55.Text = "隧道";
+            treeNode56.Name = "bridge";
+            treeNode56.Text = "桥梁";
+            treeNode57.Name = "toll";
+            treeNode57.Text = "收费站";
+            treeNode58.Name = "services";
+            treeNode58.Text = "服务区";
+            treeNode59.Name = "slope";
+            treeNode59.Text = "边坡";
+            treeNode60.Name = "结构物";
+            treeNode60.Text = "结构物";
+            treeNode61.Name = "绘图对象";
+            treeNode61.Text = "绘图对象";
             this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode122});
+            treeNode61});
             this.treeView1.Size = new System.Drawing.Size(143, 535);
             this.treeView1.TabIndex = 0;
             this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
@@ -752,13 +750,6 @@
             this.splitter1.TabIndex = 10;
             this.splitter1.TabStop = false;
             // 
-            // addTrigger2GroupToolStripMenuItem
-            // 
-            this.addTrigger2GroupToolStripMenuItem.Name = "addTrigger2GroupToolStripMenuItem";
-            this.addTrigger2GroupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.addTrigger2GroupToolStripMenuItem.Text = "添加群控触发";
-            this.addTrigger2GroupToolStripMenuItem.Click += new System.EventHandler(this.addTrigger2GroupToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -769,6 +760,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
@@ -842,7 +834,6 @@
         private System.Windows.Forms.ToolStripMenuItem 工具ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 测试ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yX取反ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addTrigger2GroupToolStripMenuItem;
     }
 }
 

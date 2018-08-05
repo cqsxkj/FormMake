@@ -370,15 +370,18 @@ namespace WindowMake.Propert
                 if (!r.IsNewRow)
                 {
                     var yx = r.DataBoundItem as Yx_cfg;
-                    DBHelper.ExcuteTransactionSql(string.Format("delete from yx_cfg where id={0};", yx.ID));
-                    this.Byxlist.RemoveAt(r.Index); //删除行
+                    int i = DBHelper.ExcuteTransactionSql(string.Format("delete from yx_cfg where id={0};", yx.ID));
+                    gMain.log.WriteLog("删除遥信：" + yx.ID + " " + yx.EquID + " " + yx.AddrAndBit);
+                    if (i > 0)
+                    {
+                        this.Byxlist.RemoveAt(r.Index); //删除行
+                    }
                 }
             }
         }
         //增加遥信点位
         private void bt_yxadd_Click(object sender, EventArgs e)
         {
-            gMain.log.WriteLog("新增遥信");
             try
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
@@ -400,7 +403,6 @@ namespace WindowMake.Propert
                         yxcfg.ID = i;
                         Byxlist.Add(yxcfg);
                     }
-                    gMain.log.WriteLog("新增遥信并添加到列表完毕");
                 }
             }
             catch (Exception ee)
@@ -425,7 +427,6 @@ namespace WindowMake.Propert
         /// <param name="e"></param>
         private void bt_ykadd_Click(object sender, EventArgs e)
         {
-            gMain.log.WriteLog("新增遥控");
             try
             {
                 if ((m_obj.equtype.ToString()).StartsWith("P_"))
@@ -446,7 +447,6 @@ namespace WindowMake.Propert
                         ykcfg.ID = i;
                         Byklist.Add(ykcfg);
                     }
-                    gMain.log.WriteLog("新增遥控并添加到列表完毕");
                 }
             }
             catch (Exception ee)
@@ -467,6 +467,7 @@ namespace WindowMake.Propert
                 {
                     var yk = r.DataBoundItem as Yk_cfg;
                     int i = DBHelper.ExcuteTransactionSql(string.Format("delete from yk_cfg where id={0}", yk.ID));
+                    gMain.log.WriteLog("删除遥控：" + yk.ID + " " + yk.EquID + " " + yk.AddrAndBit);
                     if (i > 0)
                     {
                         this.Byklist.RemoveAt(r.Index); //删除行
@@ -502,7 +503,7 @@ namespace WindowMake.Propert
                     sql = string.Format("update yx_cfg set addrandbit='{0}',IsError={1},`order`='{2}',areaid={3} where(id={4})", Int2Hex(yxcfg.AddrAndBit), yxcfg.IsError, yxcfg.Order, cb_yxarea.SelectedValue, yxcfg.ID);
                 }
                 int i = DBHelper.ExcuteTransactionSql(sql);
-
+                gMain.log.WriteLog("遥信修改为:" + yxcfg.EquID + " " + yxcfg.AddrAndBit);
             }
             catch (Exception ex)
             {
@@ -526,6 +527,7 @@ namespace WindowMake.Propert
                     sql = string.Format("update yk_cfg set addrandbit='{0}',`order`='{1}',areaid={2} where(id={3})", Int2Hex(ykcfg.AddrAndBit), ykcfg.Order, cb_ykarea.SelectedValue, ykcfg.ID);
                 }
                 int i = DBHelper.ExcuteTransactionSql(sql);
+                gMain.log.WriteLog("遥控修改为:" + ykcfg.EquID + " " + ykcfg.AddrAndBit);
             }
             catch (Exception ex)
             {

@@ -90,6 +90,10 @@ namespace WindowMake.DB
                 }
             }
         }
+        /// <summary>
+        /// 打开数据库连接
+        /// </summary>
+        /// <param name="connectionString"></param>
         private static void OpenConnection(string connectionString)
         {
             if (!DBalive)
@@ -99,7 +103,9 @@ namespace WindowMake.DB
                 gMain.log.WriteLog("数据库连接打开" + connection.DataSource + " " + connection.Database);
             }
         }
-
+        /// <summary>
+        /// 关闭数据库连接
+        /// </summary>
         public static void CloseConnection()
         {
             try

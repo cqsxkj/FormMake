@@ -44,19 +44,20 @@ namespace WindowMake
             this.objectPro,
             this.pictruePro});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(125, 48);
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 70);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // objectPro
             // 
             this.objectPro.Name = "objectPro";
-            this.objectPro.Size = new System.Drawing.Size(124, 22);
+            this.objectPro.Size = new System.Drawing.Size(127, 22);
             this.objectPro.Text = "对象属性";
             // 
             // pictruePro
             // 
             this.pictruePro.Name = "pictruePro";
-            this.pictruePro.Size = new System.Drawing.Size(124, 22);
+            this.pictruePro.Size = new System.Drawing.Size(127, 22);
             this.pictruePro.Text = "地图属性";
             // 
             // FormView

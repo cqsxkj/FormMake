@@ -367,21 +367,5 @@ namespace WindowMake
             DBHelper.CloseConnection();
             gMain.log.WriteLog("【系统退出】");
         }
-
-        private void addTrigger2GroupToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Collection<BaseIconControl> controls = new Collection<BaseIconControl>();
-            //foreach (var item in GetChoosed())
-            //{
-            //    controls.Add(item as BaseIconControl);
-            //}
-            //if (controls.Count > 0)
-            //{
-            //    if (addTrigger.IsDisposed)
-            //        addTrigger = new AddTrigger2Group();
-            //    addTrigger.BindList(controls);
-            //    addTrigger.Show();
-            //}
-        }
     }
 }

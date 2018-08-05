@@ -36,6 +36,7 @@ namespace WindowMake
         private CreateAddDialog createAddDialog = new CreateAddDialog();
         private ObjectBase objBase = new ObjectBase();
         private ReName reName = new ReName();
+        private AddTrigger2Group addTriggerForm = new AddTrigger2Group();
         public FormView()
         {
             InitializeComponent();
@@ -290,6 +291,7 @@ namespace WindowMake
                     SetObjectPro();
                     break;
                 case "rename":
+                    #region rename
                     MyObject.ObjectType equtype = MyObject.ObjectType.UnKnow;
                     List<MyObject> reNameEquList = new List<MyObject>();
                     for (int i = 0; i < m_ObjectList.Count; i++)
@@ -311,10 +313,12 @@ namespace WindowMake
                     }
                     ReNameSameTypeObj(reNameEquList);
                     break;
+                #endregion
                 case "updatePileNo":
+                    #region updatePileNo
                     MyObject.ObjectType equtype_1 = MyObject.ObjectType.UnKnow;
                     List<MyObject> updatePileNoEquList = new List<MyObject>();
-                     for (int j = 0; j < m_ObjectList.Count; j++)
+                    for (int j = 0; j < m_ObjectList.Count; j++)
                     {
                         if (m_ObjectList[j].obj_bSelect)
                         {
@@ -331,10 +335,39 @@ namespace WindowMake
                             }
                         }
                     }
-                   // if(updatePileNoEquList[0].equtype =="")
+                    // if(updatePileNoEquList[0].equtype =="")
+                    break;
+                #endregion
+                case "addtrigger":
+                    AddTrigger();
                     break;
                 default:
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 添加触发设备
+        /// </summary>
+        private void AddTrigger()
+        {
+            List<MyObject> trigList = new List<MyObject>();
+            for (int i = 0; i < m_ObjectList.Count; i++)
+            {
+                if (m_ObjectList[i].obj_bSelect)
+                {
+                    if (m_ObjectList[i].equtype==MyObject.ObjectType.F_L||m_ObjectList[i].equtype==MyObject.ObjectType.F_SB||m_ObjectList[i].equtype==MyObject.ObjectType.F_YG)
+                    {
+                        trigList.Add(m_ObjectList[i]);
+                    }
+                }
+            }
+            if (trigList.Count > 0)
+            {
+                if (addTriggerForm.IsDisposed)
+                    addTriggerForm = new AddTrigger2Group();
+                addTriggerForm.BindList(trigList);
+                addTriggerForm.Show();
             }
         }
 
@@ -427,14 +460,20 @@ namespace WindowMake
                 ToolStripMenuItem rename = new System.Windows.Forms.ToolStripMenuItem();
                 rename.Name = "rename";
                 rename.Size = new System.Drawing.Size(124, 22);
-                rename.Text = " 重命名 ";
+                rename.Text = "重命名 ";
                 contextMenuStrip1.Items.Add(rename);
 
                 ToolStripMenuItem updatePileNo = new System.Windows.Forms.ToolStripMenuItem();
                 updatePileNo.Name = "updatePileNo";
                 updatePileNo.Size = new System.Drawing.Size(124, 22);
-                updatePileNo.Text = " 批量生成桩号 ";
+                updatePileNo.Text = "批量生成桩号 ";
                 contextMenuStrip1.Items.Add(updatePileNo);
+
+                ToolStripMenuItem addtrigger = new ToolStripMenuItem(); ;
+                addtrigger.Name = "addtrigger";
+                addtrigger.Size = new Size(124, 22);
+                addtrigger.Text = "添加触发设备";
+                contextMenuStrip1.Items.Add(addtrigger);
 
             }
             catch (Exception e)

@@ -146,6 +146,8 @@
             this.Controls.Add(this.lb_equtype);
             this.Controls.Add(this.label1);
             this.Name = "ReName";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "ReName";
             ((System.ComponentModel.ISupportInitialize)(this.num_count)).EndInit();
             this.ResumeLayout(false);
